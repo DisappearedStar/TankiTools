@@ -94,6 +94,7 @@
             this.Button_Diagnostics.TabStop = false;
             this.Button_Diagnostics.Text = "Диагностика и информация";
             this.Button_Diagnostics.UseVisualStyleBackColor = true;
+            this.Button_Diagnostics.Click += new System.EventHandler(this.Button_Diagnostics_Click);
             // 
             // Button_Troubleshooting
             // 
