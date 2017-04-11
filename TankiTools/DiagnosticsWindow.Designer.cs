@@ -32,12 +32,12 @@
             this.Tab_SystemInfo = new System.Windows.Forms.TabPage();
             this.Tab_Drivers = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Label_forProcessor = new System.Windows.Forms.Label();
-            this.Label_forMemory = new System.Windows.Forms.Label();
-            this.Label_forGraphics = new System.Windows.Forms.Label();
-            this.Label_forOS = new System.Windows.Forms.Label();
-            this.Label_forResolution = new System.Windows.Forms.Label();
-            this.Label_forDriver = new System.Windows.Forms.Label();
+            this.forProcessor = new System.Windows.Forms.Label();
+            this.forMemory = new System.Windows.Forms.Label();
+            this.forGraphics = new System.Windows.Forms.Label();
+            this.forOS = new System.Windows.Forms.Label();
+            this.forResolution = new System.Windows.Forms.Label();
+            this.forDriver = new System.Windows.Forms.Label();
             this.Label_Processor = new System.Windows.Forms.Label();
             this.Label_Memory = new System.Windows.Forms.Label();
             this.Label_Graphics = new System.Windows.Forms.Label();
@@ -92,12 +92,12 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel1.Controls.Add(this.Label_forProcessor, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.Label_forMemory, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.Label_forGraphics, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.Label_forResolution, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.Label_forOS, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.Label_forDriver, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.forProcessor, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.forMemory, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.forGraphics, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.forResolution, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.forOS, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.forDriver, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.Label_Processor, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.Label_Memory, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.Label_Graphics, 1, 2);
@@ -108,75 +108,75 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(429, 388);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // Label_forProcessor
+            // forProcessor
             // 
-            this.Label_forProcessor.AutoSize = true;
-            this.Label_forProcessor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Label_forProcessor.Location = new System.Drawing.Point(3, 0);
-            this.Label_forProcessor.Name = "Label_forProcessor";
-            this.Label_forProcessor.Size = new System.Drawing.Size(76, 13);
-            this.Label_forProcessor.TabIndex = 0;
-            this.Label_forProcessor.Text = "Процессор:";
+            this.forProcessor.AutoSize = true;
+            this.forProcessor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forProcessor.Location = new System.Drawing.Point(3, 0);
+            this.forProcessor.Name = "forProcessor";
+            this.forProcessor.Size = new System.Drawing.Size(76, 13);
+            this.forProcessor.TabIndex = 0;
+            this.forProcessor.Text = "Процессор:";
             // 
-            // Label_forMemory
+            // forMemory
             // 
-            this.Label_forMemory.AutoSize = true;
-            this.Label_forMemory.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Label_forMemory.Location = new System.Drawing.Point(3, 77);
-            this.Label_forMemory.Name = "Label_forMemory";
-            this.Label_forMemory.Size = new System.Drawing.Size(98, 13);
-            this.Label_forMemory.TabIndex = 1;
-            this.Label_forMemory.Text = "Объем памяти:";
+            this.forMemory.AutoSize = true;
+            this.forMemory.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forMemory.Location = new System.Drawing.Point(3, 38);
+            this.forMemory.Name = "forMemory";
+            this.forMemory.Size = new System.Drawing.Size(98, 13);
+            this.forMemory.TabIndex = 1;
+            this.forMemory.Text = "Объем памяти:";
             // 
-            // Label_forGraphics
+            // forGraphics
             // 
-            this.Label_forGraphics.AutoSize = true;
-            this.Label_forGraphics.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Label_forGraphics.Location = new System.Drawing.Point(3, 115);
-            this.Label_forGraphics.Name = "Label_forGraphics";
-            this.Label_forGraphics.Size = new System.Drawing.Size(81, 13);
-            this.Label_forGraphics.TabIndex = 2;
-            this.Label_forGraphics.Text = "Видеокарта:";
+            this.forGraphics.AutoSize = true;
+            this.forGraphics.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forGraphics.Location = new System.Drawing.Point(3, 76);
+            this.forGraphics.Name = "forGraphics";
+            this.forGraphics.Size = new System.Drawing.Size(81, 13);
+            this.forGraphics.TabIndex = 2;
+            this.forGraphics.Text = "Видеокарта:";
             // 
-            // Label_forOS
+            // forOS
             // 
-            this.Label_forOS.AutoSize = true;
-            this.Label_forOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Label_forOS.Location = new System.Drawing.Point(3, 211);
-            this.Label_forOS.Name = "Label_forOS";
-            this.Label_forOS.Size = new System.Drawing.Size(97, 26);
-            this.Label_forOS.TabIndex = 3;
-            this.Label_forOS.Text = "Операционная система:";
+            this.forOS.AutoSize = true;
+            this.forOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forOS.Location = new System.Drawing.Point(3, 152);
+            this.forOS.Name = "forOS";
+            this.forOS.Size = new System.Drawing.Size(97, 26);
+            this.forOS.TabIndex = 3;
+            this.forOS.Text = "Операционная система:";
             // 
-            // Label_forResolution
+            // forResolution
             // 
-            this.Label_forResolution.AutoSize = true;
-            this.Label_forResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Label_forResolution.Location = new System.Drawing.Point(3, 249);
-            this.Label_forResolution.Name = "Label_forResolution";
-            this.Label_forResolution.Size = new System.Drawing.Size(84, 26);
-            this.Label_forResolution.TabIndex = 4;
-            this.Label_forResolution.Text = "Разрешение монитора:";
+            this.forResolution.AutoSize = true;
+            this.forResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forResolution.Location = new System.Drawing.Point(3, 190);
+            this.forResolution.Name = "forResolution";
+            this.forResolution.Size = new System.Drawing.Size(84, 26);
+            this.forResolution.TabIndex = 4;
+            this.forResolution.Text = "Разрешение монитора:";
             // 
-            // Label_forDriver
+            // forDriver
             // 
-            this.Label_forDriver.AutoSize = true;
-            this.Label_forDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Label_forDriver.Location = new System.Drawing.Point(3, 173);
-            this.Label_forDriver.Name = "Label_forDriver";
-            this.Label_forDriver.Size = new System.Drawing.Size(67, 26);
-            this.Label_forDriver.TabIndex = 5;
-            this.Label_forDriver.Text = "Версия драйвера:";
+            this.forDriver.AutoSize = true;
+            this.forDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forDriver.Location = new System.Drawing.Point(3, 114);
+            this.forDriver.Name = "forDriver";
+            this.forDriver.Size = new System.Drawing.Size(67, 26);
+            this.forDriver.TabIndex = 5;
+            this.forDriver.Text = "Версия драйвера:";
             // 
             // Label_Processor
             // 
@@ -189,7 +189,7 @@
             // Label_Memory
             // 
             this.Label_Memory.AutoSize = true;
-            this.Label_Memory.Location = new System.Drawing.Point(110, 77);
+            this.Label_Memory.Location = new System.Drawing.Point(110, 38);
             this.Label_Memory.Name = "Label_Memory";
             this.Label_Memory.Size = new System.Drawing.Size(0, 13);
             this.Label_Memory.TabIndex = 7;
@@ -197,7 +197,7 @@
             // Label_Graphics
             // 
             this.Label_Graphics.AutoSize = true;
-            this.Label_Graphics.Location = new System.Drawing.Point(110, 115);
+            this.Label_Graphics.Location = new System.Drawing.Point(110, 76);
             this.Label_Graphics.Name = "Label_Graphics";
             this.Label_Graphics.Size = new System.Drawing.Size(0, 13);
             this.Label_Graphics.TabIndex = 8;
@@ -205,7 +205,7 @@
             // Label_Driver
             // 
             this.Label_Driver.AutoSize = true;
-            this.Label_Driver.Location = new System.Drawing.Point(110, 173);
+            this.Label_Driver.Location = new System.Drawing.Point(110, 114);
             this.Label_Driver.Name = "Label_Driver";
             this.Label_Driver.Size = new System.Drawing.Size(0, 13);
             this.Label_Driver.TabIndex = 9;
@@ -213,7 +213,7 @@
             // Label_OS
             // 
             this.Label_OS.AutoSize = true;
-            this.Label_OS.Location = new System.Drawing.Point(110, 211);
+            this.Label_OS.Location = new System.Drawing.Point(110, 152);
             this.Label_OS.Name = "Label_OS";
             this.Label_OS.Size = new System.Drawing.Size(0, 13);
             this.Label_OS.TabIndex = 10;
@@ -221,7 +221,7 @@
             // Label_Resolution
             // 
             this.Label_Resolution.AutoSize = true;
-            this.Label_Resolution.Location = new System.Drawing.Point(110, 249);
+            this.Label_Resolution.Location = new System.Drawing.Point(110, 190);
             this.Label_Resolution.Name = "Label_Resolution";
             this.Label_Resolution.Size = new System.Drawing.Size(0, 13);
             this.Label_Resolution.TabIndex = 11;
@@ -251,12 +251,12 @@
         private System.Windows.Forms.TabPage Tab_SystemInfo;
         private System.Windows.Forms.TabPage Tab_Drivers;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label Label_forProcessor;
-        private System.Windows.Forms.Label Label_forMemory;
-        private System.Windows.Forms.Label Label_forGraphics;
-        private System.Windows.Forms.Label Label_forResolution;
-        private System.Windows.Forms.Label Label_forOS;
-        private System.Windows.Forms.Label Label_forDriver;
+        private System.Windows.Forms.Label forProcessor;
+        private System.Windows.Forms.Label forMemory;
+        private System.Windows.Forms.Label forGraphics;
+        private System.Windows.Forms.Label forResolution;
+        private System.Windows.Forms.Label forOS;
+        private System.Windows.Forms.Label forDriver;
         private System.Windows.Forms.Label Label_Processor;
         private System.Windows.Forms.Label Label_Memory;
         private System.Windows.Forms.Label Label_Graphics;

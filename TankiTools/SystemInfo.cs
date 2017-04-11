@@ -9,59 +9,102 @@ namespace TankiTools
 {
 
 
-    static class SystemInfo
+    class SystemInfo
     {
-        public static Dictionary<string, string> GetCpuInfo()
+        public delegate void EventHandler(object sender, EventArgs args);
+        public event EventHandler onInit = delegate { };
+
+        public static Dictionary<string, string> Info { get; set; }
+
+        public SystemInfo()
         {
-            //List<Dictionary<string, string>> infoWrapper = new List<Dictionary<string, string>>();
-            var info = GetObject("Win32_Processor").Get().Cast<ManagementObject>().FirstOrDefault();
+            Info = BuildSystemInfo();
+            onInit(this, new EventArgs());
+            MessageBox.Show("onInit");
+        }
+
+        private static Dictionary<string, string> BuildSystemInfo()
+        {
             Dictionary<string, string> dict = new Dictionary<string, string>();
 
-            dict.Add("MaxClockSpeed", info["MaxClockSpeed"].ToString());
-            dict.Add("Name", info["Name"].ToString());
-            dict.Add("Manufacturer", info["Manufacturer"].ToString());
-            dict.Add("Version", info["Version"].ToString());
+            dict.Add("CPU", GetCpuInfo()["Name"] + " " + GetCpuInfo()["Freq"] + " Ghz");
+            dict.Add("RAM", Util.BytesToString(GetMemoryInfo()));
+            dict.Add("OS", GetOsInfo()["Version"] + " " + GetOsInfo()["Bits"]);
+            dict.Add("Resolution", GetResolutionInfo()["Width"] + "x" + GetResolutionInfo()["Height"]);
+
+            string gpu = string.Empty;
+            string drv = string.Empty;
+            var list = GetGpuInfo();
+            if (list.Count == 1)
+            {
+                gpu = list[0]["Model"] + " " + Util.BytesToString(list[0]["Memory"]);
+                drv = list[0]["DriverVersion"];
+            }
+            else
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var t = list[i];
+                    gpu += "Адаптер " + i + ": " + t["Model"] + " " + Util.BytesToString(t["Memory"]) + "\n";
+                    drv += "Адаптер " + i + ": " + t["DriverVersion"] + "\n";
+                }
+            }
+            dict.Add("GPU", gpu);
+            dict.Add("Drivers", drv);
             return dict;
         }
 
-        public static ulong GetMemoryInfo()
+
+
+        private static Dictionary<string, string> GetCpuInfo()
         {
-            var info = GetObject("Win32_PhysicalMemory").Get();
-            ulong capacity = 0;
+            string[] props = { "Name", "MaxClockSpeed" };
+            var info = GetObjectProps("Win32_Processor", props).Get().Cast<ManagementObject>().FirstOrDefault();
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("Name", info.Properties["Name"].Value.ToString());
+            dict.Add("Freq", info.Properties["MaxClockSpeed"].Value.ToString());
+            return dict;
+        }
+
+        private static long GetMemoryInfo()
+        {
+            string[] props = { "Capacity" };
+            var info = GetObjectProps("Win32_PhysicalMemory", props).Get();
+            long capacity = 0;
             foreach (ManagementObject obj in info)
             {
-                capacity += Convert.ToUInt64(obj.Properties["Capacity"].Value);
+                capacity += Convert.ToInt64(obj.Properties["Capacity"].Value);
             }
             return capacity;
         }
 
-        public static List<Dictionary<string, string>> GetGpuInfo()
+        private static List<Dictionary<string, string>> GetGpuInfo()
         {
             List<Dictionary<string, string>> dictWrapper = new List<Dictionary<string, string>>();
-            var info = GetObject("Win32_VideoController").Get();
+            string[] props = { "Caption", "AdapterRAM", "DriverVersion" };
+            var info = GetObjectProps("Win32_VideoController", props).Get();
             foreach (ManagementObject obj in info)
             {
                 Dictionary<string, string> dict = new Dictionary<string, string>();
-                dict.Add("Name", obj["Name"].ToString());
-                dict.Add("Caption", obj["Caption"].ToString());
+                dict.Add("Model", obj["Caption"].ToString());
                 dict.Add("Memory", obj["AdapterRAM"].ToString());
                 dict.Add("DriverVersion", obj["DriverVersion"].ToString());
-                dict.Add("InstalledDisplayDrivers", obj["InstalledDisplayDrivers"].ToString());
                 dictWrapper.Add(dict);
             }
             return dictWrapper;
         }
 
-        public static Dictionary<string, string> GetOsInfo()
+        private static Dictionary<string, string> GetOsInfo()
         {
-            var info = GetObject("Win32_OperatingSystem").Get().Cast<ManagementObject>().FirstOrDefault();
+            string[] props = { "Caption" };
+            var info = GetObjectProps("Win32_OperatingSystem", props).Get().Cast<ManagementObject>().FirstOrDefault();
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("Version", info.Properties["Caption"].Value.ToString());
             dict.Add("Bits", Environment.Is64BitOperatingSystem ? "x64" : "x32");
             return dict;
         }
 
-        public static Dictionary<string, string> GetScreenResolution()
+        private static Dictionary<string, string> GetResolutionInfo()
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("Width", Screen.PrimaryScreen.Bounds.Width.ToString());
@@ -70,10 +113,17 @@ namespace TankiTools
         }
 
 
-
-        private static ManagementObjectSearcher GetObject(string key)
+        private static ManagementObjectSearcher GetObjectProps(string obj, string[] props)
         {
-            return new ManagementObjectSearcher("select * from " + key);
+            string query = "select ";
+            for(int i = 0; i < props.Length; i++)
+            {
+                query += props[i] + ", ";
+            }
+            query = query.Remove(query.Length - 2, 2);
+            query += " from " + obj;
+            //MessageBox.Show(query);
+            return new ManagementObjectSearcher(query);
         }
     }
 }

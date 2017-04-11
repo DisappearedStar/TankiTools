@@ -15,7 +15,19 @@ namespace TankiTools
         public DiagnosticsWindow()
         {
             InitializeComponent();
+            FillSystemInfo();
         }
+
+        private void FillSystemInfo()
+        {
+            Label_Processor.Text = SystemInfo.Info["CPU"];
+            Label_Memory.Text = SystemInfo.Info["RAM"];
+            Label_Graphics.Text = SystemInfo.Info["GPU"];
+            Label_Driver.Text = SystemInfo.Info["Drivers"];
+            Label_OS.Text = SystemInfo.Info["OS"];
+            Label_Resolution.Text = SystemInfo.Info["Resolution"];
+        }
+
 
         private void DiagnosticsWindow_FormClosed(object sender, FormClosedEventArgs e)
         {

@@ -86,6 +86,7 @@
             // Button_Diagnostics
             // 
             this.Button_Diagnostics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button_Diagnostics.Enabled = false;
             this.Button_Diagnostics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_Diagnostics.Location = new System.Drawing.Point(3, 122);
             this.Button_Diagnostics.Name = "Button_Diagnostics";

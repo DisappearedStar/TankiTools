@@ -76,6 +76,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemInfo.cs" />
+    <Compile Include="Util.cs" />
     <EmbeddedResource Include="DiagnosticsWindow.resx">
       <DependentUpon>DiagnosticsWindow.cs</DependentUpon>
     </EmbeddedResource>
