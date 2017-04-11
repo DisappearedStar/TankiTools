@@ -9,18 +9,17 @@ namespace TankiTools
 {
 
 
-    class SystemInfo
+    static class SystemInfo
     {
-        public delegate void EventHandler(object sender, EventArgs args);
-        public event EventHandler onInit = delegate { };
+        public delegate void EventHandler();
+        public static event EventHandler onInit;
 
         public static Dictionary<string, string> Info { get; set; }
 
-        public SystemInfo()
+        static public void Init()
         {
             Info = BuildSystemInfo();
-            onInit(this, new EventArgs());
-            MessageBox.Show("onInit");
+            onInit?.Invoke();
         }
 
         private static Dictionary<string, string> BuildSystemInfo()
