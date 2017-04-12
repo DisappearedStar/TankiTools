@@ -15,7 +15,7 @@ namespace TankiTools
             port = p;
             isOpen = false;
         }
-        public int port { get; set; }
+        public int port { get; private set; }
         public bool isOpen { get; set; }
 
     }
@@ -32,7 +32,7 @@ namespace TankiTools
             }
         }
 
-        private List<TankiPort> CheckPorts(int[] portsArray)
+        private List<TankiPort> GetPortsStatus(int[] portsArray)
         {
             var ports = new List<TankiPort>();
             for(int i = 0; i < portsArray.Length; i++)

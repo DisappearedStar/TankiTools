@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CmdHelper.cs" />
     <Compile Include="Diagnostics.cs" />
     <Compile Include="DiagnosticsWindow.cs">
       <SubType>Form</SubType>
