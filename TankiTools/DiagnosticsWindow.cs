@@ -26,6 +26,10 @@ namespace TankiTools
             Label_Driver.Text = SystemInfo.Info["Drivers"];
             Label_OS.Text = SystemInfo.Info["OS"];
             Label_Resolution.Text = SystemInfo.Info["Resolution"];
+            Label_IpAddress.Text = Network.GetIpAddress();
+            Network.GetPortsStatus(new int[] { 4444, 5222, 5223, 14444, 15222, 15223 });
+
+            Network.OpenPorts(new int[] { 4444, 5222, 5223, 14444, 15222, 15223 });
         }
 
 
@@ -66,6 +70,18 @@ namespace TankiTools
             _stringFlags.Alignment = StringAlignment.Center;
             _stringFlags.LineAlignment = StringAlignment.Center;
             g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Network.SetNetworkThrottling(true);
+            Network.SetTcpAck(true);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Network.SetNetworkThrottling(false);
+            Network.SetTcpAck(false);
         }
     }
 }

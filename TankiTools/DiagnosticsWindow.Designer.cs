@@ -30,13 +30,12 @@
         {
             this.DiagnosticsWindow_TabControl = new System.Windows.Forms.TabControl();
             this.Tab_SystemInfo = new System.Windows.Forms.TabPage();
-            this.Tab_Drivers = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.forProcessor = new System.Windows.Forms.Label();
             this.forMemory = new System.Windows.Forms.Label();
             this.forGraphics = new System.Windows.Forms.Label();
-            this.forOS = new System.Windows.Forms.Label();
             this.forResolution = new System.Windows.Forms.Label();
+            this.forOS = new System.Windows.Forms.Label();
             this.forDriver = new System.Windows.Forms.Label();
             this.Label_Processor = new System.Windows.Forms.Label();
             this.Label_Memory = new System.Windows.Forms.Label();
@@ -44,9 +43,15 @@
             this.Label_Driver = new System.Windows.Forms.Label();
             this.Label_OS = new System.Windows.Forms.Label();
             this.Label_Resolution = new System.Windows.Forms.Label();
+            this.Tab_Drivers = new System.Windows.Forms.TabPage();
+            this.forIpAddress = new System.Windows.Forms.Label();
+            this.Label_IpAddress = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.DiagnosticsWindow_TabControl.SuspendLayout();
             this.Tab_SystemInfo.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.Tab_Drivers.SuspendLayout();
             this.SuspendLayout();
             // 
             // DiagnosticsWindow_TabControl
@@ -77,16 +82,6 @@
             this.Tab_SystemInfo.Text = "Информация о системе";
             this.Tab_SystemInfo.UseVisualStyleBackColor = true;
             // 
-            // Tab_Drivers
-            // 
-            this.Tab_Drivers.Location = new System.Drawing.Point(104, 4);
-            this.Tab_Drivers.Name = "Tab_Drivers";
-            this.Tab_Drivers.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_Drivers.Size = new System.Drawing.Size(309, 394);
-            this.Tab_Drivers.TabIndex = 1;
-            this.Tab_Drivers.Text = "Информация о драйверах";
-            this.Tab_Drivers.UseVisualStyleBackColor = true;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -104,17 +99,20 @@
             this.tableLayoutPanel1.Controls.Add(this.Label_Driver, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.Label_OS, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.Label_Resolution, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.forIpAddress, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.Label_IpAddress, 1, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 8;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(429, 388);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -148,16 +146,6 @@
             this.forGraphics.TabIndex = 2;
             this.forGraphics.Text = "Видеокарта:";
             // 
-            // forOS
-            // 
-            this.forOS.AutoSize = true;
-            this.forOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.forOS.Location = new System.Drawing.Point(3, 152);
-            this.forOS.Name = "forOS";
-            this.forOS.Size = new System.Drawing.Size(97, 26);
-            this.forOS.TabIndex = 3;
-            this.forOS.Text = "Операционная система:";
-            // 
             // forResolution
             // 
             this.forResolution.AutoSize = true;
@@ -167,6 +155,16 @@
             this.forResolution.Size = new System.Drawing.Size(84, 26);
             this.forResolution.TabIndex = 4;
             this.forResolution.Text = "Разрешение монитора:";
+            // 
+            // forOS
+            // 
+            this.forOS.AutoSize = true;
+            this.forOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forOS.Location = new System.Drawing.Point(3, 152);
+            this.forOS.Name = "forOS";
+            this.forOS.Size = new System.Drawing.Size(97, 26);
+            this.forOS.TabIndex = 3;
+            this.forOS.Text = "Операционная система:";
             // 
             // forDriver
             // 
@@ -226,6 +224,56 @@
             this.Label_Resolution.Size = new System.Drawing.Size(0, 13);
             this.Label_Resolution.TabIndex = 11;
             // 
+            // Tab_Drivers
+            // 
+            this.Tab_Drivers.Controls.Add(this.button2);
+            this.Tab_Drivers.Controls.Add(this.button1);
+            this.Tab_Drivers.Location = new System.Drawing.Point(104, 4);
+            this.Tab_Drivers.Name = "Tab_Drivers";
+            this.Tab_Drivers.Padding = new System.Windows.Forms.Padding(3);
+            this.Tab_Drivers.Size = new System.Drawing.Size(435, 394);
+            this.Tab_Drivers.TabIndex = 1;
+            this.Tab_Drivers.Text = "Информация о драйверах";
+            this.Tab_Drivers.UseVisualStyleBackColor = true;
+            // 
+            // forIpAddress
+            // 
+            this.forIpAddress.AutoSize = true;
+            this.forIpAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forIpAddress.Location = new System.Drawing.Point(3, 228);
+            this.forIpAddress.Name = "forIpAddress";
+            this.forIpAddress.Size = new System.Drawing.Size(62, 13);
+            this.forIpAddress.TabIndex = 12;
+            this.forIpAddress.Text = "IP-адрес:";
+            // 
+            // Label_IpAddress
+            // 
+            this.Label_IpAddress.AutoSize = true;
+            this.Label_IpAddress.Location = new System.Drawing.Point(110, 228);
+            this.Label_IpAddress.Name = "Label_IpAddress";
+            this.Label_IpAddress.Size = new System.Drawing.Size(0, 13);
+            this.Label_IpAddress.TabIndex = 13;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(80, 100);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // DiagnosticsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,6 +289,7 @@
             this.Tab_SystemInfo.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.Tab_Drivers.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -263,5 +312,9 @@
         private System.Windows.Forms.Label Label_Driver;
         private System.Windows.Forms.Label Label_OS;
         private System.Windows.Forms.Label Label_Resolution;
+        private System.Windows.Forms.Label forIpAddress;
+        private System.Windows.Forms.Label Label_IpAddress;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
