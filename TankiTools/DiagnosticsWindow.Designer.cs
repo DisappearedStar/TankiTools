@@ -43,11 +43,13 @@
             this.Label_Driver = new System.Windows.Forms.Label();
             this.Label_OS = new System.Windows.Forms.Label();
             this.Label_Resolution = new System.Windows.Forms.Label();
-            this.Tab_Drivers = new System.Windows.Forms.TabPage();
             this.forIpAddress = new System.Windows.Forms.Label();
             this.Label_IpAddress = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Tab_Drivers = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.DiagnosticsWindow_TabControl.SuspendLayout();
             this.Tab_SystemInfo.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -224,18 +226,6 @@
             this.Label_Resolution.Size = new System.Drawing.Size(0, 13);
             this.Label_Resolution.TabIndex = 11;
             // 
-            // Tab_Drivers
-            // 
-            this.Tab_Drivers.Controls.Add(this.button2);
-            this.Tab_Drivers.Controls.Add(this.button1);
-            this.Tab_Drivers.Location = new System.Drawing.Point(104, 4);
-            this.Tab_Drivers.Name = "Tab_Drivers";
-            this.Tab_Drivers.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_Drivers.Size = new System.Drawing.Size(435, 394);
-            this.Tab_Drivers.TabIndex = 1;
-            this.Tab_Drivers.Text = "Информация о драйверах";
-            this.Tab_Drivers.UseVisualStyleBackColor = true;
-            // 
             // forIpAddress
             // 
             this.forIpAddress.AutoSize = true;
@@ -254,15 +244,19 @@
             this.Label_IpAddress.Size = new System.Drawing.Size(0, 13);
             this.Label_IpAddress.TabIndex = 13;
             // 
-            // button1
+            // Tab_Drivers
             // 
-            this.button1.Location = new System.Drawing.Point(7, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Tab_Drivers.Controls.Add(this.textBox1);
+            this.Tab_Drivers.Controls.Add(this.button3);
+            this.Tab_Drivers.Controls.Add(this.button2);
+            this.Tab_Drivers.Controls.Add(this.button1);
+            this.Tab_Drivers.Location = new System.Drawing.Point(104, 4);
+            this.Tab_Drivers.Name = "Tab_Drivers";
+            this.Tab_Drivers.Padding = new System.Windows.Forms.Padding(3);
+            this.Tab_Drivers.Size = new System.Drawing.Size(435, 394);
+            this.Tab_Drivers.TabIndex = 1;
+            this.Tab_Drivers.Text = "Информация о драйверах";
+            this.Tab_Drivers.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -273,6 +267,34 @@
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(183, 170);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(183, 199);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(208, 157);
+            this.textBox1.TabIndex = 3;
             // 
             // DiagnosticsWindow
             // 
@@ -290,6 +312,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.Tab_Drivers.ResumeLayout(false);
+            this.Tab_Drivers.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -316,5 +339,7 @@
         private System.Windows.Forms.Label Label_IpAddress;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

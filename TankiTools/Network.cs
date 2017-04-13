@@ -76,79 +76,58 @@ namespace TankiTools
         {
             try
             {
-                List<string> ports = portsArray.ToList().ConvertAll(x => x.ToString());
+                INetFwMgr mgr = (INetFwMgr)Activator.CreateInstance(
+                    Type.GetTypeFromProgID("HNetCfg.FwMgr", false));
+                if (!mgr.LocalPolicy.CurrentProfile.FirewallEnabled) return;
+                
                 INetFwPolicy2 fwPolicy2 = (INetFwPolicy2)Activator.
-                    CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
+                    CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2", false));
 
-                foreach (INetFwRule rule in fwPolicy2.Rules)
+                List<INetFwRule> _rules = new List<INetFwRule>();
+                foreach (INetFwRule rule in fwPolicy2.Rules) _rules.Add(rule);
+
+                var Rules = _rules.Where(x =>
+                    x.Action == NET_FW_ACTION_.NET_FW_ACTION_BLOCK &&
+                    x.Direction == NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_OUT &&
+                    x.Enabled == true).ToList();
+                if (Rules.Count == 0) return;
+                List<string> ports = portsArray.ToList().ConvertAll(x => x.ToString());
+
+                foreach (INetFwRule rule in Rules)
                 {
-                    if (rule.Action == NET_FW_ACTION_.NET_FW_ACTION_BLOCK)
+                    var tList = rule.RemotePorts.Split(',').ToList();
+                    var remotePorts = new List<string>();
+
+                    foreach(var item in tList)
                     {
-                        MessageBox.Show(rule.Name);
-                        MessageBox.Show(rule.RemotePorts);
-                        var tList = rule.RemotePorts.Split(',').ToList();
-                        MessageBox.Show(tList.Count.ToString());
-                        var remotePorts = new List<string>();
-
-                        foreach(var item in tList)
+                        if (item.Contains('-'))
                         {
-                            if (item.Contains('-'))
+                            var t = item.Split('-').ToList().ConvertAll(x => Convert.ToInt32(x));
+                            for(int i = t.First(); i <= t.Last(); i++)
                             {
-                                var t = item.Split('-').ToList().ConvertAll(x => Convert.ToInt32(x));
-                                //var tt = Enumerable.Range(t.First(), t.Last());
-                                for(int i = t.First(); i <= t.Last(); i++)
-                                {
-                                    remotePorts.Add(i.ToString());
-                                }
-
-                                //remotePorts.AddRange(Enumerable.Range(t[0], t[1]).ToList().ConvertAll(x => x.ToString()));
+                                remotePorts.Add(i.ToString());
                             }
-                            else
-                            {
-                                remotePorts.Add(item);
-                            }
-                        }
-                        MessageBox.Show(remotePorts.Count.ToString());
-                        /*
-                        string ss = "";
-                        foreach(var item in remotePorts)
-                        {
-                            ss += item + " ";
-                        }
-                        MessageBox.Show(ss);*/
-
-                        var intersection = remotePorts.Intersect(ports).ToList();
-                        MessageBox.Show(intersection.Count.ToString());
-
-                        if (intersection.Count == 0) continue;
-                        if (intersection.Count == remotePorts.Count)
-                        {
-                            rule.Action = NET_FW_ACTION_.NET_FW_ACTION_ALLOW;
                         }
                         else
                         {
-                            MessageBox.Show(String.Join(",", remotePorts.Except(intersection)));
-                            rule.RemotePorts = String.Join(",", remotePorts.Except(intersection));
-                            string query = "netsh advfirewall firewall add rule name=\"OpenTankiPorts\"" +
-                                " dir=out action=allow protocol=TCP remoteport=" + string.Join(",", intersection);
-                            CmdHelper.ExecuteInHidedMode(query);
-                            /*
-                            INetFwRule newRule = (INetFwRule)Activator.CreateInstance(
-                                Type.GetTypeFromProgID("HNetCfg.FWRule"));
-                            newRule.Action = NET_FW_ACTION_.NET_FW_ACTION_ALLOW;
-                            newRule.Name = "Allow Tanki ports";
-                            newRule.Description = "Allow Tanki ports";
-                            newRule.Direction = NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_OUT;
-                            newRule.RemotePorts = string.Join(",", intersection);
-                            newRule.Enabled = true;
-                            newRule.InterfaceTypes = "All";
-                            INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.
-                                CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
-                            firewallPolicy.Rules.Add(newRule);
-                            //fwPolicy2.Rules.Add(newRule);*/
+                            remotePorts.Add(item);
                         }
-                    }     
-                }
+                    }
+
+                    var intersection = remotePorts.Intersect(ports).ToList();
+                    if (intersection.Count == 0) continue;
+                    if (intersection.Count == remotePorts.Count)
+                    {
+                        rule.Action = NET_FW_ACTION_.NET_FW_ACTION_ALLOW;
+                    }
+                    else
+                    {
+                        rule.RemotePorts = String.Join(",", remotePorts.Except(intersection));
+                        string query = "netsh advfirewall firewall add rule name=\"OpenTankiPorts\"" +
+                            " dir=out action=allow protocol=TCP remoteport=" + string.Join(",", intersection);
+                        CmdHelper.ExecuteInHidedMode(query);
+                    }
+                }     
             }
             catch (Exception e)
             {

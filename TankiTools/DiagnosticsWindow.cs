@@ -30,6 +30,7 @@ namespace TankiTools
             Network.GetPortsStatus(new int[] { 4444, 5222, 5223, 14444, 15222, 15223 });
 
             Network.OpenPorts(new int[] { 4444, 5222, 5223, 14444, 15222, 15223 });
+            
         }
 
 
@@ -82,6 +83,11 @@ namespace TankiTools
         {
             Network.SetNetworkThrottling(false);
             Network.SetTcpAck(false);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = Screenshot.UploadToImgurAnonymously(@"C:\Users\Dima\Desktop\kekus.jpg");
         }
     }
 }
