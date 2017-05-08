@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace TankiTools
 {
@@ -9,6 +10,10 @@ namespace TankiTools
 
     static class Util
     {
+        public static string AppData = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)).FullName;
+        public static string AppDataRoaming = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string AppDataLocal = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
         public static string BytesToString(long number)
         {
             string[] suf = { " B", " KB", " MB", " GB" };
@@ -34,6 +39,28 @@ namespace TankiTools
             int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign(x) * num).ToString() + suf[place];
+        }
+
+        /// <summary>
+        /// Deletes all files and directories by a given path.
+        /// </summary>
+        /// <param name="path">Full path to target directory.</param>
+        public static void EmptyDirectory(string path)
+        {
+            DirectoryInfo di = new DirectoryInfo(path);
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                dir.Delete(true);
+            }
+        }
+
+        public static bool IsDirectoryEmpty(string path)
+        {
+            return Directory.EnumerateFileSystemEntries(path).Count() == 0 ? true : false;
         }
     }
 }

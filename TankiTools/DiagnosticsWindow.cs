@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
+using System.Net;
+using System.Xml;
 
 namespace TankiTools
 {
@@ -20,6 +23,7 @@ namespace TankiTools
 
         private void FillSystemInfo()
         {
+            
             Label_Processor.Text = SystemInfo.Info["CPU"];
             Label_Memory.Text = SystemInfo.Info["RAM"];
             Label_Graphics.Text = SystemInfo.Info["GPU"];
@@ -87,7 +91,30 @@ namespace TankiTools
 
         private void button3_Click(object sender, EventArgs e)
         {
-            textBox1.Text = Screenshot.UploadToImgurAnonymously(@"C:\Users\Dima\Desktop\kekus.jpg");
+            //Thread uploader = new Thread(new ParameterizedThreadStart(Screenshot.UploadToImgurAnonymously));
+            //uploader.Start(new object[] { @"C:\Users\Dima\Desktop\kekus.jpg", screenshotUrl });
+            Screenshot.UploadToImgurAnonymously(@"C:\Users\Dima\Desktop\NewLobby1.png");
+        }
+        
+        public void TestPutText(string text)
+        {
+            //textBox1.Text = text;
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon1.BalloonTipTitle = "Скриншот загружен";
+            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.Visible = true;
+            notifyIcon1.ShowBalloonTip(2000);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Screenshot.MakeScreenshot();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
