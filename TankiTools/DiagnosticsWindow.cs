@@ -30,7 +30,7 @@ namespace TankiTools
             Label_Driver.Text = SystemInfo.Info["Drivers"];
             Label_OS.Text = SystemInfo.Info["OS"];
             Label_Resolution.Text = SystemInfo.Info["Resolution"];
-            Label_IpAddress.Text = Network.GetIpAddress();
+            Label_IpAddress.Text = Network.GetMyIpAddress();
             Network.GetPortsStatus(new int[] { 4444, 5222, 5223, 14444, 15222, 15223 });
 
             Network.OpenPorts(new int[] { 4444, 5222, 5223, 14444, 15222, 15223 });
@@ -109,11 +109,14 @@ namespace TankiTools
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Screenshot.MakeScreenshot();
+            Screenshot.CaptureFullScreen();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
+            //var f = new MediaHistory();
+            //f.Show();
+            var f = new SelectableScreenshotArea();
             
         }
     }

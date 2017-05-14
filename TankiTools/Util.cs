@@ -14,6 +14,8 @@ namespace TankiTools
         public static string AppDataRoaming = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string AppDataLocal = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
+        public const string MaxCacheSize = "1048576";
+
         public static string BytesToString(long number)
         {
             string[] suf = { " B", " KB", " MB", " GB" };
@@ -50,11 +52,20 @@ namespace TankiTools
             DirectoryInfo di = new DirectoryInfo(path);
             foreach (FileInfo file in di.GetFiles())
             {
-                file.Delete();
+                try
+                {
+                    file.Delete();
+                }
+                catch (Exception) { }
+                
             }
             foreach (DirectoryInfo dir in di.GetDirectories())
             {
-                dir.Delete(true);
+                try
+                {
+                    dir.Delete(true);
+                }
+                catch(Exception) { }
             }
         }
 

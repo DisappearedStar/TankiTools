@@ -55,25 +55,29 @@ namespace TankiTools
         }
 
 
-        public static void MakeScreenshot()
+        public static void CaptureFullScreen()
         {
-            using (Bitmap bmpScreenCapture = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height))
+            for(int i = 0; i < Screen.AllScreens.Count(); i++)
             {
-                using (Graphics g = Graphics.FromImage(bmpScreenCapture))
+                Screen screen = Screen.AllScreens[i];
+                string prefix = screen.Primary ? "" : $"SCREEN{i}_";
+                using (Bitmap bmpScreenCapture = new Bitmap(screen.Bounds.Width, screen.Bounds.Height))
                 {
-                    g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
-                                     Screen.PrimaryScreen.Bounds.Y,
-                                     0, 0,
-                                     bmpScreenCapture.Size,
-                                     CopyPixelOperation.SourceCopy);
+                    using (Graphics g = Graphics.FromImage(bmpScreenCapture))
+                    {
+                        g.CopyFromScreen(screen.Bounds.X,
+                                         screen.Bounds.Y,
+                                         0, 0,
+                                         bmpScreenCapture.Size,
+                                         CopyPixelOperation.SourceCopy);
+                    }
+                    string path = $@"{Application.StartupPath}\{prefix}{DateTime.Now.ToString().Replace(" ", "_").Replace(".", "_").Replace(":", "_")}.jpg";
+                    bmpScreenCapture.Save(path, ImageFormat.Png);
+                    //UploadToImgurAnonymously(path);
                 }
-                string path = String.Format(@"{0}\{1}.jpg", Application.StartupPath, DateTime.Now.ToString().Replace(" ", "_").Replace(".", "_").Replace(":", "_"));
-                //path = path.Replace(" ", "_");
-                //path = path.Replace(".", "_");
-                //MessageBox.Show(path);
-                bmpScreenCapture.Save(path, ImageFormat.Png);
-                //UploadToImgurAnonymously(path);
             }
+
+            
         }
     }
 }
