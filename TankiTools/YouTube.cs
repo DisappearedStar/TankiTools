@@ -1,8 +1,11 @@
-﻿/*using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text;
+using System.Windows.Forms;
+using System.Threading;
 
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
@@ -13,50 +16,19 @@ using Google.Apis.YouTube.v3.Data;
 
 namespace TankiTools
 {
-    /// <summary>
-    /// YouTube Data API v3 sample: upload a video.
-    /// Relies on the Google APIs Client Library for .NET, v1.7.0 or higher.
-    /// See https://code.google.com/p/google-api-dotnet-client/wiki/GettingStarted
-    /// </summary>
-    internal class UploadVideo
+    static class YouTube
     {
-        [STAThread]
-        static void Main(string[] args)
+        private static long file_length;
+        private static OtherHelper sender;
+
+        public static async Task Upload(OtherHelper form, string path, string privacy, CancellationToken token)
         {
-            Console.WriteLine("YouTube Data API: Upload Video");
-            Console.WriteLine("==============================");
-
-            try
-            {
-                new UploadVideo().Run().Wait();
-            }
-            catch (AggregateException ex)
-            {
-                foreach (var e in ex.InnerExceptions)
-                {
-                    Console.WriteLine("Error: " + e.Message);
-                }
-            }
-
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
-        }
-
-        private async Task Run()
-        {
-            UserCredential credential;
-            using (var stream = new FileStream("client_secrets.json", FileMode.Open, FileAccess.Read))
-            {
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    // This OAuth 2.0 access scope allows an application to upload files to the
-                    // authenticated user's YouTube channel, but doesn't allow other types of access.
-                    new[] { YouTubeService.Scope.YoutubeUpload },
-                    "user",
-                    CancellationToken.None
-                );
-            }
-
+            sender = form;
+            ClientSecrets secrets = new ClientSecrets();
+            secrets.ClientId = "769375267841-4401scf3hltnavuthdaipoduootau2hk.apps.googleusercontent.com";
+            secrets.ClientSecret = "7pgdfz5NLEVmNregj7gkgz4W";
+            UserCredential credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    secrets, new[] { YouTubeService.Scope.YoutubeUpload }, "user", CancellationToken.None);
 
             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
@@ -64,43 +36,52 @@ namespace TankiTools
                 ApplicationName = Assembly.GetExecutingAssembly().GetName().Name
             });
 
+            FileInfo file = new FileInfo(path);
+            file_length = file.Length;
             var video = new Video();
             video.Snippet = new VideoSnippet();
-            video.Snippet.Title = "Default Video Title";
-            video.Snippet.Description = "Default Video Description";
-            video.Snippet.Tags = new string[] { "tag1", "tag2" };
-            video.Snippet.CategoryId = "22"; // See https://developers.google.com/youtube/v3/docs/videoCategories/list
+            video.Snippet.Title = file.Name;
             video.Status = new VideoStatus();
-            video.Status.PrivacyStatus = "unlisted"; // or "private" or "public"
-            var filePath = @"REPLACE_ME.mp4"; // Replace with path to actual movie file.
+            video.Status.PrivacyStatus = privacy;
+            
 
-            using (var fileStream = new FileStream(filePath, FileMode.Open))
+            using (var fileStream = new FileStream(file.FullName, FileMode.Open))
             {
                 var videosInsertRequest = youtubeService.Videos.Insert(video, "snippet,status", fileStream, "video/*");
+                long maxchunk = (long)Math.Round((float)file_length / 100);
+                int minchunk = ResumableUpload<Video>.MinimumChunkSize;
+                if (minchunk >= maxchunk)
+                {
+                    videosInsertRequest.ChunkSize = minchunk;
+                }
+                else
+                {
+                    videosInsertRequest.ChunkSize = minchunk * (int)Math.Floor((float)maxchunk / minchunk);
+                }
                 videosInsertRequest.ProgressChanged += videosInsertRequest_ProgressChanged;
                 videosInsertRequest.ResponseReceived += videosInsertRequest_ResponseReceived;
-
-                await videosInsertRequest.UploadAsync();
+                //token.ThrowIfCancellationRequested();
+                await videosInsertRequest.UploadAsync(token);
             }
         }
 
-        void videosInsertRequest_ProgressChanged(Google.Apis.Upload.IUploadProgress progress)
+        static void videosInsertRequest_ProgressChanged(IUploadProgress progress)
         {
             switch (progress.Status)
             {
                 case UploadStatus.Uploading:
-                    Console.WriteLine("{0} bytes sent.", progress.BytesSent);
+                    sender.ChangeProgressBar(Convert.ToInt32((float)progress.BytesSent / file_length * 100));
                     break;
 
                 case UploadStatus.Failed:
-                    Console.WriteLine("An error prevented the upload from completing.\n{0}", progress.Exception);
+                    MessageBox.Show("Ошибка загрузки", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
         }
 
-        void videosInsertRequest_ResponseReceived(Video video)
+        static void videosInsertRequest_ResponseReceived(Video video)
         {
-            Console.WriteLine("Video id '{0}' was successfully uploaded.", video.Id);
+            sender.UploadVideoCompleted(video.Id);
         }
     }
-}*/
+}

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace TankiTools
 {
@@ -44,12 +45,6 @@ namespace TankiTools
             this.Show();
         }
 
-        private void SelectableScreenshotArea_Load(object sender, EventArgs e)
-        {
-            //Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            //Location = new Point(Screen.PrimaryScreen.Bounds.Left, Screen.PrimaryScreen.Bounds.Top);
-        }
-
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (SplashScreen.Image == null) return;
@@ -67,7 +62,6 @@ namespace TankiTools
                 if (e.Button == MouseButtons.Left)
                 {
                     p0 = e.Location;
-                    //MessageBox.Show($"{e.X} {e.Y}");
                 }
                 SplashScreen.Refresh();
                 start = true;
@@ -82,10 +76,11 @@ namespace TankiTools
                     SplashScreen.CreateGraphics().DrawRectangle(selectPen, RectByTwoPoints(p0, e.Location));
                 }
                 start = false;
-                Save();
+                PrepareBitmap();
+                this.Close();
             }
         }
-        private void Save()
+        private async Task PrepareBitmap()
         {
             Rectangle rect = RectByTwoPoints(p0, p1);
             Bitmap OriginalImage = original;
@@ -95,8 +90,7 @@ namespace TankiTools
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
             g.DrawImage(OriginalImage, 0, 0, rect, GraphicsUnit.Pixel);
-            Clipboard.SetImage(_img);
-            this.Close();
+            await Screenshot.Save(_img, "");
         }
 
         private void SplashScreen_MouseUp(object sender, MouseEventArgs e)
@@ -107,7 +101,8 @@ namespace TankiTools
                 p1 = e.Location;
                 SplashScreen.CreateGraphics().DrawRectangle(selectPen, RectByTwoPoints(p0, e.Location));
                 start = false;
-                Save();
+                PrepareBitmap();
+                this.Close();
             }
         }
 
@@ -124,6 +119,14 @@ namespace TankiTools
             int rootX = p0.X >= p1.X ? p1.X : p0.X;
             int rootY = p0.Y >= p1.Y ? p1.Y : p0.Y;
             return new Rectangle(rootX, rootY, width, height);
+        }
+
+        private void SelectableScreenshotArea_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

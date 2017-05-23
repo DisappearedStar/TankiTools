@@ -82,6 +82,7 @@
             this.Button_Settings.TabStop = false;
             this.Button_Settings.Text = "Настройки";
             this.Button_Settings.UseVisualStyleBackColor = true;
+            this.Button_Settings.Click += new System.EventHandler(this.Button_Settings_Click);
             // 
             // Button_Diagnostics
             // 
@@ -120,6 +121,7 @@
             this.Button_Other.TabStop = false;
             this.Button_Other.Text = "Другое";
             this.Button_Other.UseVisualStyleBackColor = true;
+            this.Button_Other.Click += new System.EventHandler(this.Button_Other_Click);
             // 
             // Button_Exit
             // 

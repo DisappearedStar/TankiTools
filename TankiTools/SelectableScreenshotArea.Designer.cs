@@ -57,7 +57,7 @@
             this.Name = "SelectableScreenshotArea";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.SelectableScreenshotArea_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SelectableScreenshotArea_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.SplashScreen)).EndInit();
             this.ResumeLayout(false);
 

@@ -5,79 +5,133 @@ using System.Text;
 using System.Net;
 using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
+using System.Threading;
 
 namespace TankiTools
 {
     static class Screenshot
     {
-        //public delegate string ImgurUploader(string path);
-        static DiagnosticsWindow diag = new DiagnosticsWindow();
+        //static DiagnosticsWindow diag = new DiagnosticsWindow();
+        private static WebClient client;
 
-        public static void UploadToImgurAnonymously(string path)
+        public static void CancelUpload()
         {
-            //object[] o = ((object[])vars)[0];
-            //string path = ((object[])vars)[0].ToString();
-            //string link = ((object[])vars)[1].ToString();
-            using (var client = new WebClient())
+            if(client != null)
             {
-               /* var values = new System.Collections.Specialized.NameValueCollection
-                {
-                    {"image", Convert.ToBase64String(File.ReadAllBytes(path))},
-                    {"type", "base64"}
-                };*/
-                client.Headers.Add("Authorization", "Client-ID 821902a6107ddf6");
-                //var response = Encoding.Default.GetString(
-                client.UploadDataCompleted += ImgurUploadAnonComplete;
-                client.UploadDataAsync(new Uri(@"https://api.imgur.com/3/image.xml"), File.ReadAllBytes(path));
-
-
-                /*
-                client.UploadValues(@"https://api.imgur.com/3/image.xml", values));
-                XmlDocument xml = new XmlDocument();
-                xml.LoadXml(response);
-                return xml.GetElementsByTagName("link")[0].InnerText;*/
+                client.CancelAsync();
+                client.Dispose();
             }
         }
 
-
-        public static void ImgurUploadAnonComplete(object sender, UploadDataCompletedEventArgs e)
+        public static async Task<string> UploadScreenshot(Bitmap image)
         {
+            byte[] response;
+            client = new WebClient();
+            client.Headers.Add("Authorization", "Client-ID 821902a6107ddf6");
+            Uri api = new Uri(@"https://api.imgur.com/3/image.xml");
+            response = await client.UploadDataTaskAsync(api, "POST", ImageToByte(image as Image));
+            client.Dispose();
             XmlDocument xml = new XmlDocument();
-            xml.LoadXml(Encoding.Default.GetString(e.Result));
-            string link = xml.GetElementsByTagName("link")[0].InnerText;
-            //MessageBox.Show(xml.GetElementsByTagName("link")[0].InnerText);
-            Clipboard.SetText(link);
-            diag.TestPutText(link);
+            xml.LoadXml(Encoding.Default.GetString(response));
+            return xml.GetElementsByTagName("link")[0].InnerText;
         }
 
-
-        public static void CaptureFullScreen()
+        public static async Task<string> UploadScreenshot(string path)
         {
-            for(int i = 0; i < Screen.AllScreens.Count(); i++)
+            byte[] response;
+            byte[] image = File.ReadAllBytes(path);
+            client = new WebClient();
+
+            client.UploadDataCompleted += (s, e) =>
             {
-                Screen screen = Screen.AllScreens[i];
-                string prefix = screen.Primary ? "" : $"SCREEN{i}_";
-                using (Bitmap bmpScreenCapture = new Bitmap(screen.Bounds.Width, screen.Bounds.Height))
+                if (e.Cancelled)
                 {
-                    using (Graphics g = Graphics.FromImage(bmpScreenCapture))
-                    {
-                        g.CopyFromScreen(screen.Bounds.X,
-                                         screen.Bounds.Y,
-                                         0, 0,
-                                         bmpScreenCapture.Size,
-                                         CopyPixelOperation.SourceCopy);
-                    }
-                    string path = $@"{Application.StartupPath}\{prefix}{DateTime.Now.ToString().Replace(" ", "_").Replace(".", "_").Replace(":", "_")}.jpg";
-                    bmpScreenCapture.Save(path, ImageFormat.Png);
-                    //UploadToImgurAnonymously(path);
+                    client.Dispose();
+                    //throw new OperationCanceledException();
+                }
+            };
+
+            client.Headers.Add("Authorization", "Client-ID 821902a6107ddf6");
+            Uri api = new Uri(@"https://api.imgur.com/3/image.xml");
+            response = await client.UploadDataTaskAsync(api, "POST", image);
+            client.Dispose();
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(Encoding.Default.GetString(response));
+            return xml.GetElementsByTagName("link")[0].InnerText;
+        }
+
+        private static void Client_UploadDataCompleted(object sender, UploadDataCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static async Task CaptureFullScreen()
+        {
+            Screen screen = Screen.PrimaryScreen;
+            Bitmap bmp = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
+            Graphics g = Graphics.FromImage(bmp);
+            g.CopyFromScreen(screen.Bounds.X, screen.Bounds.Y, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
+            await Save(bmp, "");
+        }
+
+        public static async Task Save(Bitmap img, string prefix)
+        {
+            ImageFormat format;
+            ImageCodecInfo encoder;
+            EncoderParameters encParams;
+            DateTime now = DateTime.Now;
+            string name = $"{prefix}{now.ToString().Replace(" ", "_").Replace(".", "_").Replace(":", "_")}.{SettingsManager.screenshots_format}";
+            string path = Path.Combine(SettingsManager.screenshots_path, name);
+            
+            if (SettingsManager.screenshots_format == "jpg" || SettingsManager.screenshots_format == "jpeg")
+            {
+                format = ImageFormat.Jpeg;
+                encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
+                encParams = new EncoderParameters()
+                {
+                    Param = new[] { new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 90L) }
+                };
+            }
+            else
+            {
+                format = ImageFormat.Png;
+                encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Png.Guid);
+                encParams = new EncoderParameters()
+                {
+                    Param = new[] { new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L) }
+                };
+            }
+            string link = string.Empty;
+            img.Save(path, encoder, encParams);
+            if (SettingsManager.screenshots_upload)
+            {
+                link = await UploadScreenshot(img);
+            }
+            MediaHistoryManager.SaveEntryToHistory(new MediaHistoryManager.HistoryEntry(
+                MediaHistoryManager.MediaType.Screenshot, link, name, now));
+        }
+
+        private static ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
                 }
             }
-
-            
+            return null;
+        }
+        public static byte[] ImageToByte(Image img)
+        {
+            return (byte[])new ImageConverter().ConvertTo(img, typeof(byte[]));
         }
     }
 }

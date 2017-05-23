@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Windows.Forms;
+using System.Runtime.Serialization;
+using System.Globalization;
+using System.Diagnostics;
 
 namespace TankiTools
 {
@@ -13,6 +19,9 @@ namespace TankiTools
         public static string AppData = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)).FullName;
         public static string AppDataRoaming = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string AppDataLocal = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        public static string StartupPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        
+        public static string MediaHistoryFile = Path.Combine(StartupPath, "mediahistory.xml");
 
         public const string MaxCacheSize = "1048576";
 
@@ -72,6 +81,27 @@ namespace TankiTools
         public static bool IsDirectoryEmpty(string path)
         {
             return Directory.EnumerateFileSystemEntries(path).Count() == 0 ? true : false;
+        }
+
+        public static bool CheckNullOrEmpty<T>(T value)
+        {
+            if (typeof(T) == typeof(string))
+                return string.IsNullOrEmpty(value as string) || string.IsNullOrWhiteSpace(value as string);
+            return value == null || value.Equals(default(T));
+        }
+        public static void ExecuteInHidedMode(string command)
+        {
+            using (Process process = new Process())
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo.CreateNoWindow = true;
+                startInfo.UseShellExecute = false;
+                startInfo.FileName = "cmd.exe";
+                startInfo.Arguments = "/C " + command;
+                process.StartInfo = startInfo;
+                process.Start();
+            }
         }
     }
 }

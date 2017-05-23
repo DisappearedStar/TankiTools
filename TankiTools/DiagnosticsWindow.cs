@@ -93,7 +93,7 @@ namespace TankiTools
         {
             //Thread uploader = new Thread(new ParameterizedThreadStart(Screenshot.UploadToImgurAnonymously));
             //uploader.Start(new object[] { @"C:\Users\Dima\Desktop\kekus.jpg", screenshotUrl });
-            Screenshot.UploadToImgurAnonymously(@"C:\Users\Dima\Desktop\NewLobby1.png");
+            //Screenshot.UploadToImgurAnonymously(@"C:\Users\Dima\Desktop\NewLobby1.png");
         }
         
         public void TestPutText(string text)
@@ -114,10 +114,22 @@ namespace TankiTools
 
         private void button5_Click(object sender, EventArgs e)
         {
+            //this.Hide();
             //var f = new MediaHistory();
-            //f.Show();
-            var f = new SelectableScreenshotArea();
+            //var f = new VideoRecorder();
+            //var f = new SelectableScreenshotArea();
+            //f.ShowDialog();
+            try
+            {
+                //YouTube.Upload();
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.ToString());
+            }
             
+            //this.Show();
+
         }
     }
 }

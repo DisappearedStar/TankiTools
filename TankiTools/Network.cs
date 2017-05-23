@@ -29,22 +29,7 @@ namespace TankiTools
                 inbattles = _inbattles;
                 inlobby = _online - _inbattles;
                 nodeNumber = _nodeNumber;
-                if (_nodeNumber > 0 && _nodeNumber < 57)
-                {
-                    nodeName = "RU " + _nodeNumber.ToString();
-                }
-                if (nodeNumber >= 57 && nodeNumber < 77)
-                {
-                    nodeName = "EN " + (_nodeNumber - 56).ToString();
-                }
-                if (nodeNumber >= 77 && nodeNumber < 81)
-                {
-                    nodeName = "DE " + (_nodeNumber - 76).ToString();
-                }
-                if (nodeNumber >= 81)
-                {
-                    nodeName = "PL " + (_nodeNumber - 80).ToString();
-                }
+                nodeName = "EU " + _nodeNumber.ToString();
             }
             public override string ToString()
             {
@@ -321,7 +306,7 @@ namespace TankiTools
                         rule.RemotePorts = String.Join(",", remotePorts.Except(intersection));
                         string query = "netsh advfirewall firewall add rule name=\"OpenTankiPorts\"" +
                             " dir=out action=allow protocol=TCP remoteport=" + string.Join(",", intersection);
-                        CmdHelper.ExecuteInHidedMode(query);
+                        Util.ExecuteInHidedMode(query);
                     }
                 }     
             }

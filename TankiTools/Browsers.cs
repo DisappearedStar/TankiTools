@@ -22,14 +22,90 @@ namespace TankiTools
         ThirdPartyClient
     }
 
-    class Browsers
+    static class Browsers
     {
+        static public string GetClientLocalizedName(Clients client)
+        {
+            switch (client)
+            {
+                case Clients.Chrome: return "Google Chrome";
+                case Clients.Edge: return "Microsoft Edge";
+                case Clients.Firefox: return "Mozilla Firefox";
+                case Clients.IE: return "Internet Explorer";
+                case Clients.OfficialClient: return "Официальный клиент ТО"; //TO LOCALIZE
+                case Clients.Opera: return "Opera";
+                case Clients.Yandex: return "Яндекс.Браузер";//TO LOCALIZE
+                case Clients.SAFP: return "Standalone Flash Player";
+                case Clients.OtherBrowser: return "Другой браузер";//TO LOCALIZE
+                case Clients.ThirdPartyClient: return "Сторонний клиент";//TO LOCALIZE
+                default: return "";
+            }
+        }
+
+        static public Clients GetClientByString(string str)
+        {
+            foreach (Clients client in Enum.GetValues(typeof(Clients)))
+            {
+                if (client.ToString() == str) return client;
+            }
+            return GetDefaultBrowser();
+        }
+
+        static public List<Clients> GetInstalledBrowsers()
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Clients\StartMenuInternet") ??
+                             Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet");
+            
+            List<string> browserNames = rk.GetSubKeyNames().Select(x => x.ToLower()).ToList();
+            List<Clients> browsers = new List<Clients>();
+            foreach (string name in browserNames)
+            {
+                if (name.Contains("firefox")) browsers.Add(Clients.Firefox);
+                if (name.Contains("chrome")) browsers.Add(Clients.Chrome);
+                if (name.Contains("iexplore")) browsers.Add(Clients.IE);
+                if (name.Contains("operastable")) browsers.Add(Clients.Opera);
+                if (name.Contains("yandex")) browsers.Add(Clients.Yandex);
+            }
+            if(browserNames.Count != browsers.Count) browsers.Add(Clients.OtherBrowser);
+            string productName = (string)Registry.LocalMachine.OpenSubKey(
+                @"SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue("ProductName");
+            if (productName.StartsWith("Windows 10")) browsers.Add(Clients.Edge);
+            return browsers;
+        }
+
+        static public Clients GetDefaultBrowser()
+        {
+            const string defaultBrowser = @"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice";
+            string progId;
+            using (RegistryKey userChoiceKey = Registry.CurrentUser.OpenSubKey(defaultBrowser))
+            {
+                progId = userChoiceKey.GetValue("Progid").ToString();
+                if (progId.Contains("YandexHTML")) return Clients.Yandex;
+                switch (progId)
+                {
+                    case "IE.HTTP":
+                        return Clients.IE;
+                    case "FirefoxURL":
+                        return Clients.Firefox;
+                    case "ChromeHTML":
+                        return Clients.Chrome;
+                    case "OperaStable":
+                        return Clients.Opera;
+                    case "AppXq0fevzme2pys62n3e0fbqa7peapykr8v":
+                        return Clients.Edge;
+                    default:
+                        return Clients.OtherBrowser;
+                }
+            }
+        }
+
+
         /// <summary>
         /// Returns full paths to Shared Objects directories related to Tanki Online found by given path.
         /// </summary>
         /// <param name="path">Full path to target directory.</param>
         /// <returns>Full paths to Shared Objects directories.</returns>
-        public string[] GetSharedObjectsDirs(string path)
+        static public string[] GetSharedObjectsDirs(string path)
         {
             List<string> t = new List<string>();
             string[] dirs = Directory.GetDirectories(path);
@@ -51,7 +127,7 @@ namespace TankiTools
         /// Erases Flash Player temporary store.
         /// </summary>
         /// <param name="client">Tanki Online client-side application.</param>
-        public void ClearSharedObjects(Clients client)
+        static public void ClearSharedObjects(Clients client)
         {
             if (client == Clients.Chrome)
             {
@@ -118,7 +194,7 @@ namespace TankiTools
         /// Erases client's temporary store.
         /// </summary>
         /// <param name="client">Tanki Online client-side application.</param>
-        public void ClearCache(Clients client)
+        static public void ClearCache(Clients client)
         {
             if (client == Clients.OfficialClient)
             {
@@ -208,7 +284,7 @@ namespace TankiTools
         /// Increases the size of client's temporary store.
         /// </summary>
         /// <param name="client">Tanki Online client-side application.</param>
-        public void IncreaseCacheSize(Clients client)
+        static public void IncreaseCacheSize(Clients client)
         {
             if (client == Clients.IE)
             {
