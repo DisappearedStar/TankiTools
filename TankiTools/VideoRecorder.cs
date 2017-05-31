@@ -10,12 +10,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using AForge.Video.FFMPEG;
 using AForge.Video;
 using System.Diagnostics;
 using System.Reflection;
-
 namespace TankiTools
 {
     public partial class VideoRecorder : Form
@@ -25,18 +25,21 @@ namespace TankiTools
         //private UInt32 _frameCount;
 
         /*!!!!*///string screen = @"\\.\DISPLAY1";
-        string screen = "area";
+        string screen = @"area";
         private VideoFileWriter _writer;
         private int _width;
         private int _height;
         private ScreenCaptureStream _streamVideo;
-        private Stopwatch _stopWatch;
         private Rectangle _screenArea;
         int screenLeft, screenTop = 0;
         bool useArea = false;
         VideoCodec codec = VideoCodec.MPEG4;
         int bitrate = 4000000;
         private int fps = 9;
+
+        DateTime now = new DateTime();
+        string name = "";
+        string path = "";
 
         [StructLayout(LayoutKind.Sequential)]
         struct CURSORINFO
@@ -53,7 +56,7 @@ namespace TankiTools
             public int x;
             public int y;
         }
-
+        /*
         [StructLayout(LayoutKind.Sequential)]
         public struct ICONINFO
         {
@@ -62,16 +65,16 @@ namespace TankiTools
             public Int32 yHotspot;
             public IntPtr hbmMask;
             public IntPtr hbmColor;
-        }
+        }*/
 
         [DllImport("user32.dll")]
         static extern bool GetCursorInfo(out CURSORINFO pci);
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr CopyIcon(IntPtr hIcon);
+        //[DllImport("user32.dll")]
+        //public static extern IntPtr CopyIcon(IntPtr hIcon);
 
-        [DllImport("user32.dll")]
-        public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
+        //[DllImport("user32.dll")]
+        //public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
 
         [DllImport("user32.dll")]
         static extern bool DrawIcon(IntPtr hDC, int X, int Y, IntPtr hIcon);
@@ -88,11 +91,11 @@ namespace TankiTools
             InitializeComponent();
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ShowInTaskbar = false;
-            this.Load += new EventHandler(VideoRecorder_Load);
+            this.Size = new Size(0, 0);
+            //this.Load += new EventHandler(VideoRecorder_Load);
             this._isRecording = false;
             this._width = SystemInformation.VirtualScreen.Width;
             this._height = SystemInformation.VirtualScreen.Height;
-            this._stopWatch = new Stopwatch();
             this._screenArea = Rectangle.Empty;
 
             //this.bt_Save.Enabled = false;
@@ -105,9 +108,9 @@ namespace TankiTools
             {
                 _screenNames.Add(screen.DeviceName);
             }*/
-            Start(false);
+            //StartRec(SettingsManager.CaptureTypes.);
         }
-
+        /*
         private void Start(bool selectArea)
         {
             try
@@ -118,31 +121,31 @@ namespace TankiTools
             {
                 MessageBox.Show(exc.Message);
             }
-        }
+        }*/
 
-        private void StartRec(bool selectArea)
+        private void StartRec(CaptureTypes type)
         {
             if (_isRecording == false)
             {
-                this.SetScreenArea(selectArea);
+                this.SetScreenArea(type);
                 this._isRecording = true;
-                DateTime now = DateTime.Now;
-                string name = $"{now.ToString().Replace(" ", "_").Replace(".", "_").Replace(":", "_") }.avi";
-                string fullName = $@"{SettingsManager.videos_path}\{name}";
+                now = DateTime.Now;
+                name = $"{now.ToString().Replace(" ", "_").Replace(".", "_").Replace(":", "_") }.avi";
+                path = Path.Combine(SettingsManager.videos_path, name);
 
-                _writer.Open(fullName, _width, _height, fps, codec, bitrate);
-                this.StartRecord();
+                _writer.Open(path, _width, _height, fps, codec, bitrate);
+                this._streamVideo = new ScreenCaptureStream(this._screenArea);
+                this._streamVideo.NewFrame += new NewFrameEventHandler(this.video_NewFrame);
+                this._streamVideo.Start();
             }
         }
 
-        private void SetScreenArea(bool selectArea)
+        private void SetScreenArea(CaptureTypes type)
         {
             screenLeft = screenTop = 0;
             useArea = false;
 
-            // get entire desktop area size
-            //if (string.Compare(screenName, @"Select ALL", StringComparison.OrdinalIgnoreCase) == 0)
-            if(screen == "all")
+            /*if(type == SettingsManager.CaptureTypes.VideoFull)
             {
                 foreach (Screen screen in Screen.AllScreens)
                 {
@@ -150,9 +153,8 @@ namespace TankiTools
                     this._width = _screenArea.Width;
                     this._height = _screenArea.Height;
                 }
-            }
-            //else if (string.Compare(screenName, @"Custom screen area", StringComparison.OrdinalIgnoreCase) == 0)
-            else if (screen == "area")
+            }*/
+            if (type == CaptureTypes.VideoArea)
             {
                 using (SelectableVideoArea f = new SelectableVideoArea())
                 {
@@ -162,7 +164,7 @@ namespace TankiTools
                         this._screenArea = f.AreaBounds;
 
                         decimal prop = (decimal)4 / 3;
-                        decimal realProp = (decimal)f.w / f.h;
+                        decimal realProp = (decimal)f.w / f.h + 1;
                         bool makeLonger = realProp < prop;
                         int w = Convert.ToInt32(makeLonger ? f.h * prop : f.w);
                         int h = Convert.ToInt32(makeLonger ? f.h : f.w / prop);
@@ -178,13 +180,11 @@ namespace TankiTools
                         screenTop = f.AreaBounds.Top;
                         useArea = true;
                     }
-
                 }
-
             }
-            else
+            if (type == CaptureTypes.VideoFull)
             {
-                this._screenArea = Screen.AllScreens.First(scr => scr.DeviceName.Equals(screen)).Bounds;
+                this._screenArea = Screen.PrimaryScreen.Bounds;
                 this._width = this._screenArea.Width;
                 this._height = this._screenArea.Height;
             }
@@ -197,7 +197,7 @@ namespace TankiTools
                 Bitmap frame = eventArgs.Frame;
                 Graphics graphics = Graphics.FromImage(frame);
                 CURSORINFO pci;
-                pci.cbSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(CURSORINFO));
+                pci.cbSize = Marshal.SizeOf(typeof(CURSORINFO));
 
                 if (GetCursorInfo(out pci))
                 {
@@ -205,25 +205,10 @@ namespace TankiTools
                     {
                         int x = pci.ptScreenPos.x - screenLeft;
                         int y = pci.ptScreenPos.y - screenTop;
-
-                        Color c = Color.Yellow;
-                        float width = 2;
-                        int radius = 30;
-                        if ((Control.MouseButtons & MouseButtons.Left) != 0 || (Control.MouseButtons & MouseButtons.Right) != 0)
-                        {
-                            c = Color.OrangeRed;
-                            width = 4;
-                            radius = 35;
-                        }
-                        Pen p = new Pen(c, width);
-
-                        graphics.DrawEllipse(p, x - radius / 2, y - radius / 2, radius, radius);
                         DrawIcon(graphics.GetHdc(), x, y, pci.hCursor);
                         graphics.ReleaseHdc();
                     }
                 }
-
-    
                 if (useArea)
                 {
                     var destRect = new Rectangle(Convert.ToInt32((_width - frame.Width) / 2), 
@@ -240,29 +225,17 @@ namespace TankiTools
             }
             else
             {
-                _stopWatch.Reset();
-                Thread.Sleep(500);
                 _streamVideo.SignalToStop();
                 Thread.Sleep(500);
                 _writer.Close();
+                Save();
             }
         }
 
-        private void VideoRecorder_KeyDown(object sender, KeyEventArgs e)
+        public void Save()
         {
-            if(e.KeyCode == Keys.Escape)
-            {
-                _isRecording = false;
-            }
+            MediaHistoryManager.SaveEntryToHistory(new MediaHistoryManager.HistoryEntry(
+                MediaHistoryManager.MediaType.Video, string.Empty, name, now));
         }
-
-        private void StartRecord()
-        {
-            this._streamVideo = new ScreenCaptureStream(this._screenArea);
-            this._streamVideo.NewFrame += new NewFrameEventHandler(this.video_NewFrame);
-            this._streamVideo.Start();
-            this._stopWatch.Start();
-        }
-
     }
 }

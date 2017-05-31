@@ -1,32 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Management;
 using System.Windows.Forms;
 
 namespace TankiTools
 {
-
-
     static class SystemInfo
     {
-        public delegate void EventHandler();
-        public static event EventHandler onInit;
-
         public static Dictionary<string, string> Info { get; set; }
 
-        static public void Init()
+        static SystemInfo()
         {
             Info = BuildSystemInfo();
-            onInit?.Invoke();
         }
 
         private static Dictionary<string, string> BuildSystemInfo()
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
 
-            dict.Add("CPU", GetCpuInfo()["Name"] + " " + GetCpuInfo()["Freq"] + " Ghz");
+            dict.Add("CPU", GetCpuInfo()["Name"] + " " + GetCpuInfo()["Freq"]);
             dict.Add("RAM", Util.BytesToString(GetMemoryInfo()));
             dict.Add("OS", GetOsInfo()["Version"] + " " + GetOsInfo()["Bits"]);
             dict.Add("Resolution", GetResolutionInfo()["Width"] + "x" + GetResolutionInfo()["Height"]);
@@ -121,7 +114,6 @@ namespace TankiTools
             }
             query = query.Remove(query.Length - 2, 2);
             query += " from " + obj;
-            //MessageBox.Show(query);
             return new ManagementObjectSearcher(query);
         }
     }

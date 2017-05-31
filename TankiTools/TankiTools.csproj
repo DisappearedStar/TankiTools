@@ -66,14 +66,17 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\TankiToolsIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\AForge.Video.dll</HintPath>
+      <HintPath>bin\Debug\AForge.Video.dll</HintPath>
     </Reference>
     <Reference Include="AForge.Video.FFMPEG, Version=2.2.5.0, Culture=neutral, PublicKeyToken=03563089b1be05dd, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\AForge.Video.FFMPEG.dll</HintPath>
+      <HintPath>bin\Debug\AForge.Video.FFMPEG.dll</HintPath>
     </Reference>
     <Reference Include="AutoUpdater.NET, Version=1.4.0.0, Culture=neutral, PublicKeyToken=942f95247e354701, processorArchitecture=MSIL">
       <HintPath>..\packages\Autoupdater.NET.Official.1.4\lib\net40\AutoUpdater.NET.dll</HintPath>
@@ -112,8 +115,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Debug\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -129,10 +132,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.4.6\lib\net40\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -183,7 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browsers.cs" />
-    <Compile Include="Diagnostics.cs" />
     <Compile Include="DiagnosticsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,14 +237,16 @@
     </Compile>
     <Compile Include="SettingsManager.cs" />
     <Compile Include="SystemInfo.cs" />
-    <Compile Include="Util.cs" />
-    <Compile Include="VideoRecorder.cs">
+    <Compile Include="TroubleshootingWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoRecorder.Designer.cs">
-      <DependentUpon>VideoRecorder.cs</DependentUpon>
+    <Compile Include="TroubleshootingWindow.Designer.cs">
+      <DependentUpon>TroubleshootingWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util.cs" />
+    <Compile Include="VideoRecorder1.cs" />
     <Compile Include="YouTube.cs" />
+    <EmbeddedResource Include="Resources\TankiToolsIcon.ico" />
     <EmbeddedResource Include="DiagnosticsWindow.resx">
       <DependentUpon>DiagnosticsWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -270,6 +270,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SelectableScreenshotArea.resx">
       <DependentUpon>SelectableScreenshotArea.cs</DependentUpon>
@@ -280,17 +281,10 @@
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoRecorder.resx">
-      <DependentUpon>VideoRecorder.cs</DependentUpon>
+    <EmbeddedResource Include="TroubleshootingWindow.resx">
+      <DependentUpon>TroubleshootingWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -329,6 +323,24 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Diagnostics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Other.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Troubleshooting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Settings_small.png" />
+    <EmbeddedResource Include="Resources\Mediahistory_small.png" />
+    <EmbeddedResource Include="Resources\Exit_small.png" />
+    <EmbeddedResource Include="Resources\Mediahistory.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

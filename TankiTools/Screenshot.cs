@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
 using System.Xml;
-using System.Xml.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Drawing.Drawing2D;
-using System.Threading;
 
 namespace TankiTools
 {
     static class Screenshot
     {
-        //static DiagnosticsWindow diag = new DiagnosticsWindow();
         private static WebClient client;
-
         public static void CancelUpload()
         {
             if(client != null)
@@ -53,7 +47,6 @@ namespace TankiTools
                 if (e.Cancelled)
                 {
                     client.Dispose();
-                    //throw new OperationCanceledException();
                 }
             };
 
@@ -112,6 +105,8 @@ namespace TankiTools
             if (SettingsManager.screenshots_upload)
             {
                 link = await UploadScreenshot(img);
+                Clipboard.SetText(link);
+                MainWindow.TrayApp.ShowBalloonTip(2000, "TankiTools", $"Скриншот загружен: {link}\nСсылка скопирована", ToolTipIcon.None);
             }
             MediaHistoryManager.SaveEntryToHistory(new MediaHistoryManager.HistoryEntry(
                 MediaHistoryManager.MediaType.Screenshot, link, name, now));

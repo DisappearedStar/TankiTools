@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MediaHistory));
             this.Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.PanelWrapper = new System.Windows.Forms.Panel();
@@ -70,11 +71,13 @@
             this.ClientSize = new System.Drawing.Size(415, 348);
             this.Controls.Add(this.PanelWrapper);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(355, 115);
             this.Name = "MediaHistory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MediaHistory";
+            this.Text = "История скриншотов и видео";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MediaHistory_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

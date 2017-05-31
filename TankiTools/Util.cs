@@ -1,28 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Windows.Forms;
-using System.Runtime.Serialization;
-using System.Globalization;
 using System.Diagnostics;
 
 namespace TankiTools
 {
-    //public enum MemoryUnit { Bit, Byte, Kbyte, Mbyte, Gbyte }
-
     static class Util
     {
         public static string AppData = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)).FullName;
         public static string AppDataRoaming = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string AppDataLocal = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string StartupPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        
-        public static string MediaHistoryFile = Path.Combine(StartupPath, "mediahistory.xml");
-
+        public static MainWindow Main;
         public const string MaxCacheSize = "1048576";
 
         public static string BytesToString(long number)
@@ -105,20 +94,3 @@ namespace TankiTools
         }
     }
 }
-/*
-string[] units = { " B", " KB", " MB", " GB" };
-const ulong x = 1024;
-ulong divider = 1024;
-if(number < divider)
-{
-    return number + units[0];
-}
-else
-{
-    while(number > x)
-    {
-        ulong rest = number % x;
-        number /= divider;
-    }
-}
-*/

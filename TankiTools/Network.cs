@@ -1,41 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using Microsoft.Win32;
 using NetFwTypeLib;
 using Newtonsoft.Json.Linq;
-using System.Windows.Forms;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace TankiTools
 {
 
     public static class Network
     {
-        public class TankiServer
-        {
-            public int nodeNumber { get; private set; }
-            public string nodeName { get; private set; }
-            public int online { get; private set; }
-            public int inbattles { get; private set; }
-            public int inlobby { get; private set; }
-
-            public TankiServer(int _nodeNumber, int _online, int _inbattles)
-            {
-                online = _online;
-                inbattles = _inbattles;
-                inlobby = _online - _inbattles;
-                nodeNumber = _nodeNumber;
-                nodeName = "EU " + _nodeNumber.ToString();
-            }
-            public override string ToString()
-            {
-                return $"c{nodeNumber} | {nodeNumber} online: {online} (in battles: {inbattles}, in lobby: {inlobby})";
-            }
-        }
+        private static int[] DefaultPorts = { 4444, 5222, 5223, 14444, 15222, 15223 };
 
         public class TankiPort
         {
@@ -70,6 +50,10 @@ namespace TankiTools
         public enum TraceStatus
         {
             /// <summary>
+            /// сервер недоступен
+            /// </summary>
+            ServerUnavailable,
+            /// <summary>
             /// потеря пакетов
             /// </summary>
             PacketsLoss,
@@ -97,16 +81,16 @@ namespace TankiTools
 
         public class TracertEntry
         {
-            int hop;
-            string ip;
-            string hostname;
-            string country;
-            string city;
-            long time1;
-            long time2;
-            long time3;
-            HostLocation location;
-            TraceStatus status;
+            public int hop { get; private set; }
+            public string ip { get; private set; }
+            public string hostname { get; private set; }
+            public string country { get; private set; }
+            public string city { get; private set; }
+            public long time1 { get; private set; }
+            public long time2 { get; private set; }
+            public long time3 { get; private set; }
+            public HostLocation location { get; private set; }
+            public TraceStatus status { get; private set; }
 
             public TracertEntry(int _hop, string _ip, long _time1, long _time2, long _time3)
             {
@@ -171,7 +155,7 @@ namespace TankiTools
                     using (WebClient client = new WebClient())
                     {
                         string apikey = "412b882f5f367fc2edfad0a39a1cb3329040f480";
-                        string json = client.DownloadString(new Uri(string.Format(@"http://api.db-ip.com/v2/{0}/{1}", apikey, _ip)));
+                        string json = client.DownloadString(new Uri($@"http://api.db-ip.com/v2/{apikey}/{_ip}")); 
                         JToken token = JObject.Parse(json);
                         country = (string)token.SelectToken("countryName");
                         city = (string)token.SelectToken("city");
@@ -186,26 +170,11 @@ namespace TankiTools
 
             override public string ToString()
             {
-                return string.Format("{0} | {1} [{2}] ({3}) in {4} | {5} {6} {7} ({8})",
-                    hop, hostname, ip, location.ToString(), country, time1, time2, time3, status.ToString());
+                return $"{hostname} [{ip}] ({location.ToString()}) | {country}";
             }
-        }
-
-        public static IEnumerable<TankiServer> GetTankiServers()
-        {
-            string json;
-            using (WebClient webClient = new WebClient())
+            public string ToStringWithPing()
             {
-                json = webClient.DownloadString(@"http://tankionline.com/s/status.js");
-            }
-            JObject nodes = (JObject)JObject.Parse(json).GetValue("nodes");
-            for (int i = 1; i < 100; i++)
-            {
-                JObject nodeInfo = (JObject)nodes.GetValue("main.c" + i.ToString());
-                if (nodeInfo != null)
-                {
-                    yield return new TankiServer(i, (int)nodeInfo.GetValue("online"), (int)nodeInfo.GetValue("inbattles"));
-                }
+                return $"{hostname} [{ip}] ({location.ToString()}) | {country} | {(float)(time1 + time2 + time3) / 3}ms";
             }
         }
 
@@ -213,24 +182,17 @@ namespace TankiTools
         {
             using (WebClient webClient = new WebClient())
             {
-                try
-                {
-                    return webClient.DownloadString(@"https://api.ipify.org");
-                }
-                catch(WebException)
-                {
-                    return "Невозможно получить IP-адрес. Возможно, отсутствует подключение к Интернету";
-                }
+                return webClient.DownloadString(@"https://api.ipify.org");
             }
         }
 
-        public static List<TankiPort> GetPortsStatus(int[] portsArray)
+        public static List<TankiPort> GetPortsStatus()
         {
             const string host = "c1.eu.tankionline.com";
             string ip = HostToIpString(host);
 
             var ports = new List<TankiPort>();
-            foreach(int port in portsArray)
+            foreach(int port in DefaultPorts)
             {
                 ports.Add(new TankiPort(port));
             }
@@ -245,22 +207,123 @@ namespace TankiTools
                         p.isOpen = true;
                     }
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.ToString());
-                }
+                catch (Exception) { }
             }
             return ports;
         }
 
-        public static void OpenPorts(int[] portsArray)
+        public static async Task<TraceStatus> Ping()
         {
-            try
+            const string host = "c1.eu.tankionline.com";
+            string ip = HostToIpString(host);
+            Ping ping = new Ping();
+            PingOptions pingOptions = new PingOptions(128, true);
+            Stopwatch pingReplyTime = new Stopwatch();
+            PingReply reply;
+            long avg = 0;
+            long min = 1000;
+            long max = 0;
+            int counter = 21;
+            int received = 0;
+            int timeout = 1000;
+
+            for(int i = 0; i < counter; i++)
+            {
+                pingReplyTime.Reset();
+                pingReplyTime.Start();
+                reply = await ping.SendTaskAsync(ip, timeout, new byte[] { 32 }, pingOptions);
+                pingReplyTime.Stop();
+                if (reply.Status == IPStatus.Success && i > 0)
+                {
+                    received++;
+                    avg += pingReplyTime.ElapsedMilliseconds;
+                    if (pingReplyTime.ElapsedMilliseconds < min) { min = pingReplyTime.ElapsedMilliseconds; }
+                    if (pingReplyTime.ElapsedMilliseconds > max) { max = pingReplyTime.ElapsedMilliseconds; }
+                } 
+            }
+            
+            avg /= received;
+            if (received + 1 < counter)
+            {
+                return TraceStatus.PacketsLoss;
+            }
+            else if(((float)max / (float)min) > 1.25)
+            {
+                return TraceStatus.TooBigPingFluctuactions;
+            }
+            else
+            {
+                if(avg <= 50)
+                {
+                    return TraceStatus.LowPing;
+                }
+                if (avg > 50 && avg <= 100)
+                {
+                    return TraceStatus.NormalPing;
+                }
+                if (avg > 100 && avg <= 150)
+                {
+                    return TraceStatus.HighPing;
+                }
+                else
+                {
+                    return TraceStatus.BadPing;
+                }
+            }
+        }
+
+        public static async Task<List<TracertEntry>> Trace()
+        {
+            const string host = "c1.eu.tankionline.com";
+            string ip = HostToIpString(host);
+            Ping ping = new Ping();
+            PingOptions pingOptions = new PingOptions(1, true);
+            Stopwatch pingReplyTime = new Stopwatch();
+            PingReply reply;
+            List<TracertEntry> trace = new List<TracertEntry>();
+            IPStatus status = IPStatus.TimeExceeded;
+
+            do
+            {
+                List<long> times = new List<long>(3);
+                string _ip = string.Empty;
+                for (int i = 0; i < 3; i++)
+                {
+                    pingReplyTime.Reset();
+                    pingReplyTime.Start();
+                    reply = await ping.SendTaskAsync(ip, 1000, new byte[] { 32 }, pingOptions);
+                    pingReplyTime.Stop();
+
+                    if (reply.Status != IPStatus.TimedOut) times.Add(pingReplyTime.ElapsedMilliseconds);
+                    else times.Add(-1);
+
+                    try
+                    {
+                        _ip = reply.Address.ToString();
+                    }
+                    catch (Exception) { }
+                    status = reply.Status;
+                }
+                trace.Add(new TracertEntry(pingOptions.Ttl, _ip, times[0], times[1], times[2]));
+                pingOptions.Ttl++;
+            }
+            while (status != IPStatus.Success);
+            return trace;
+        }
+
+        public static bool OpenPorts(List<TankiPort> portsList)
+        {
+            List<string> ports = portsList.Where(x => x.isOpen == false).Select(x => x.port.ToString()).ToList();
+            if(ports.Count == 0)
+            {
+                return false;
+            }
+            else
             {
                 INetFwMgr mgr = (INetFwMgr)Activator.CreateInstance(
-                    Type.GetTypeFromProgID("HNetCfg.FwMgr", false));
-                if (!mgr.LocalPolicy.CurrentProfile.FirewallEnabled) return;
-                
+                                    Type.GetTypeFromProgID("HNetCfg.FwMgr", false));
+                if (!mgr.LocalPolicy.CurrentProfile.FirewallEnabled) return false;
+
                 INetFwPolicy2 fwPolicy2 = (INetFwPolicy2)Activator.
                     CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2", false));
 
@@ -271,20 +334,20 @@ namespace TankiTools
                     x.Action == NET_FW_ACTION_.NET_FW_ACTION_BLOCK &&
                     x.Direction == NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_OUT &&
                     x.Enabled == true).ToList();
-                if (Rules.Count == 0) return;
-                List<string> ports = portsArray.ToList().ConvertAll(x => x.ToString());
+                if (Rules.Count == 0) return false;
+
 
                 foreach (INetFwRule rule in Rules)
                 {
                     var tList = rule.RemotePorts.Split(',').ToList();
                     var remotePorts = new List<string>();
 
-                    foreach(var item in tList)
+                    foreach (var item in tList)
                     {
                         if (item.Contains('-'))
                         {
                             var t = item.Split('-').ToList().ConvertAll(x => Convert.ToInt32(x));
-                            for(int i = t.First(); i <= t.Last(); i++)
+                            for (int i = t.First(); i <= t.Last(); i++)
                             {
                                 remotePorts.Add(i.ToString());
                             }
@@ -308,11 +371,8 @@ namespace TankiTools
                             " dir=out action=allow protocol=TCP remoteport=" + string.Join(",", intersection);
                         Util.ExecuteInHidedMode(query);
                     }
-                }     
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
+                }
+                return true;
             }
         }
 
@@ -331,17 +391,16 @@ namespace TankiTools
         public static void SetNetworkThrottling(bool state)
         {
             const string path = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
-            try
+            var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
+            if (hklm.OpenSubKey(path, true) == null)
             {
-                Registry.LocalMachine.OpenSubKey(path, true).SetValue("NetworkThrottlingIndex",
-                    ((state) ? unchecked((int) 0xFFFFFFFF) : 0xA), RegistryValueKind.DWord);
+                hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
             }
-            catch(Exception e) { MessageBox.Show(e.Message); }
+            hklm.OpenSubKey(path, true).SetValue("NetworkThrottlingIndex",
+                    ((state) ? unchecked((int)0xFFFFFFFF) : 0xA), RegistryValueKind.DWord);
         }
 
         
-
-
         public static string HostToIpString(string host)
         {
             return Dns.GetHostEntry(host).AddressList[0].ToString();

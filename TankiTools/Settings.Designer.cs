@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.Wrapper = new System.Windows.Forms.TableLayoutPanel();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabProgram = new System.Windows.Forms.TabPage();
@@ -36,8 +37,8 @@
             this.chbAutoupdate = new System.Windows.Forms.CheckBox();
             this.chbAutostart = new System.Windows.Forms.CheckBox();
             this.tabClients = new System.Windows.Forms.TabPage();
-            this.labelSelectedClient = new System.Windows.Forms.Label();
             this.cmbSelectedClient = new System.Windows.Forms.ComboBox();
+            this.labelSelectedClient = new System.Windows.Forms.Label();
             this.tabScreenshots = new System.Windows.Forms.TabPage();
             this.cmbAreaScreen = new System.Windows.Forms.ComboBox();
             this.chbAreaScreenShift = new System.Windows.Forms.CheckBox();
@@ -148,7 +149,7 @@
             // chbAutoupdate
             // 
             this.chbAutoupdate.AutoSize = true;
-            this.chbAutoupdate.Location = new System.Drawing.Point(20, 43);
+            this.chbAutoupdate.Location = new System.Drawing.Point(22, 69);
             this.chbAutoupdate.Name = "chbAutoupdate";
             this.chbAutoupdate.Size = new System.Drawing.Size(223, 17);
             this.chbAutoupdate.TabIndex = 1;
@@ -158,7 +159,7 @@
             // chbAutostart
             // 
             this.chbAutostart.AutoSize = true;
-            this.chbAutostart.Location = new System.Drawing.Point(20, 20);
+            this.chbAutostart.Location = new System.Drawing.Point(22, 46);
             this.chbAutostart.Name = "chbAutostart";
             this.chbAutostart.Size = new System.Drawing.Size(196, 17);
             this.chbAutostart.TabIndex = 0;
@@ -177,15 +178,6 @@
             this.tabClients.Text = "Клиенты";
             this.tabClients.UseVisualStyleBackColor = true;
             // 
-            // labelSelectedClient
-            // 
-            this.labelSelectedClient.AutoSize = true;
-            this.labelSelectedClient.Location = new System.Drawing.Point(19, 26);
-            this.labelSelectedClient.Name = "labelSelectedClient";
-            this.labelSelectedClient.Size = new System.Drawing.Size(122, 13);
-            this.labelSelectedClient.TabIndex = 1;
-            this.labelSelectedClient.Text = "Я использую для игры";
-            // 
             // cmbSelectedClient
             // 
             this.cmbSelectedClient.BackColor = System.Drawing.SystemColors.InactiveCaption;
@@ -195,6 +187,15 @@
             this.cmbSelectedClient.Name = "cmbSelectedClient";
             this.cmbSelectedClient.Size = new System.Drawing.Size(168, 21);
             this.cmbSelectedClient.TabIndex = 0;
+            // 
+            // labelSelectedClient
+            // 
+            this.labelSelectedClient.AutoSize = true;
+            this.labelSelectedClient.Location = new System.Drawing.Point(19, 26);
+            this.labelSelectedClient.Name = "labelSelectedClient";
+            this.labelSelectedClient.Size = new System.Drawing.Size(122, 13);
+            this.labelSelectedClient.TabIndex = 1;
+            this.labelSelectedClient.Text = "Я использую для игры";
             // 
             // tabScreenshots
             // 
@@ -223,7 +224,7 @@
             // 
             this.cmbAreaScreen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAreaScreen.FormattingEnabled = true;
-            this.cmbAreaScreen.Location = new System.Drawing.Point(262, 62);
+            this.cmbAreaScreen.Location = new System.Drawing.Point(292, 61);
             this.cmbAreaScreen.Name = "cmbAreaScreen";
             this.cmbAreaScreen.Size = new System.Drawing.Size(51, 21);
             this.cmbAreaScreen.TabIndex = 14;
@@ -231,7 +232,7 @@
             // chbAreaScreenShift
             // 
             this.chbAreaScreenShift.AutoSize = true;
-            this.chbAreaScreenShift.Location = new System.Drawing.Point(209, 64);
+            this.chbAreaScreenShift.Location = new System.Drawing.Point(239, 63);
             this.chbAreaScreenShift.Name = "chbAreaScreenShift";
             this.chbAreaScreenShift.Size = new System.Drawing.Size(47, 17);
             this.chbAreaScreenShift.TabIndex = 13;
@@ -241,7 +242,7 @@
             // chbAreaScreenAlt
             // 
             this.chbAreaScreenAlt.AutoSize = true;
-            this.chbAreaScreenAlt.Location = new System.Drawing.Point(165, 64);
+            this.chbAreaScreenAlt.Location = new System.Drawing.Point(195, 63);
             this.chbAreaScreenAlt.Name = "chbAreaScreenAlt";
             this.chbAreaScreenAlt.Size = new System.Drawing.Size(38, 17);
             this.chbAreaScreenAlt.TabIndex = 12;
@@ -251,7 +252,7 @@
             // chbAreaScreenCtrl
             // 
             this.chbAreaScreenCtrl.AutoSize = true;
-            this.chbAreaScreenCtrl.Location = new System.Drawing.Point(118, 64);
+            this.chbAreaScreenCtrl.Location = new System.Drawing.Point(148, 63);
             this.chbAreaScreenCtrl.Name = "chbAreaScreenCtrl";
             this.chbAreaScreenCtrl.Size = new System.Drawing.Size(41, 17);
             this.chbAreaScreenCtrl.TabIndex = 11;
@@ -262,7 +263,7 @@
             // 
             this.cmbFullScreen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFullScreen.FormattingEnabled = true;
-            this.cmbFullScreen.Location = new System.Drawing.Point(262, 36);
+            this.cmbFullScreen.Location = new System.Drawing.Point(292, 35);
             this.cmbFullScreen.Name = "cmbFullScreen";
             this.cmbFullScreen.Size = new System.Drawing.Size(51, 21);
             this.cmbFullScreen.TabIndex = 10;
@@ -270,7 +271,7 @@
             // chbFullScreenShift
             // 
             this.chbFullScreenShift.AutoSize = true;
-            this.chbFullScreenShift.Location = new System.Drawing.Point(209, 38);
+            this.chbFullScreenShift.Location = new System.Drawing.Point(239, 37);
             this.chbFullScreenShift.Name = "chbFullScreenShift";
             this.chbFullScreenShift.Size = new System.Drawing.Size(47, 17);
             this.chbFullScreenShift.TabIndex = 9;
@@ -280,7 +281,7 @@
             // chbFullScreenAlt
             // 
             this.chbFullScreenAlt.AutoSize = true;
-            this.chbFullScreenAlt.Location = new System.Drawing.Point(165, 38);
+            this.chbFullScreenAlt.Location = new System.Drawing.Point(195, 37);
             this.chbFullScreenAlt.Name = "chbFullScreenAlt";
             this.chbFullScreenAlt.Size = new System.Drawing.Size(38, 17);
             this.chbFullScreenAlt.TabIndex = 8;
@@ -290,7 +291,7 @@
             // chbFullScreenCtrl
             // 
             this.chbFullScreenCtrl.AutoSize = true;
-            this.chbFullScreenCtrl.Location = new System.Drawing.Point(118, 38);
+            this.chbFullScreenCtrl.Location = new System.Drawing.Point(148, 37);
             this.chbFullScreenCtrl.Name = "chbFullScreenCtrl";
             this.chbFullScreenCtrl.Size = new System.Drawing.Size(41, 17);
             this.chbFullScreenCtrl.TabIndex = 7;
@@ -300,7 +301,7 @@
             // labelAreaScreen
             // 
             this.labelAreaScreen.AutoSize = true;
-            this.labelAreaScreen.Location = new System.Drawing.Point(5, 68);
+            this.labelAreaScreen.Location = new System.Drawing.Point(10, 65);
             this.labelAreaScreen.Name = "labelAreaScreen";
             this.labelAreaScreen.Size = new System.Drawing.Size(101, 13);
             this.labelAreaScreen.TabIndex = 6;
@@ -309,7 +310,7 @@
             // labelFullScreen
             // 
             this.labelFullScreen.AutoSize = true;
-            this.labelFullScreen.Location = new System.Drawing.Point(5, 39);
+            this.labelFullScreen.Location = new System.Drawing.Point(10, 38);
             this.labelFullScreen.Name = "labelFullScreen";
             this.labelFullScreen.Size = new System.Drawing.Size(96, 13);
             this.labelFullScreen.TabIndex = 5;
@@ -473,7 +474,7 @@
             // labelAreaVideo
             // 
             this.labelAreaVideo.AutoSize = true;
-            this.labelAreaVideo.Location = new System.Drawing.Point(5, 42);
+            this.labelAreaVideo.Location = new System.Drawing.Point(10, 39);
             this.labelAreaVideo.Name = "labelAreaVideo";
             this.labelAreaVideo.Size = new System.Drawing.Size(82, 13);
             this.labelAreaVideo.TabIndex = 16;
@@ -482,7 +483,7 @@
             // labelFullVideo
             // 
             this.labelFullVideo.AutoSize = true;
-            this.labelFullVideo.Location = new System.Drawing.Point(5, 13);
+            this.labelFullVideo.Location = new System.Drawing.Point(10, 12);
             this.labelFullVideo.Name = "labelFullVideo";
             this.labelFullVideo.Size = new System.Drawing.Size(77, 13);
             this.labelFullVideo.TabIndex = 15;
@@ -550,9 +551,9 @@
             // btnExit
             // 
             this.btnExit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnExit.Location = new System.Drawing.Point(12, 5);
+            this.btnExit.Location = new System.Drawing.Point(7, 5);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(133, 23);
+            this.btnExit.Size = new System.Drawing.Size(143, 23);
             this.btnExit.TabIndex = 1;
             this.btnExit.Text = "Выйти без сохранения";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -580,11 +581,13 @@
             this.ClientSize = new System.Drawing.Size(402, 210);
             this.Controls.Add(this.Wrapper);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.Wrapper.ResumeLayout(false);
             this.Tabs.ResumeLayout(false);
             this.tabProgram.ResumeLayout(false);

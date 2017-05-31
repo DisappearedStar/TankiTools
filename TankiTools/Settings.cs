@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Linq;
-using System.IO;
 
 namespace TankiTools
 {
     public partial class Settings : Form
     {
+        public static Settings self { get; private set; } = null;
+
         Dictionary<string, string> current;
         Dictionary<string, string> clients;
         public Settings()
@@ -22,7 +18,7 @@ namespace TankiTools
             clients = SettingsManager.MakeClientsList();
             Init();
             current = GetCurrentGuiSettings();
-            
+            self = this;
         }
 
         private void Init()
@@ -152,9 +148,30 @@ namespace TankiTools
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
+            List<string> combos = new List<string>();
+            string t;
+            t = GetKeysCombo(CaptureTypes.ScreenArea);
+            if (SettingsManager.RegisterHotkeys(CaptureTypes.ScreenArea, t, false, true))
+                combos.Add(t);
+            t = GetKeysCombo(CaptureTypes.ScreenFull);
+            if (SettingsManager.RegisterHotkeys(CaptureTypes.ScreenFull, t, false, true))
+                combos.Add(t);
+            t = GetKeysCombo(CaptureTypes.VideoArea);
+            if (SettingsManager.RegisterHotkeys(CaptureTypes.VideoArea, t, false, true))
+                combos.Add(t);
+            t = GetKeysCombo(CaptureTypes.VideoFull);
+            if (SettingsManager.RegisterHotkeys(CaptureTypes.VideoFull, t, false, true))
+                combos.Add(t);
+            if(combos.Count > 0)
+            {
+                MessageBox.Show($"Не удалось зарегистрировать комбинации {string.Join(", ", combos)}",
+                    "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             SettingsManager.SetSettingsFromGui(GetCurrentGuiSettings());
             SettingsManager.SetAutostart(SettingsManager.autostart);
             SettingsManager.SaveSettingsToFile();
+            SettingsManager.SetGlobalHotkeys(true);
             this.Close();
 
         }
@@ -199,11 +216,56 @@ namespace TankiTools
             dict.Add(txbVideosPath.Name, txbVideosPath.Text);
             return dict;
         }
+
+        private string GetKeysCombo(CaptureTypes type)
+        {
+            CheckBox shift = null, alt = null, ctrl = null;
+            ComboBox key = null;
+            switch (type)
+            {
+                case CaptureTypes.ScreenArea:
+                    shift = chbAreaScreenShift;
+                    alt = chbAreaScreenAlt;
+                    ctrl = chbAreaScreenCtrl;
+                    key = cmbAreaScreen;
+                    break;
+                case CaptureTypes.ScreenFull:
+                    shift = chbFullScreenShift;
+                    alt = chbFullScreenAlt;
+                    ctrl = chbFullScreenCtrl;
+                    key = cmbFullScreen;
+                    break;
+                case CaptureTypes.VideoArea:
+                    shift = chbAreaVideoShift;
+                    alt = chbAreaVideoAlt;
+                    ctrl = chbAreaVideoCtrl;
+                    key = cmbAreaVideo;
+                    break;
+                case CaptureTypes.VideoFull:
+                    shift = chbFullVideoShift;
+                    alt = chbFullVideoAlt;
+                    ctrl = chbFullVideoCtrl;
+                    key = cmbFullVideo;
+                    break;
+            }
+            List<string> res = new List<string>();
+            if (shift.Checked) res.Add("Shift");
+            if (alt.Checked) res.Add("Alt");
+            if (ctrl.Checked) res.Add("Ctrl");
+            res.Add(key.SelectedItem.ToString());
+            return string.Join("+", res);
+        }
+
         public IEnumerable<Control> GetAllControls(Control control)
         {
             var controls = control.Controls.Cast<Control>();
             return controls.SelectMany(ctrl => GetAllControls(ctrl)).Concat(controls).Where(c => typeof(Control).IsInstanceOfType(c));
         }
         private void ChooseScreenshotsPath_HelpRequest(object sender, EventArgs e) { }
+
+        private void Settings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            self = null;
+        }
     }
 }

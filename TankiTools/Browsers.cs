@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -10,14 +9,14 @@ namespace TankiTools
 {
     public enum Clients
     {
-        Chrome,//shared + cache + increase -
-        Firefox,//shared + cache + increase -
-        Opera,//shared + cache + increase -
-        Yandex,//shared + cache + increase -
-        IE,//shared + cache + increase -
-        Edge,//shared - cache + increase -
-        SAFP,//shared + cache + increase -
-        OfficialClient,//shared + cache +
+        Chrome,
+        Firefox,
+        Opera,
+        Yandex,
+        IE,
+        Edge,
+        SAFP,
+        OfficialClient,
         OtherBrowser,
         ThirdPartyClient
     }
@@ -114,11 +113,7 @@ namespace TankiTools
                 foreach (string site in Directory.GetDirectories(so, "*tankionline.com"))
                 {
                     t.Add(site);
-                }/*
-                foreach (string site in Directory.GetDirectories(so, "*macromedia.com"))
-                {
-                    t.Add(site);
-                }*/
+                }
             }
             return t.ToArray();
         }

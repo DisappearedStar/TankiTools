@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml;
 using System.IO;
-using System.Web;
 using System.Net;
-using System.Threading.Tasks;
 using AForge.Video.FFMPEG;
 
 namespace TankiTools
 {
     public partial class MediaHistory : Form
     {
+        public static MediaHistory self { get; private set; } = null;
         public MediaHistory()
         {
             InitializeComponent();
@@ -31,6 +25,7 @@ namespace TankiTools
             Wrapper.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             PanelWrapper.Controls.Add(Wrapper);
             AddEntries(Wrapper, MediaHistoryManager.GetHistoryFromFile());
+            self = this;
         }
         private void AddEntries(TableLayoutPanel Wrapper, List<MediaHistoryManager.HistoryEntry> entries)
         {
@@ -254,6 +249,11 @@ namespace TankiTools
             string path = (sender as LinkLabel).Links[0].Name;
             statusStrip1.Items[0].Text = $"Открывается файл {Path.GetFileName(path)}...";
             System.Diagnostics.Process.Start(path);
+        }
+
+        private void MediaHistory_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            self = null;
         }
     }
 }

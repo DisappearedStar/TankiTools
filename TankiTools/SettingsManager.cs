@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Xml;
 using System.Xml.Linq;
 using System.Windows.Forms;
-using System.Diagnostics;
 using Microsoft.Win32;
+using System.Runtime.InteropServices;
+
 
 namespace TankiTools
 {
@@ -21,6 +20,15 @@ namespace TankiTools
         };
         public static readonly string[] Languages = { "Русский", "English" };
         public static readonly string[] ImageFormats = { "PNG", "JPG" };
+
+        private const int NOMOD = 0x0000;
+        private const int ALT = 0x0001;
+        private const int CTRL = 0x0002;
+        private const int SHIFT = 0x0004;
+        public const int WM_HOTKEY_MSG_ID = 0x0312;
+        
+        public static Dictionary<CaptureTypes, int> HotkeyIds = new Dictionary<CaptureTypes, int>(4) {
+            { CaptureTypes.ScreenArea, 0 }, { CaptureTypes.ScreenFull, 0 }, { CaptureTypes.VideoArea, 0 }, { CaptureTypes.VideoFull, 0 }};
 
         public static bool autostart { get; private set; }
         public static bool autoupdate { get; private set; }
@@ -268,6 +276,74 @@ namespace TankiTools
             }
         }
 
+        public static bool RegisterHotkeys(CaptureTypes type, string combo, bool save = true, bool suppress = false)
+        {
+            IntPtr hWnd = Util.Main.Handle;
+            int modifier = NOMOD;
+            int key = 0;
+            int id = 0;
+            
+            foreach (string _key in combo.Split('+'))
+            {
+                if (_key == "Shift") modifier += SHIFT;
+                if (_key == "Alt") modifier += ALT;
+                if (_key == "Ctrl") modifier += CTRL;
+                else key = (int)GetKey(_key);
+            }
+            id = modifier ^ key ^ hWnd.ToInt32() + combo.GetHashCode();
+            bool result = RegisterHotKey(hWnd, id, modifier, key);
+            if (result && save) HotkeyIds[type] = id;
+            if (!suppress && !result) MessageBox.Show($"Не удалось зарегистрировать горячие клавиши {combo}",
+                "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return result;
+        }
+
+        public static void SetGlobalHotkeys(bool suppress)
+        {
+            UnsetGlobalHotkeys();
+            RegisterHotkeys(CaptureTypes.ScreenArea, screenshots_areaKeys, true, suppress);
+            RegisterHotkeys(CaptureTypes.ScreenFull, screenshots_fullKeys, true, suppress);
+            RegisterHotkeys(CaptureTypes.VideoArea, videos_areaKeys, true, suppress);
+            RegisterHotkeys(CaptureTypes.VideoFull, videos_fullKeys, true, suppress);
+        }
+
+        public static void UnsetGlobalHotkeys()
+        {
+            foreach(var key in HotkeyIds.Keys.ToList().Where(x => HotkeyIds[x] != 0))
+            {
+                HotkeyIds[key] = 0;
+            }
+        }
+
+        private static Keys GetKey(string key)
+        {
+            switch (key)
+            {
+                case "1": return System.Windows.Forms.Keys.D1;
+                case "2": return System.Windows.Forms.Keys.D2;
+                case "3": return System.Windows.Forms.Keys.D3;
+                case "4": return System.Windows.Forms.Keys.D4;
+                case "5": return System.Windows.Forms.Keys.D5;
+                case "6": return System.Windows.Forms.Keys.D6;
+                case "7": return System.Windows.Forms.Keys.D7;
+                case "8": return System.Windows.Forms.Keys.D8;
+                case "9": return System.Windows.Forms.Keys.D9;
+                case "0": return System.Windows.Forms.Keys.D0;
+                case "F1": return System.Windows.Forms.Keys.F1;
+                case "F2": return System.Windows.Forms.Keys.F2;
+                case "F3": return System.Windows.Forms.Keys.F3;
+                case "F4": return System.Windows.Forms.Keys.F4;
+                case "F5": return System.Windows.Forms.Keys.F5;
+                case "F6": return System.Windows.Forms.Keys.F6;
+                case "F7": return System.Windows.Forms.Keys.F7;
+                case "F8": return System.Windows.Forms.Keys.F8;
+                case "F9": return System.Windows.Forms.Keys.F9;
+                case "F10": return System.Windows.Forms.Keys.F10;
+                case "F11": return System.Windows.Forms.Keys.F11;
+                case "F12": return System.Windows.Forms.Keys.F12;
+                default: return System.Windows.Forms.Keys.None;
+            }
+        }
 
         public static bool IsFirstRun()
         {
@@ -342,11 +418,19 @@ namespace TankiTools
             public const string screenshots_format = "png";
             public static readonly string screenshots_path = Path.Combine(Util.StartupPath, @"media\screenshots");
             public const bool screenshots_upload = true;
-            public const string screenshots_fullKeys = "Alt+F12";
-            public const string screenshots_areaKeys = "Alt+1";
+            public const string screenshots_fullKeys = "Alt+F2";
+            public const string screenshots_areaKeys = "Alt+0";
             public static readonly string videos_path = Path.Combine(Util.StartupPath, @"media\videos");
-            public const string videos_fullKeys = "Shift+F12";
-            public const string videos_areaKeys = "Shift+F1";
+            public const string videos_fullKeys = "Shift+F8";
+            public const string videos_areaKeys = "Alt+Shift+F1";
         }
+
+        [DllImport("user32.dll")]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+
+        [DllImport("user32.dll")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
     }
+
+    public enum CaptureTypes { ScreenArea, ScreenFull, VideoArea, VideoFull };
 }

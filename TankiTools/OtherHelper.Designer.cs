@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OtherHelper));
             this.SuspendLayout();
             // 
             // OtherHelper
@@ -35,9 +36,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(306, 106);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "OtherHelper";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "OtherHelper";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OtherHelper_FormClosing);
             this.ResumeLayout(false);
 

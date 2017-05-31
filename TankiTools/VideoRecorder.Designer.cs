@@ -37,7 +37,6 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Name = "VideoRecorder";
             this.Text = "VideoRecorder";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VideoRecorder_KeyDown);
             this.ResumeLayout(false);
 
         }

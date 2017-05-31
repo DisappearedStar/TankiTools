@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace TankiTools
 {
+
     public partial class OtherHelper : Form
     {
-        CancellationTokenSource screenshot_token;
+        public static OtherHelper self { get; private set; } = null;
+
         CancellationTokenSource video_token;
 
         public enum OtherType { UploadScreenshot, UploadVideo }
@@ -29,7 +27,7 @@ namespace TankiTools
         ProgressBar bar = new ProgressBar();
 
         private delegate void ChangeProgressBarDelegate(int value);
-        private delegate void UploadVideoCompletedDelegate(string id);
+        private delegate void UploadVideoCompletedDelegate(string id, string filename);
 
 
         public OtherHelper()
@@ -78,6 +76,7 @@ namespace TankiTools
             bar.Anchor = AnchorStyles.Left;
             bar.Size = new Size(208, 23);
             #endregion
+            self = this;
         }
         public void CreateForm(OtherType type)
         {
@@ -158,7 +157,9 @@ namespace TankiTools
             txbLink.Enabled = false;
             try
             {
+                var filename = Path.GetFileName(label.Text);
                 txbLink.Text = await Screenshot.UploadScreenshot(label.Text);
+                MediaHistoryManager.AddLinkToEntry(filename, txbLink.Text, MediaHistoryManager.MediaType.Screenshot);
                 label.Text = "Файл загружен!";
                 label.ForeColor = Color.Green;
                 txbLink.Enabled = true;
@@ -224,11 +225,11 @@ namespace TankiTools
             catch (OperationCanceledException) { }
         }
 
-        public void UploadVideoCompleted(string id)
+        public void UploadVideoCompleted(string id, string filename)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new UploadVideoCompletedDelegate(UploadVideoCompleted), new object[] { id });
+                this.Invoke(new UploadVideoCompletedDelegate(UploadVideoCompleted), new object[] { id, filename });
                 return;
             }
             try
@@ -240,6 +241,7 @@ namespace TankiTools
             label.Text = "Файл загружен!";
             label.ForeColor = Color.Green;
             txbLink.Text = $@"https://youtu.be/{id}";
+            MediaHistoryManager.AddLinkToEntry(filename, txbLink.Text, MediaHistoryManager.MediaType.Video);
             txbLink.Enabled = true;
             wrapper.Controls.Add(txbLink, 0, 2);
             btnUpload.Enabled = false;
@@ -247,6 +249,7 @@ namespace TankiTools
 
         private void OtherHelper_FormClosing(object sender, FormClosingEventArgs e)
         {
+            self = null;
         }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading.Tasks;
@@ -43,8 +38,14 @@ namespace TankiTools
             orig.CopyFromScreen(0, 0, 0, 0, original.Size);
             Cursor = Cursors.Cross;
             this.Show();
-        }
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
 
+            this.Activate();
+        }
+        
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (SplashScreen.Image == null) return;

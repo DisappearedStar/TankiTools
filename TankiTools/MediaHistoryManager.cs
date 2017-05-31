@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using System.Text;
 using System.IO;
-using System.Web;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Windows.Forms;
 
 namespace TankiTools
 {
@@ -123,7 +118,6 @@ namespace TankiTools
                     doc.Root.Add(_entry);
                     s.Seek(0, SeekOrigin.Begin);
                     doc.Save(s);
-                    MessageBox.Show("");
                 }
             }
             catch(Exception)
@@ -132,6 +126,43 @@ namespace TankiTools
                 using (StreamWriter w = new StreamWriter(HistoryFile, false))
                 {
                     _history.Save(w);
+                }
+            }
+        }
+
+        public static void AddLinkToEntry(string _name, string _link, MediaType _type)
+        {
+            string _id = GetIdFromLink(_link, _type);
+            try
+            {
+                using (FileStream s = File.Open(HistoryFile, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(s);
+                    doc.SelectSingleNode($@"/mediahistory/entry[@name='{_name}']").Attributes["link"].Value = _link;
+                    doc.SelectSingleNode($@"/mediahistory/entry[@name='{_name}']").Attributes["id"].Value = _id;
+                    s.Seek(0, SeekOrigin.Begin);
+                    doc.Save(s);
+                }
+            }
+            catch (Exception) { }
+        }
+
+        private static string GetIdFromLink(string _link, MediaType _type)
+        {
+            if (_type == MediaType.Screenshot)
+            {
+                return _link.Split('/').Last().Split('.').First();
+            }
+            else
+            {
+                if (_link.Contains("youtu.be"))
+                {
+                    return _link.Split('/').Last();
+                }
+                else
+                {
+                    return _link.Substring(_link.IndexOf("?v=") + 3, 11);
                 }
             }
         }

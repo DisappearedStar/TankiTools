@@ -1,37 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TankiTools
 {
     public partial class OtherWindow : Form
     {
+        public static OtherWindow self { get; private set; } = null;
+
         public OtherWindow()
         {
             InitializeComponent();
+            self = this;
         }
 
         private void btnUploadScreenshot_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            var f = new OtherHelper();
-            f.CreateForm(OtherHelper.OtherType.UploadScreenshot);
-            f.ShowDialog();
-            this.Show();
+            if (OtherHelper.self == null)
+            {
+                this.Hide();
+                OtherHelper window = new OtherHelper();
+                window.CreateForm(OtherHelper.OtherType.UploadScreenshot);
+                window.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                if (OtherHelper.self.WindowState == FormWindowState.Minimized)
+                    OtherHelper.self.WindowState = FormWindowState.Normal;
+                else OtherHelper.self.Show();
+            }
         }
 
         private void btnUploadVideo_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            var f = new OtherHelper();
-            f.CreateForm(OtherHelper.OtherType.UploadVideo);
-            f.ShowDialog();
-            this.Show();
+            if (OtherHelper.self == null)
+            {
+                this.Hide();
+                OtherHelper window = new OtherHelper();
+                window.CreateForm(OtherHelper.OtherType.UploadVideo);
+                window.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                if (OtherHelper.self.WindowState == FormWindowState.Minimized)
+                    OtherHelper.self.WindowState = FormWindowState.Normal;
+                else OtherHelper.self.Show();
+            }
+        }
+
+        private void btnOpenMediaHistory_Click(object sender, EventArgs e)
+        {
+            if (MediaHistory.self == null)
+            {
+                this.Hide();
+                MediaHistory window = new MediaHistory();
+                window.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                if (MediaHistory.self.WindowState == FormWindowState.Minimized)
+                    MediaHistory.self.WindowState = FormWindowState.Normal;
+                else MediaHistory.self.Show();
+            }
+        }
+
+        private void OtherWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            self = null;
         }
     }
 }

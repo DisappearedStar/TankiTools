@@ -36,6 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Name = "SelectableVideoArea";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SelectableVideoArea_KeyDown);
             this.ResumeLayout(false);
 
         }

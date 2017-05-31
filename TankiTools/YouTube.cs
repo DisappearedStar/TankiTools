@@ -3,14 +3,11 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Text;
 using System.Windows.Forms;
-using System.Threading;
 
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Upload;
-using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 
@@ -20,10 +17,12 @@ namespace TankiTools
     {
         private static long file_length;
         private static OtherHelper sender;
+        private static string file_name;
 
         public static async Task Upload(OtherHelper form, string path, string privacy, CancellationToken token)
         {
             sender = form;
+            file_name = Path.GetFileName(path);
             ClientSecrets secrets = new ClientSecrets();
             secrets.ClientId = "769375267841-4401scf3hltnavuthdaipoduootau2hk.apps.googleusercontent.com";
             secrets.ClientSecret = "7pgdfz5NLEVmNregj7gkgz4W";
@@ -81,7 +80,7 @@ namespace TankiTools
 
         static void videosInsertRequest_ResponseReceived(Video video)
         {
-            sender.UploadVideoCompleted(video.Id);
+            sender.UploadVideoCompleted(video.Id, file_name);
         }
     }
 }
