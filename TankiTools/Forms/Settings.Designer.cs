@@ -125,17 +125,15 @@
             this.tabProgram.Padding = new System.Windows.Forms.Padding(3);
             this.tabProgram.Size = new System.Drawing.Size(388, 138);
             this.tabProgram.TabIndex = 0;
-            this.tabProgram.Text = "Программа";
             this.tabProgram.UseVisualStyleBackColor = true;
             // 
             // labelLang
             // 
             this.labelLang.AutoSize = true;
-            this.labelLang.Location = new System.Drawing.Point(255, 19);
+            this.labelLang.Location = new System.Drawing.Point(220, 19);
             this.labelLang.Name = "labelLang";
-            this.labelLang.Size = new System.Drawing.Size(35, 13);
+            this.labelLang.Size = new System.Drawing.Size(0, 13);
             this.labelLang.TabIndex = 3;
-            this.labelLang.Text = "Язык";
             // 
             // cmbLang
             // 
@@ -151,9 +149,8 @@
             this.chbAutoupdate.AutoSize = true;
             this.chbAutoupdate.Location = new System.Drawing.Point(22, 69);
             this.chbAutoupdate.Name = "chbAutoupdate";
-            this.chbAutoupdate.Size = new System.Drawing.Size(223, 17);
+            this.chbAutoupdate.Size = new System.Drawing.Size(15, 14);
             this.chbAutoupdate.TabIndex = 1;
-            this.chbAutoupdate.Text = "Включить автообновление программы";
             this.chbAutoupdate.UseVisualStyleBackColor = true;
             // 
             // chbAutostart
@@ -161,9 +158,8 @@
             this.chbAutostart.AutoSize = true;
             this.chbAutostart.Location = new System.Drawing.Point(22, 46);
             this.chbAutostart.Name = "chbAutostart";
-            this.chbAutostart.Size = new System.Drawing.Size(196, 17);
+            this.chbAutostart.Size = new System.Drawing.Size(15, 14);
             this.chbAutostart.TabIndex = 0;
-            this.chbAutostart.Text = "Автостарт при загрузке системы";
             this.chbAutostart.UseVisualStyleBackColor = true;
             // 
             // tabClients
@@ -175,7 +171,6 @@
             this.tabClients.Padding = new System.Windows.Forms.Padding(3);
             this.tabClients.Size = new System.Drawing.Size(388, 138);
             this.tabClients.TabIndex = 1;
-            this.tabClients.Text = "Клиенты";
             this.tabClients.UseVisualStyleBackColor = true;
             // 
             // cmbSelectedClient
@@ -193,9 +188,8 @@
             this.labelSelectedClient.AutoSize = true;
             this.labelSelectedClient.Location = new System.Drawing.Point(19, 26);
             this.labelSelectedClient.Name = "labelSelectedClient";
-            this.labelSelectedClient.Size = new System.Drawing.Size(122, 13);
+            this.labelSelectedClient.Size = new System.Drawing.Size(0, 13);
             this.labelSelectedClient.TabIndex = 1;
-            this.labelSelectedClient.Text = "Я использую для игры";
             // 
             // tabScreenshots
             // 
@@ -217,7 +211,6 @@
             this.tabScreenshots.Name = "tabScreenshots";
             this.tabScreenshots.Size = new System.Drawing.Size(388, 138);
             this.tabScreenshots.TabIndex = 2;
-            this.tabScreenshots.Text = "Скриншоты";
             this.tabScreenshots.UseVisualStyleBackColor = true;
             // 
             // cmbAreaScreen
@@ -303,27 +296,24 @@
             this.labelAreaScreen.AutoSize = true;
             this.labelAreaScreen.Location = new System.Drawing.Point(10, 65);
             this.labelAreaScreen.Name = "labelAreaScreen";
-            this.labelAreaScreen.Size = new System.Drawing.Size(101, 13);
+            this.labelAreaScreen.Size = new System.Drawing.Size(0, 13);
             this.labelAreaScreen.TabIndex = 6;
-            this.labelAreaScreen.Text = "Скриншот области";
             // 
             // labelFullScreen
             // 
             this.labelFullScreen.AutoSize = true;
             this.labelFullScreen.Location = new System.Drawing.Point(10, 38);
             this.labelFullScreen.Name = "labelFullScreen";
-            this.labelFullScreen.Size = new System.Drawing.Size(96, 13);
+            this.labelFullScreen.Size = new System.Drawing.Size(0, 13);
             this.labelFullScreen.TabIndex = 5;
-            this.labelFullScreen.Text = "Скриншот экрана";
             // 
             // chbUploadImage
             // 
             this.chbUploadImage.AutoSize = true;
             this.chbUploadImage.Location = new System.Drawing.Point(135, 9);
             this.chbUploadImage.Name = "chbUploadImage";
-            this.chbUploadImage.Size = new System.Drawing.Size(248, 17);
+            this.chbUploadImage.Size = new System.Drawing.Size(15, 14);
             this.chbUploadImage.TabIndex = 4;
-            this.chbUploadImage.Text = "Загружать на хостинг и копировать ссылку";
             this.chbUploadImage.UseVisualStyleBackColor = true;
             // 
             // groupScreenshots
@@ -335,7 +325,6 @@
             this.groupScreenshots.Size = new System.Drawing.Size(382, 39);
             this.groupScreenshots.TabIndex = 3;
             this.groupScreenshots.TabStop = false;
-            this.groupScreenshots.Text = "Папка для сохранения скриншотов";
             // 
             // txbScreenshotsPath
             // 
@@ -351,7 +340,6 @@
             this.btnChooseScreenshotsPath.Name = "btnChooseScreenshotsPath";
             this.btnChooseScreenshotsPath.Size = new System.Drawing.Size(76, 23);
             this.btnChooseScreenshotsPath.TabIndex = 2;
-            this.btnChooseScreenshotsPath.Text = "Выбрать...";
             this.btnChooseScreenshotsPath.UseVisualStyleBackColor = true;
             this.btnChooseScreenshotsPath.Click += new System.EventHandler(this.btnChooseScreenshotsPath_Click);
             // 
@@ -360,9 +348,8 @@
             this.labelImageFormat.AutoSize = true;
             this.labelImageFormat.Location = new System.Drawing.Point(5, 10);
             this.labelImageFormat.Name = "labelImageFormat";
-            this.labelImageFormat.Size = new System.Drawing.Size(49, 13);
+            this.labelImageFormat.Size = new System.Drawing.Size(0, 13);
             this.labelImageFormat.TabIndex = 1;
-            this.labelImageFormat.Text = "Формат";
             // 
             // cmbImageFormat
             // 
@@ -390,7 +377,6 @@
             this.tabVideos.Name = "tabVideos";
             this.tabVideos.Size = new System.Drawing.Size(388, 138);
             this.tabVideos.TabIndex = 3;
-            this.tabVideos.Text = "Видео";
             this.tabVideos.UseVisualStyleBackColor = true;
             // 
             // cmbAreaVideo
@@ -476,18 +462,16 @@
             this.labelAreaVideo.AutoSize = true;
             this.labelAreaVideo.Location = new System.Drawing.Point(10, 39);
             this.labelAreaVideo.Name = "labelAreaVideo";
-            this.labelAreaVideo.Size = new System.Drawing.Size(82, 13);
+            this.labelAreaVideo.Size = new System.Drawing.Size(0, 13);
             this.labelAreaVideo.TabIndex = 16;
-            this.labelAreaVideo.Text = "Видео области";
             // 
             // labelFullVideo
             // 
             this.labelFullVideo.AutoSize = true;
             this.labelFullVideo.Location = new System.Drawing.Point(10, 12);
             this.labelFullVideo.Name = "labelFullVideo";
-            this.labelFullVideo.Size = new System.Drawing.Size(77, 13);
+            this.labelFullVideo.Size = new System.Drawing.Size(0, 13);
             this.labelFullVideo.TabIndex = 15;
-            this.labelFullVideo.Text = "Видео экрана";
             // 
             // groupVideos
             // 
@@ -498,7 +482,6 @@
             this.groupVideos.Size = new System.Drawing.Size(382, 39);
             this.groupVideos.TabIndex = 4;
             this.groupVideos.TabStop = false;
-            this.groupVideos.Text = "Папка для сохранения видео";
             // 
             // txbVideosPath
             // 
@@ -514,7 +497,6 @@
             this.btnChooseVideosPath.Name = "btnChooseVideosPath";
             this.btnChooseVideosPath.Size = new System.Drawing.Size(76, 23);
             this.btnChooseVideosPath.TabIndex = 2;
-            this.btnChooseVideosPath.Text = "Выбрать...";
             this.btnChooseVideosPath.UseVisualStyleBackColor = true;
             this.btnChooseVideosPath.Click += new System.EventHandler(this.btnChooseVideosPath_Click);
             // 
@@ -544,7 +526,6 @@
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(77, 28);
             this.btnSaveSettings.TabIndex = 0;
-            this.btnSaveSettings.Text = "Сохранить";
             this.btnSaveSettings.UseVisualStyleBackColor = true;
             this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
             // 
@@ -555,7 +536,6 @@
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(143, 23);
             this.btnExit.TabIndex = 1;
-            this.btnExit.Text = "Выйти без сохранения";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -566,7 +546,6 @@
             this.btnSetToDefault.Name = "btnSetToDefault";
             this.btnSetToDefault.Size = new System.Drawing.Size(88, 23);
             this.btnSetToDefault.TabIndex = 2;
-            this.btnSetToDefault.Text = "По умолчанию";
             this.btnSetToDefault.UseVisualStyleBackColor = true;
             this.btnSetToDefault.Click += new System.EventHandler(this.btnSetToDefault_Click);
             // 
@@ -586,7 +565,6 @@
             this.MinimizeBox = false;
             this.Name = "Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Настройки";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.Wrapper.ResumeLayout(false);
             this.Tabs.ResumeLayout(false);

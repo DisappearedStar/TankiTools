@@ -282,7 +282,7 @@ namespace TankiTools
             int modifier = NOMOD;
             int key = 0;
             int id = 0;
-            
+
             foreach (string _key in combo.Split('+'))
             {
                 if (_key == "Shift") modifier += SHIFT;
@@ -293,7 +293,7 @@ namespace TankiTools
             id = modifier ^ key ^ hWnd.ToInt32() + combo.GetHashCode();
             bool result = RegisterHotKey(hWnd, id, modifier, key);
             if (result && save) HotkeyIds[type] = id;
-            if (!suppress && !result) MessageBox.Show($"Не удалось зарегистрировать горячие клавиши {combo}",
+            if (!suppress && !result) MessageBox.Show($"{L18n.Get("Settings", "Text_cannotregister")} {combo}",
                 "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return result;
         }
@@ -312,6 +312,7 @@ namespace TankiTools
             foreach(var key in HotkeyIds.Keys.ToList().Where(x => HotkeyIds[x] != 0))
             {
                 HotkeyIds[key] = 0;
+                UnregisterHotKey(Util.Main.Handle, HotkeyIds[key]);
             }
         }
 

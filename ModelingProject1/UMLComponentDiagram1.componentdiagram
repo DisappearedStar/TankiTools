@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="57a74b2e-3c9e-44ac-a9d6-d7831bb53591" name="UMLComponentDiagram1" linkedPackageId="181aa084-72f0-4d00-bcf0-1595bcb2bf66" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
+  <ownedCommentsInternal>
+    <comment Id="83b0a926-7e0f-4bd7-9c43-e06b41ed8e9c">
+      <elementDefinition Id="3224e976-e7ab-4903-9b0a-e6223d296083" />
+      <body>Обновление программы, веб-приложение для диагностики Flash</body>
+      <annotatedElements>
+        <componentMoniker Id="6e44816b-fa1c-42d3-8474-549e28dc55b2" LastKnownName="Веб-сервер " />
+      </annotatedElements>
+    </comment>
+    <comment Id="ff8a426f-1ace-4e66-b39d-a87f5b74d690">
+      <elementDefinition Id="deb79749-97d7-4828-b790-7ed543478a54" />
+      <body>Платформа .NET Framework</body>
+      <annotatedElements>
+        <componentMoniker Id="49a08420-c8f3-43b2-86f7-80891bb4feed" LastKnownName="System.dll" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="4e84444b-863e-4d5c-900a-89863ab313f6">
+      <profileInstance Id="1b01c6b4-794d-4b1f-9411-9c1240facac0" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="fdccafe1-02d9-49a4-bda4-f79a18f9467c">
+      <profileInstance Id="fb9bb596-ef2a-4aaf-aa43-6414aa47c98d" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <componentModelHasComponents>
+      <component Id="6e44816b-fa1c-42d3-8474-549e28dc55b2" name="Веб-сервер " isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9aec9296-7bf4-4500-b44a-9221c3d72b54" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="b25fb543-6803-4779-afe9-573b3bd7e900" name="TankiTools.exe" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="243b6fec-48d1-44e1-900a-0af13090a193" />
+        <suppliersInternal>
+          <dependency Id="ce902191-04cd-4e69-bd59-812ec168970f">
+            <componentMoniker Id="6e44816b-fa1c-42d3-8474-549e28dc55b2" LastKnownName="Веб-сервер " />
+            <elementDefinition Id="fb4919b5-300e-4c75-927b-3d77e34c3094" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="49a08420-c8f3-43b2-86f7-80891bb4feed" name="System.dll" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="40dd9d17-91b0-4ec0-b5bf-27ef17797860" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="47a07f8d-f1e8-4010-aedc-962dbd34ea20" name="NetFwTypeLib" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="540d4069-6a1f-4f1f-96ac-0f6b6e80f409" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="2f4f6d2c-0951-453b-b283-2eba1f618a9e" name="Google APIs" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="de612967-7f7a-4275-9efc-5a3b1e717989" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="343a2d5b-8803-45e6-9efb-64b2271f705f" name="AForge.NET" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="83d9fb60-dd9b-4d15-933d-a815d0b229fc" />
+      </component>
+    </componentModelHasComponents>
+  </packagedElements>
+  <package Id="181aa084-72f0-4d00-bcf0-1595bcb2bf66" name="ModelingProject1">
+    <elementDefinition Id="681559df-d3b4-43e6-a89f-e13af60fb7af" />
+  </package>
+</componentModel>

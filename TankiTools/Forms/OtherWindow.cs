@@ -10,6 +10,10 @@ namespace TankiTools
         public OtherWindow()
         {
             InitializeComponent();
+            this.Text = L18n.Get("OtherWindow", "OtherWindow_name");
+            this.btnUploadScreenshot.Text = L18n.Get("OtherWindow", "Button_btnUploadScreenshot");
+            this.btnUploadVideo.Text = L18n.Get("OtherWindow", "Button_btnUploadVideo");
+            this.btnOpenMediaHistory.Text = L18n.Get("OtherWindow", "Button_btnOpenMediaHistory");
             self = this;
         }
 

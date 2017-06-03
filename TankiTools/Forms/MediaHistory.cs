@@ -14,7 +14,7 @@ namespace TankiTools
         public MediaHistory()
         {
             InitializeComponent();
-
+            this.Text = L18n.Get("MediaHistory", "MediaHistory_name");
             TableLayoutPanel Wrapper = new TableLayoutPanel();
             Wrapper.AutoScroll = true;
             Wrapper.AutoSize = true;
@@ -36,7 +36,7 @@ namespace TankiTools
                 txt.Anchor = AnchorStyles.None;
                 txt.AutoSize = true;
                 txt.Font = new Font(txt.Font, FontStyle.Bold);
-                txt.Text = "Здесь пока пусто";
+                txt.Text = L18n.Get("MediaHistory", "Label_txt");
                 Wrapper.Controls.Add(txt);
                 return;
             }
@@ -118,16 +118,16 @@ namespace TankiTools
                 Label copy = new Label();
                 copy.Anchor = AnchorStyles.Bottom;
                 copy.AutoSize = true;
-                copy.Text = "Скопировать";
+                copy.Text = L18n.Get("MediaHistory", "Label_copy");
                 Label open = new Label();
                 open.Anchor = AnchorStyles.Bottom;
                 open.AutoSize = true;
-                open.Text = "Открыть";
+                open.Text = L18n.Get("MediaHistory", "Label_open");
 
                 LinkLabel copyfile = new LinkLabel();
                 copyfile.Anchor = AnchorStyles.None;
                 copyfile.AutoSize = true;
-                copyfile.Text = "файл";
+                copyfile.Text = L18n.Get("MediaHistory", "Label_file1");
                 var __copyfile = new LinkLabel.Link();
                 __copyfile.Name = filepath;
                 copyfile.Links.Add(__copyfile);
@@ -136,7 +136,7 @@ namespace TankiTools
                 LinkLabel openfile = new LinkLabel();
                 openfile.Anchor = AnchorStyles.None;
                 openfile.AutoSize = true;
-                openfile.Text = "файл";
+                openfile.Text = L18n.Get("MediaHistory", "Label_file1");
                 var __openfile = new LinkLabel.Link();
                 __openfile.Name = filepath;
                 openfile.Links.Add(__openfile);
@@ -163,7 +163,7 @@ namespace TankiTools
                 var __copylink = new LinkLabel.Link();
                 __copylink.Name = entry.link;
                 copylink.Links.Add(__copylink);
-                copylink.Text = "ссылку";
+                copylink.Text = L18n.Get("MediaHistory", "Label_link1");
                 copylink.Click += CopyLink_click;
 
                 LinkLabel openlink = new LinkLabel();
@@ -172,7 +172,7 @@ namespace TankiTools
                 var __openlink = new LinkLabel.Link();
                 __openlink.Name = entry.link;
                 openlink.Links.Add(__openlink);
-                openlink.Text = "ссылку";
+                openlink.Text = L18n.Get("MediaHistory", "Label_link1");
                 openlink.Click += OpenLink_click;
 
                 if (Util.CheckNullOrEmpty(entry.link))
@@ -228,7 +228,7 @@ namespace TankiTools
         {
             string link = (sender as LinkLabel).Links[0].Name;
             Clipboard.SetText(link);
-            statusStrip1.Items[0].Text = $"Ссылка {link} скопирована в буфер обмена";
+            statusStrip1.Items[0].Text = $"{L18n.Get("MediaHistory", "Label_link2")} {link} {L18n.Get("MediaHistory", "Status_copylink")}";
         }
         private void CopyFile_click(object sender, EventArgs e)
         {
@@ -236,18 +236,18 @@ namespace TankiTools
             DataObject obj = new DataObject();
             obj.SetData(DataFormats.FileDrop, true, path);
             Clipboard.SetDataObject(obj, true);
-            statusStrip1.Items[0].Text = $"Файл {Path.GetFileName(path[0])} скопирован в буфер обмена";
+            statusStrip1.Items[0].Text = $"{L18n.Get("MediaHistory", "Label_file2")} {Path.GetFileName(path[0])} {L18n.Get("MediaHistory", "Status_copyfile")}";
         }
         private void OpenLink_click(object sender, EventArgs e)
         {
             string link = (sender as LinkLabel).Links[0].Name;
-            statusStrip1.Items[0].Text = $"Открывается ссылка {link}...";
+            statusStrip1.Items[0].Text = $"{L18n.Get("MediaHistory", "Status_openlink")} {link}...";
             System.Diagnostics.Process.Start(link);
         }
         private void OpenFile_click(object sender, EventArgs e)
         {
             string path = (sender as LinkLabel).Links[0].Name;
-            statusStrip1.Items[0].Text = $"Открывается файл {Path.GetFileName(path)}...";
+            statusStrip1.Items[0].Text = $"{L18n.Get("MediaHistory", "Status_openfile")} {Path.GetFileName(path)}...";
             System.Diagnostics.Process.Start(path);
         }
 

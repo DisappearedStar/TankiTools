@@ -106,7 +106,7 @@ namespace TankiTools
             {
                 link = await UploadScreenshot(img);
                 Clipboard.SetText(link);
-                MainWindow.TrayApp.ShowBalloonTip(2000, "TankiTools", $"Скриншот загружен: {link}\nСсылка скопирована", ToolTipIcon.None);
+                MainWindow.TrayApp.ShowBalloonTip(2000, "TankiTools", $"{L18n.Get("TrayApp", "Balloon_screenshot1")} {link}\n{L18n.Get("TrayApp", "Balloon_screenshot2")}", ToolTipIcon.None);
             }
             MediaHistoryManager.SaveEntryToHistory(new MediaHistoryManager.HistoryEntry(
                 MediaHistoryManager.MediaType.Screenshot, link, name, now));

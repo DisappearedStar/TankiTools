@@ -11,6 +11,9 @@
     <AssemblyName>TankiTools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,11 +26,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -68,6 +68,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\TankiToolsIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
@@ -178,88 +181,90 @@
     <Reference Include="Zlib.Portable, Version=1.11.0.0, Culture=neutral, PublicKeyToken=431cba815f6a8b5b, processorArchitecture=MSIL">
       <HintPath>..\packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
       <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Browsers.cs" />
-    <Compile Include="DiagnosticsWindow.cs">
+    <Compile Include="Classes\Browsers.cs" />
+    <Compile Include="Forms\DiagnosticsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DiagnosticsWindow.Designer.cs">
+    <Compile Include="Forms\DiagnosticsWindow.Designer.cs">
       <DependentUpon>DiagnosticsWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="Classes\Localization.cs" />
+    <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="Forms\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaHistory.cs">
+    <Compile Include="Forms\MediaHistory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaHistory.Designer.cs">
+    <Compile Include="Forms\MediaHistory.Designer.cs">
       <DependentUpon>MediaHistory.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaHistoryManager.cs" />
-    <Compile Include="Network.cs" />
-    <Compile Include="OtherHelper.cs">
+    <Compile Include="Classes\MediaHistoryManager.cs" />
+    <Compile Include="Classes\Network.cs" />
+    <Compile Include="Forms\OtherHelper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OtherHelper.Designer.cs">
+    <Compile Include="Forms\OtherHelper.Designer.cs">
       <DependentUpon>OtherHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="OtherWindow.cs">
+    <Compile Include="Forms\OtherWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OtherWindow.Designer.cs">
+    <Compile Include="Forms\OtherWindow.Designer.cs">
       <DependentUpon>OtherWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Screenshot.cs" />
-    <Compile Include="SelectableScreenshotArea.cs">
+    <Compile Include="Classes\Screenshot.cs" />
+    <Compile Include="Forms\SelectableScreenshotArea.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SelectableScreenshotArea.Designer.cs">
+    <Compile Include="Forms\SelectableScreenshotArea.Designer.cs">
       <DependentUpon>SelectableScreenshotArea.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectableVideoArea.cs">
+    <Compile Include="Forms\SelectableVideoArea.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SelectableVideoArea.Designer.cs">
+    <Compile Include="Forms\SelectableVideoArea.Designer.cs">
       <DependentUpon>SelectableVideoArea.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs">
+    <Compile Include="Forms\Settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Settings.Designer.cs">
+    <Compile Include="Forms\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsManager.cs" />
-    <Compile Include="SystemInfo.cs" />
-    <Compile Include="TroubleshootingWindow.cs">
+    <Compile Include="Classes\SettingsManager.cs" />
+    <Compile Include="Classes\SystemInfo.cs" />
+    <Compile Include="Forms\TroubleshootingWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TroubleshootingWindow.Designer.cs">
+    <Compile Include="Forms\TroubleshootingWindow.Designer.cs">
       <DependentUpon>TroubleshootingWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util.cs" />
-    <Compile Include="VideoRecorder1.cs" />
-    <Compile Include="YouTube.cs" />
+    <Compile Include="Classes\Util.cs" />
+    <Compile Include="Classes\VideoRecorder1.cs" />
+    <Compile Include="Classes\YouTube.cs" />
     <EmbeddedResource Include="Resources\TankiToolsIcon.ico" />
-    <EmbeddedResource Include="DiagnosticsWindow.resx">
+    <EmbeddedResource Include="Forms\DiagnosticsWindow.resx">
       <DependentUpon>DiagnosticsWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="Forms\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaHistory.resx">
+    <EmbeddedResource Include="Forms\MediaHistory.resx">
       <DependentUpon>MediaHistory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OtherHelper.resx">
+    <EmbeddedResource Include="Forms\OtherHelper.resx">
       <DependentUpon>OtherHelper.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OtherWindow.resx">
+    <EmbeddedResource Include="Forms\OtherWindow.resx">
       <DependentUpon>OtherWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -272,16 +277,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SelectableScreenshotArea.resx">
+    <EmbeddedResource Include="Forms\SelectableScreenshotArea.resx">
       <DependentUpon>SelectableScreenshotArea.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SelectableVideoArea.resx">
+    <EmbeddedResource Include="Forms\SelectableVideoArea.resx">
       <DependentUpon>SelectableVideoArea.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Settings.resx">
+    <EmbeddedResource Include="Forms\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TroubleshootingWindow.resx">
+    <EmbeddedResource Include="Forms\TroubleshootingWindow.resx">
       <DependentUpon>TroubleshootingWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
@@ -341,6 +346,9 @@
     <EmbeddedResource Include="Resources\Mediahistory_small.png" />
     <EmbeddedResource Include="Resources\Exit_small.png" />
     <EmbeddedResource Include="Resources\Mediahistory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\L18n.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

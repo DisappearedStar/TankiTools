@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<componentDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.875, 8.5" name="UMLComponentDiagram1">
+  <componentModelMoniker Id="57a74b2e-3c9e-44ac-a9d6-d7831bb53591" />
+  <nestedChildShapes>
+    <componentShape Id="d59c15b9-05c1-465a-b02a-960b79fca996" isExpanded="false" absoluteBounds="8.5, 0.5, 1.5, 0.7" customColor="161, 199, 231" whiteBoxBoundsHeight="0.95" whiteBoxBoundsWidth="2.1875" blackBoxBoundsHeight="0.7" blackBoxBoundsWidth="2.1875" whiteBoxTopEdgeShapesCount="0" whiteBoxRightEdgeShapesCount="0" whiteBoxBottomEdgeShapesCount="0" whiteBoxLeftEdgeShapesCount="0" blackBoxTopEdgeShapesCount="0" blackBoxRightEdgeShapesCount="0" blackBoxBottomEdgeShapesCount="0" blackBoxLeftEdgeShapesCount="0" whiteBoxSettingsInitialized="true" blackBoxSettingsInitialized="true">
+      <componentMoniker Id="6e44816b-fa1c-42d3-8474-549e28dc55b2" LastKnownName="Веб-сервер " />
+    </componentShape>
+    <commentShape Id="35eb599f-2f96-4153-bf8b-86e20fd38ae2" absoluteBounds="10.25, 0.625, 1.375, 0.625" customColor="251, 247, 200">
+      <commentMoniker Id="83b0a926-7e0f-4bd7-9c43-e06b41ed8e9c" />
+      <relativeChildShapes />
+    </commentShape>
+    <commentConnector edgePoints="[(10.25 : 0.9125); (10 : 0.9125)]" fixedFrom="Algorithm" fixedTo="Algorithm" TargetRelationshipDomainClassId="217d6bd0-42ed-4e7f-ad2b-af3ef5142428" customColor="Black">
+      <relativeChildShapes />
+      <nodes>
+        <commentShapeMoniker Id="35eb599f-2f96-4153-bf8b-86e20fd38ae2" />
+        <componentShapeMoniker Id="d59c15b9-05c1-465a-b02a-960b79fca996" />
+      </nodes>
+    </commentConnector>
+    <componentShape Id="5dbf30da-4b98-40e2-bbbd-e6385c9049c2" isExpanded="false" absoluteBounds="7.25, 1.875, 1.5, 0.7" customColor="WhiteSmoke" whiteBoxBoundsHeight="0.95" whiteBoxBoundsWidth="1.5" blackBoxBoundsHeight="0.7" blackBoxBoundsWidth="1.5" whiteBoxTopEdgeShapesCount="0" whiteBoxRightEdgeShapesCount="0" whiteBoxBottomEdgeShapesCount="0" whiteBoxLeftEdgeShapesCount="0" blackBoxTopEdgeShapesCount="0" blackBoxRightEdgeShapesCount="0" blackBoxBottomEdgeShapesCount="0" blackBoxLeftEdgeShapesCount="0" whiteBoxSettingsInitialized="true" blackBoxSettingsInitialized="true">
+      <componentMoniker Id="b25fb543-6803-4779-afe9-573b3bd7e900" LastKnownName="TankiTools.exe" />
+    </componentShape>
+    <componentShape Id="c7a27385-7e74-4ac1-a260-9f6b61b79011" isExpanded="false" absoluteBounds="2, 2.375, 1.5, 0.7" customColor="161, 199, 231" whiteBoxBoundsHeight="0.95" whiteBoxBoundsWidth="1.5" blackBoxBoundsHeight="0.7" blackBoxBoundsWidth="1.5" whiteBoxTopEdgeShapesCount="0" whiteBoxRightEdgeShapesCount="0" whiteBoxBottomEdgeShapesCount="0" whiteBoxLeftEdgeShapesCount="0" blackBoxTopEdgeShapesCount="0" blackBoxRightEdgeShapesCount="0" blackBoxBottomEdgeShapesCount="0" blackBoxLeftEdgeShapesCount="0" whiteBoxSettingsInitialized="true" blackBoxSettingsInitialized="true">
+      <componentMoniker Id="49a08420-c8f3-43b2-86f7-80891bb4feed" LastKnownName="System.dll" />
+    </componentShape>
+    <commentShape Id="e2579be0-b0a2-472f-959c-a479d933acf3" absoluteBounds="0.5, 3, 1.25, 0.5" customColor="251, 247, 200">
+      <commentMoniker Id="ff8a426f-1ace-4e66-b39d-a87f5b74d690" />
+      <relativeChildShapes />
+    </commentShape>
+    <commentConnector edgePoints="[(1.75 : 3.25); (2 : 2.725)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="217d6bd0-42ed-4e7f-ad2b-af3ef5142428" customColor="Black">
+      <relativeChildShapes />
+      <nodes>
+        <commentShapeMoniker Id="e2579be0-b0a2-472f-959c-a479d933acf3" />
+        <componentShapeMoniker Id="c7a27385-7e74-4ac1-a260-9f6b61b79011" />
+      </nodes>
+    </commentConnector>
+    <componentShape Id="05f0e24b-72f6-4079-b5c7-8ea67154623c" isExpanded="false" absoluteBounds="2.3541667461395264, 4.1875, 1.5, 0.7" customColor="161, 199, 231" whiteBoxBoundsHeight="0.95" whiteBoxBoundsWidth="1.5" blackBoxBoundsHeight="0.7" blackBoxBoundsWidth="1.5" whiteBoxTopEdgeShapesCount="0" whiteBoxRightEdgeShapesCount="0" whiteBoxBottomEdgeShapesCount="0" whiteBoxLeftEdgeShapesCount="0" blackBoxTopEdgeShapesCount="0" blackBoxRightEdgeShapesCount="0" blackBoxBottomEdgeShapesCount="0" blackBoxLeftEdgeShapesCount="0" whiteBoxSettingsInitialized="true" blackBoxSettingsInitialized="true">
+      <componentMoniker Id="47a07f8d-f1e8-4010-aedc-962dbd34ea20" LastKnownName="NetFwTypeLib" />
+    </componentShape>
+    <componentShape Id="98e0f2ef-b8c2-415e-857f-114574a13f03" isExpanded="false" absoluteBounds="4.25, 4.25, 1.5, 0.7" customColor="161, 199, 231" whiteBoxBoundsHeight="0.95" whiteBoxBoundsWidth="1.5" blackBoxBoundsHeight="0.7" blackBoxBoundsWidth="1.5" whiteBoxTopEdgeShapesCount="0" whiteBoxRightEdgeShapesCount="0" whiteBoxBottomEdgeShapesCount="0" whiteBoxLeftEdgeShapesCount="0" blackBoxTopEdgeShapesCount="0" blackBoxRightEdgeShapesCount="0" blackBoxBottomEdgeShapesCount="0" blackBoxLeftEdgeShapesCount="0" whiteBoxSettingsInitialized="true" blackBoxSettingsInitialized="true">
+      <componentMoniker Id="2f4f6d2c-0951-453b-b283-2eba1f618a9e" LastKnownName="Google APIs" />
+    </componentShape>
+    <dependencyConnector edgePoints="[(8.75 : 2.225); (9.25 : 2.225); (9.25 : 1.2)]" fixedFrom="Caller" fixedTo="Caller" customColor="Black">
+      <dependencyMoniker Id="ce902191-04cd-4e69-bd59-812ec168970f" />
+      <relativeChildShapes />
+      <nodes>
+        <componentShapeMoniker Id="5dbf30da-4b98-40e2-bbbd-e6385c9049c2" />
+        <componentShapeMoniker Id="d59c15b9-05c1-465a-b02a-960b79fca996" />
+      </nodes>
+    </dependencyConnector>
+    <componentShape Id="0989d48a-72aa-49a8-94c2-0f1e1eb78ac6" isExpanded="false" absoluteBounds="4.625, 2.5, 1.5, 0.7" customColor="161, 199, 231" whiteBoxBoundsHeight="0.95" whiteBoxBoundsWidth="1.5" blackBoxBoundsHeight="0.7" blackBoxBoundsWidth="1.5" whiteBoxTopEdgeShapesCount="0" whiteBoxRightEdgeShapesCount="0" whiteBoxBottomEdgeShapesCount="0" whiteBoxLeftEdgeShapesCount="0" blackBoxTopEdgeShapesCount="0" blackBoxRightEdgeShapesCount="0" blackBoxBottomEdgeShapesCount="0" blackBoxLeftEdgeShapesCount="0" whiteBoxSettingsInitialized="true" blackBoxSettingsInitialized="true">
+      <componentMoniker Id="343a2d5b-8803-45e6-9efb-64b2271f705f" LastKnownName="AForge.NET" />
+    </componentShape>
+  </nestedChildShapes>
+</componentDiagram>

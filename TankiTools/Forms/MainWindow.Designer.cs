@@ -81,7 +81,6 @@
             this.Button_Other.Size = new System.Drawing.Size(120, 107);
             this.Button_Other.TabIndex = 8;
             this.Button_Other.TabStop = false;
-            this.Button_Other.Text = "Другое";
             this.Button_Other.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Button_Other.UseVisualStyleBackColor = true;
             this.Button_Other.Click += new System.EventHandler(this.Button_Other_Click);
@@ -97,7 +96,6 @@
             this.Button_Troubleshooting.Size = new System.Drawing.Size(120, 107);
             this.Button_Troubleshooting.TabIndex = 7;
             this.Button_Troubleshooting.TabStop = false;
-            this.Button_Troubleshooting.Text = "Исправление проблем";
             this.Button_Troubleshooting.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Button_Troubleshooting.UseVisualStyleBackColor = true;
             this.Button_Troubleshooting.Click += new System.EventHandler(this.Button_Troubleshooting_Click);
@@ -114,7 +112,6 @@
             this.Button_Diagnostics.Size = new System.Drawing.Size(120, 107);
             this.Button_Diagnostics.TabIndex = 6;
             this.Button_Diagnostics.TabStop = false;
-            this.Button_Diagnostics.Text = "Диагностика и информация";
             this.Button_Diagnostics.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Button_Diagnostics.UseVisualStyleBackColor = true;
             this.Button_Diagnostics.Click += new System.EventHandler(this.Button_Diagnostics_Click);
@@ -130,7 +127,6 @@
             this.Button_Settings.Size = new System.Drawing.Size(120, 107);
             this.Button_Settings.TabIndex = 1;
             this.Button_Settings.TabStop = false;
-            this.Button_Settings.Text = "Настройки";
             this.Button_Settings.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Button_Settings.UseVisualStyleBackColor = true;
             this.Button_Settings.Click += new System.EventHandler(this.Button_Settings_Click);
@@ -143,7 +139,6 @@
             this.Button_Exit.Name = "Button_Exit";
             this.Button_Exit.Size = new System.Drawing.Size(86, 23);
             this.Button_Exit.TabIndex = 9;
-            this.Button_Exit.Text = "Выход";
             this.Button_Exit.UseVisualStyleBackColor = true;
             this.Button_Exit.Click += new System.EventHandler(this.Button_Exit_Click);
             // 

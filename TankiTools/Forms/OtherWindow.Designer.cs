@@ -42,7 +42,6 @@
             this.btnUploadScreenshot.Name = "btnUploadScreenshot";
             this.btnUploadScreenshot.Size = new System.Drawing.Size(274, 47);
             this.btnUploadScreenshot.TabIndex = 0;
-            this.btnUploadScreenshot.Text = "Загрузить скриншот";
             this.btnUploadScreenshot.UseVisualStyleBackColor = true;
             this.btnUploadScreenshot.Click += new System.EventHandler(this.btnUploadScreenshot_Click);
             // 
@@ -54,7 +53,6 @@
             this.btnUploadVideo.Name = "btnUploadVideo";
             this.btnUploadVideo.Size = new System.Drawing.Size(274, 47);
             this.btnUploadVideo.TabIndex = 1;
-            this.btnUploadVideo.Text = "Загрузить видео";
             this.btnUploadVideo.UseVisualStyleBackColor = true;
             this.btnUploadVideo.Click += new System.EventHandler(this.btnUploadVideo_Click);
             // 
@@ -66,7 +64,6 @@
             this.btnOpenMediaHistory.Name = "btnOpenMediaHistory";
             this.btnOpenMediaHistory.Size = new System.Drawing.Size(274, 47);
             this.btnOpenMediaHistory.TabIndex = 2;
-            this.btnOpenMediaHistory.Text = "Открыть историю";
             this.btnOpenMediaHistory.UseVisualStyleBackColor = true;
             this.btnOpenMediaHistory.Click += new System.EventHandler(this.btnOpenMediaHistory_Click);
             // 
@@ -83,7 +80,6 @@
             this.MaximizeBox = false;
             this.Name = "OtherWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Другое";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OtherWindow_FormClosing);
             this.ResumeLayout(false);
 

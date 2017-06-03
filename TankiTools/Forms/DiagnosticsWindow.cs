@@ -14,6 +14,25 @@ namespace TankiTools
         public DiagnosticsWindow()
         {
             InitializeComponent();
+            #region Localizing
+            this.Text = L18n.Get("DiagnosticsWindow", "DiagnosticsWindow_name");
+            this.Tab_SystemInfo.Text = L18n.Get("DiagnosticsWindow", "Tab_SystemInfo");
+            this.Tab_Flash_Player.Text = L18n.Get("DiagnosticsWindow", "Tab_Flash_Player");
+            this.Tab_Network.Text = L18n.Get("DiagnosticsWindow", "Tab_Network");
+
+            this.forProcessor.Text = L18n.Get("DiagnosticsWindow", "Label_forProcessor");
+            this.forMemory.Text = L18n.Get("DiagnosticsWindow", "Label_forMemory");
+            this.forGraphics.Text = L18n.Get("DiagnosticsWindow", "Label_forGraphics");
+            this.forDriver.Text = L18n.Get("DiagnosticsWindow", "Label_forDriver");
+            this.forOS.Text = L18n.Get("DiagnosticsWindow", "Label_forOS");
+            this.forResolution.Text = L18n.Get("DiagnosticsWindow", "Label_forResolution");
+            this.forIpAddress.Text = L18n.Get("DiagnosticsWindow", "Label_forIpAddress");
+            this.btnCheckFlash.Text = L18n.Get("DiagnosticsWindow", "Button_btnCheckFlash");
+            this.btnCheckPorts.Text = L18n.Get("DiagnosticsWindow", "Button_btnCheckPorts");
+            this.btnPing.Text = L18n.Get("DiagnosticsWindow", "Button_btnPing");
+            this.btnTrace.Text = L18n.Get("DiagnosticsWindow", "Button_btnTrace");
+            this.labelNetworkResults.Text = L18n.Get("DiagnosticsWindow", "Label_labelNetworkResults");
+            #endregion;
             FillSystemInfo();
             self = this;
         }
@@ -33,7 +52,7 @@ namespace TankiTools
             }
             catch (Exception)
             {
-                Label_IpAddress.Text = "Невозможно получить IP-адрес. Возможно, отсутствует подключение к Интернету";
+                Label_IpAddress.Text = L18n.Get("DiagnosticsWindow", "Label_IpAddress_error");
             }
         }
 
@@ -68,7 +87,7 @@ namespace TankiTools
 
         private async void btnCheckFlash_Click(object sender, EventArgs e)
         {
-            labelCheckFlashInfo.Text = "Подготовка...";
+            labelCheckFlashInfo.Text = L18n.Get("DiagnosticsWindow", "Label_labelCheckFlashInfo_prepare");
             string ppapi, npapi, activex;
             string[] urls = 
             {
@@ -89,12 +108,12 @@ namespace TankiTools
                     npapi = doc.GetElementsByTagName("update")[0].Attributes["version"].Value.Replace(",", ".");
                 }
                 string query = $@"http://217.71.139.74/~user119/Povshedny_test/test.html?latest_ppapi={ppapi}&latest_npapi={npapi}&latest_activex={activex}";
-                labelCheckFlashInfo.Text = "Открывается браузер...";
+                labelCheckFlashInfo.Text = L18n.Get("DiagnosticsWindow", "Label_labelCheckFlashInfo_opening");
                 System.Diagnostics.Process.Start(query);
             }
             catch (Exception)
             {
-                labelCheckFlashInfo.Text = "Ошибка: не удалось загрузить информацию с сайта Adobe";
+                labelCheckFlashInfo.Text = L18n.Get("DiagnosticsWindow", "Label_labelCheckFlashInfo_error");
                 return;
             }
 
@@ -106,12 +125,12 @@ namespace TankiTools
             var closed = Network.GetPortsStatus().Where(x => x.isOpen == false);
             if(closed.Count() > 0)
             {
-                txbNetworkResults.Text = $"Следующие порты закрыты:\n{string.Join(", ",closed.Select(x => x.port))}\nИз-за этого игра может загружаться медленнее, чем должна.";
+                txbNetworkResults.Text = $"{L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_portsclosed1")} {string.Join(", ",closed.Select(x => x.port))}. {L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_portsclosed2")}";
                 txbNetworkResults.ForeColor = Color.Red;
             }
             else
             {
-                txbNetworkResults.Text = "Все порты открыты";
+                txbNetworkResults.Text = L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_portsopen");
                 txbNetworkResults.ForeColor = Color.Green;
             }
         }
@@ -125,43 +144,66 @@ namespace TankiTools
 
         private async void btnPing_Click(object sender, EventArgs e)
         {
-            txbNetworkResults.Text = "Идет проверка...";
-            switch(await Network.Ping())
+            txbNetworkResults.Text = L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_pinging");
+            switch (await Network.Ping())
             {
+                #region Switch results
                 case Network.TraceStatus.ServerUnavailable:
-                    txbNetworkResults.Lines = new string[] { "Сервер недоступен",
-                        "Возможно, технические работы на сервере или проблемы с вашим интернет-соединением" };
+                    txbNetworkResults.Lines = new string[] 
+                    {
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_serverunavailable1"),
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_serverunavailable2")
+                    };
                     break;
                 case Network.TraceStatus.PacketsLoss:
-                    txbNetworkResults.Lines = new string[] { "Сервер доступен",
-                        "Обнаружена потеря пакетов, возможны проблемы с интернет-соединением" };
+                    txbNetworkResults.Lines = new string[] 
+                    {
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_serveravailable"),
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_packetsloss")
+                    };
                     break;
                 case Network.TraceStatus.TooBigPingFluctuactions:
-                    txbNetworkResults.Lines = new string[] { "Сервер доступен",
-                        "Обнаружены скачки пинга, возможны проблемы с интернет-соединением" };
+                    txbNetworkResults.Lines = new string[] 
+                    {
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_serveravailable"),
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_pingfluctuations")
+                    };
                     break;
                 case Network.TraceStatus.BadPing:
-                    txbNetworkResults.Lines = new string[] { "Сервер доступен",
-                        "Очень высокий пинг, возможны проблемы с интернет-соединением" };
+                    txbNetworkResults.Lines = new string[] 
+                    {
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_serveravailable"),
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_badping")
+                    };
                     break;
                 case Network.TraceStatus.HighPing:
-                    txbNetworkResults.Lines = new string[] { "Сервер доступен",
-                        "Высокий пинг, удовлетворительное качество связи" };
+                    txbNetworkResults.Lines = new string[] 
+                    {
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_serveravailable"),
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_highping")
+                    };
                     break;
                 case Network.TraceStatus.NormalPing:
-                    txbNetworkResults.Lines = new string[] { "Сервер доступен",
-                        "Нормальный пинг, хорошее качество связи" };
+                    txbNetworkResults.Lines = new string[] 
+                    {
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_serveravailable"),
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_normalping")
+                    };
                     break;
                 case Network.TraceStatus.LowPing:
-                    txbNetworkResults.Lines = new string[] { "Сервер доступен",
-                        "Низкий пинг, отличное качество связи" };
+                    txbNetworkResults.Lines = new string[] 
+                    {
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_serveravailable"),
+                        L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_lowping")
+                    };
                     break;
+                    #endregion
             }
         }
 
         private async void btnTrace_Click(object sender, EventArgs e)
         {
-            txbNetworkResults.Text = "Трассировка...";
+            txbNetworkResults.Text = L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_tracing");
             var trace = await Network.Trace();
             var lost = trace.Where(x => x.status == Network.TraceStatus.PacketsLoss);
             var badping = trace.Where(x => x.status == Network.TraceStatus.BadPing);
@@ -169,21 +211,21 @@ namespace TankiTools
             txbNetworkResults.Text = "";
             if(lost.Count() == 0 || lost.Count() == 0)
             {
-                res = "Проблем не выявлено";
+                res = L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_noproblem");
             }
             else
             {
                 if (lost.Count() > 0)
                 {
-                    res += "\nОбнаружена потеря пакетов, возможны проблемы с интернет-соединением:";
+                    res += "\n" + L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_packetsloss");
                     foreach (var item in lost)
                     {
                         res += "\n" + item.ToString();
                     }
                 }
-                if (lost.Count() > 0)
+                if (badping.Count() > 0)
                 {
-                    res += "\nОчень высокий пинг, возможны проблемы с интернет-соединением:";
+                    res += "\n" + L18n.Get("DiagnosticsWindow", "TextBox_txbNetworkResults_badping");
                     foreach (var item in badping)
                     {
                         res += "\n" + item.ToStringWithPing();

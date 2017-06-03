@@ -51,7 +51,6 @@
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(415, 22);
             this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // PanelWrapper
             // 
@@ -76,7 +75,6 @@
             this.MinimumSize = new System.Drawing.Size(355, 115);
             this.Name = "MediaHistory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "История скриншотов и видео";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MediaHistory_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

@@ -73,7 +73,7 @@ namespace TankiTools
                     break;
 
                 case UploadStatus.Failed:
-                    MessageBox.Show("Ошибка загрузки", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(L18n.Get("Video", "Text_videouploaderror"), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
         }

@@ -46,13 +46,13 @@ namespace TankiTools
             wrapper.ColumnCount = 0;
             wrapper.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
             wrapper.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            label.Text = "Файл не выбран";
+            label.Text = L18n.Get("OtherHelper", "Text_nofile");
             label.Anchor = AnchorStyles.None;
             label.AutoSize = true;
-            btnChoose.Text = "Выбрать";
+            btnChoose.Text = L18n.Get("OtherHelper", "Text_choosefile");
             btnChoose.Anchor = AnchorStyles.None;
             btnChoose.Click += Choose_Click;
-            btnUpload.Text = "Загрузить";
+            btnUpload.Text = L18n.Get("OtherHelper", "Text_upload");
             btnUpload.Anchor = AnchorStyles.None;
             btnUpload.Enabled = false;
             txbLink.ReadOnly = true;
@@ -61,12 +61,12 @@ namespace TankiTools
             txbLink.Size = new Size(200, 23);
             txbLink.Enabled = false;
             txbLink.Click += link_Click;
-            group.Text = "Доступ к видео";
+            group.Text = L18n.Get("OtherHelper", "Text_videoaccess");
             group.Dock = DockStyle.Fill;
             rbPublic.Checked = true;
-            rbPrivate.Text = "Огранич.";
-            rbPublic.Text = "Открытый";
-            rbUnlisted.Text = "По ссылке";
+            rbPrivate.Text = L18n.Get("OtherHelper", "Text_private");
+            rbPublic.Text = L18n.Get("OtherHelper", "Text_public");
+            rbUnlisted.Text = L18n.Get("OtherHelper", "Text_unlisted");
             rbPrivate.Location = new Point(215, 15);
             rbPublic.Location = new Point(5, 15);
             rbUnlisted.Location = new Point(110, 15);
@@ -86,7 +86,7 @@ namespace TankiTools
                     #region UploadScreenshot
                     this.Size = new Size(257, 129);
                     OpenFileDialog.InitialDirectory = SettingsManager.screenshots_path;
-                    OpenFileDialog.Filter = "Image files|*.jpg;*.png;*.gif;*.bmp|All files|*.*";
+                    OpenFileDialog.Filter = L18n.Get("OtherHelper", "Text_imgexts");
                     wrapper.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
                     wrapper.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
                     btnUpload.Click += UploadScreenshot_Click;
@@ -101,7 +101,7 @@ namespace TankiTools
                     #region UploadVideo
                     this.Size = new Size(322, 144);
                     OpenFileDialog.InitialDirectory = SettingsManager.videos_path;
-                    OpenFileDialog.Filter = "Video files|*.avi;*.mp4;*.mkv;*.flv;*.wmv;*.mpeg|All files|*.*";
+                    OpenFileDialog.Filter = L18n.Get("OtherHelper", "Text_videoexts");
                     wrapper.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
                     wrapper.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
                     wrapper.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
@@ -129,7 +129,7 @@ namespace TankiTools
             {
                 try
                 {
-                    System.IO.Path.GetFullPath(label.Text);
+                    Path.GetFullPath(label.Text);
                 }
                 catch (Exception)
                 {
@@ -150,7 +150,7 @@ namespace TankiTools
 
         private async void UploadScreenshot_Click(object sender, EventArgs e)
         {
-            btnUpload.Text = "Отмена";
+            btnUpload.Text = L18n.Get("OtherHelper", "Text_cancel");
             btnUpload.Click -= UploadScreenshot_Click;
             btnUpload.Click += UploadScreenshotCanceled;
             txbLink.Text = "";
@@ -160,7 +160,7 @@ namespace TankiTools
                 var filename = Path.GetFileName(label.Text);
                 txbLink.Text = await Screenshot.UploadScreenshot(label.Text);
                 MediaHistoryManager.AddLinkToEntry(filename, txbLink.Text, MediaHistoryManager.MediaType.Screenshot);
-                label.Text = "Файл загружен!";
+                label.Text = L18n.Get("OtherHelper", "Text_uploaded");
                 label.ForeColor = Color.Green;
                 txbLink.Enabled = true;
                 btnUpload.Enabled = false;
@@ -170,7 +170,7 @@ namespace TankiTools
             {
                 btnUpload.Click -= UploadScreenshotCanceled;
                 btnUpload.Click += UploadScreenshot_Click;
-                btnUpload.Text = "Загрузить";
+                btnUpload.Text = L18n.Get("OtherHelper", "Text_upload");
             }
         }
 
@@ -183,7 +183,7 @@ namespace TankiTools
                 wrapper.Controls.Add(bar, 0, 2);
                 bar.Value = 0;
                 video_token = new CancellationTokenSource();
-                btnUpload.Text = "Отмена";
+                btnUpload.Text = L18n.Get("OtherHelper", "Text_cancel");
                 try
                 {
                     await YouTube.Upload(this, label.Text, state, video_token.Token);
@@ -193,7 +193,7 @@ namespace TankiTools
                 {
                     video_token = null;
                     wrapper.Controls.Remove(bar);
-                    btnUpload.Text = "Загрузить";
+                    btnUpload.Text = L18n.Get("OtherHelper", "Text_upload");
                 }
             }
             else
@@ -238,7 +238,7 @@ namespace TankiTools
                 wrapper.Controls.Remove(txbLink);
             }
             catch (Exception) { }
-            label.Text = "Файл загружен!";
+            label.Text = L18n.Get("OtherHelper", "Text_uploaded");
             label.ForeColor = Color.Green;
             txbLink.Text = $@"https://youtu.be/{id}";
             MediaHistoryManager.AddLinkToEntry(filename, txbLink.Text, MediaHistoryManager.MediaType.Video);

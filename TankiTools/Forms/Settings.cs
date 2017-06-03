@@ -15,6 +15,32 @@ namespace TankiTools
         public Settings()
         {
             InitializeComponent();
+            #region Localizing
+            this.Text = L18n.Get("Settings", "Settings_name");
+            this.btnExit.Text = L18n.Get("Settings", "Button_btnExit");
+            this.btnSetToDefault.Text = L18n.Get("Settings", "Button_btnSetToDefault");
+            this.btnSaveSettings.Text = L18n.Get("Settings", "Button_btnSaveSettings");
+            this.tabProgram.Text = L18n.Get("Settings", "Tab_Program");
+            this.tabClients.Text = L18n.Get("Settings", "Tab_Clients");
+            this.tabScreenshots.Text = L18n.Get("Settings", "Tab_Screenshots");
+            this.tabVideos.Text = L18n.Get("Settings", "Tab_Videos");
+            this.chbAutostart.Text = L18n.Get("Settings", "CheckBox_chbAutostart");
+            this.chbAutoupdate.Text = L18n.Get("Settings", "CheckBox_chbAutoupdate");
+            this.labelLang.Text = L18n.Get("Settings", "Label_labelLang");
+
+            this.labelSelectedClient.Text = L18n.Get("Settings", "Label_labelSelectedClient");
+            this.labelImageFormat.Text = L18n.Get("Settings", "Label_labelImageFormat");
+            this.labelFullScreen.Text = L18n.Get("Settings", "Label_labelFullScreen");
+            this.labelAreaScreen.Text = L18n.Get("Settings", "Label_labelAreaScreen");
+            this.chbUploadImage.Text = L18n.Get("Settings", "CheckBox_chbUploadImage");
+            this.btnChooseScreenshotsPath.Text = L18n.Get("Settings", "Button_btnChoosePath");
+            this.btnChooseVideosPath.Text = L18n.Get("Settings", "Button_btnChoosePath");
+            this.groupScreenshots.Text = L18n.Get("Settings", "GroupBox_groupScreenshots");
+            this.labelFullVideo.Text = L18n.Get("Settings", "Label_labelFullVideo");
+            this.labelAreaVideo.Text = L18n.Get("Settings", "Label_labelAreaVideo");
+            this.groupVideos.Text = L18n.Get("Settings", "GroupBox_groupVideos");
+
+            #endregion
             clients = SettingsManager.MakeClientsList();
             Init();
             current = GetCurrentGuiSettings();
@@ -164,7 +190,7 @@ namespace TankiTools
                 combos.Add(t);
             if(combos.Count > 0)
             {
-                MessageBox.Show($"Не удалось зарегистрировать комбинации {string.Join(", ", combos)}",
+                MessageBox.Show($"{L18n.Get("Settings", "Text_cannotregister")} {string.Join(", ", combos)}",
                     "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 

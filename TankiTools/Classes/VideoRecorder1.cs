@@ -74,6 +74,7 @@ namespace TankiTools
                 _streamVideo = new ScreenCaptureStream(_screenArea);
                 _streamVideo.NewFrame += new NewFrameEventHandler(video_NewFrame);
                 _streamVideo.Start();
+                MainWindow.TrayApp.ShowBalloonTip(2000, "TankiTools", $"{L18n.Get("TrayApp", "Balloon_VideoStarted")}", ToolTipIcon.None);
             }
         }
 
@@ -156,6 +157,7 @@ namespace TankiTools
                 Thread.Sleep(500);
                 _writer.Close();
                 Save();
+                MainWindow.TrayApp.ShowBalloonTip(2000, "TankiTools", $"{L18n.Get("TrayApp", "Balloon_VideoEnded")}", ToolTipIcon.None);
             }
         }
 

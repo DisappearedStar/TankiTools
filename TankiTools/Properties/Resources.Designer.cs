@@ -81,6 +81,25 @@ namespace TankiTools.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;localization&gt;
+        ///  &lt;Browsers&gt;
+        ///    &lt;Chrome ru=&quot;Google Chrome&quot; en=&quot;Google Chrome&quot; /&gt;
+        ///    &lt;Edge ru=&quot;Microsoft Edge&quot; en=&quot;Microsoft Edge&quot; /&gt;
+        ///    &lt;Firefox ru=&quot;Mozilla Firefox&quot; en=&quot;Mozilla Firefox&quot; /&gt;
+        ///    &lt;IE ru=&quot;Internet Explorer&quot; en=&quot;Internet Explorer&quot; /&gt;
+        ///    &lt;OfficialClient ru=&quot;Официальный клиент ТО&quot; en=&quot;Official TO Client&quot; /&gt;
+        ///    &lt;Opera ru=&quot;Opera&quot; en=&quot;Opera&quot; /&gt;
+        ///    &lt;Yandex ru=&quot;Яндекс.Браузер&quot; en=&quot;Yandex.Browser&quot; /&gt;
+        ///    &lt;SAFP ru=&quot;Standalone Flash Player&quot; en=&quot;Standalone Flash Player&quot; /&gt;
+        ///    &lt;OtherBrowser [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string L18n {
+            get {
+                return ResourceManager.GetString("L18n", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Mediahistory {

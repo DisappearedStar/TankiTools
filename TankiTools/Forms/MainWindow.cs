@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
 using System.Diagnostics;
+using AutoUpdaterDotNET;
 
 namespace TankiTools
 {
@@ -13,20 +14,15 @@ namespace TankiTools
 
         public MainWindow()
         {
-            if(Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location)).Count() > 1)
-            {
-                Shutdown();
-            }
-            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(SettingsManager).TypeHandle);
-            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(MediaHistoryManager).TypeHandle);
-            if (SettingsManager.autostart)
-            {
-                this.Hide();
-                this.WindowState = FormWindowState.Minimized;
-                this.ShowInTaskbar = false;
-            }
-            InitializeComponent();
 
+            InitializeComponent();
+            #region Localizing
+            this.Button_Diagnostics.Text = L18n.Get("MainWindow", "Button_Diagnostics");
+            this.Button_Troubleshooting.Text = L18n.Get("MainWindow", "Button_Troubleshooting");
+            this.Button_Settings.Text = L18n.Get("MainWindow", "Button_Settings");
+            this.Button_Other.Text = L18n.Get("MainWindow", "Button_Other");
+            this.Button_Exit.Text = L18n.Get("MainWindow", "Button_Exit");
+            #endregion
             #region TrayApp
             TrayApp.BalloonTipIcon = ToolTipIcon.None;
             TrayApp.Icon = Properties.Resources.TankiToolsIcon;
@@ -39,32 +35,28 @@ namespace TankiTools
                 if (this.WindowState == FormWindowState.Minimized) this.WindowState = FormWindowState.Normal;
                 else this.Show();
             });
-            menu.Items.Add("Настройки", Properties.Resources.Settings_small, Button_Settings_Click);
-            menu.Items.Add("История", Properties.Resources.Mediahistory_small, OpenMediaHistory);
-            menu.Items.Add($"[{SettingsManager.screenshots_fullKeys}] Скриншот экрана", null, (o, ea) => Screenshot.CaptureFullScreen());
-            menu.Items.Add($"[{SettingsManager.screenshots_areaKeys}] Скриншот области", null, (o, ea) => new SelectableScreenshotArea());
-            menu.Items.Add($"[{SettingsManager.videos_fullKeys}] Видео экрана старт/стоп", null, (o, ea) =>
+            menu.Items.Add(L18n.Get("TrayApp", "ItemSettings"), Properties.Resources.Settings_small, Button_Settings_Click);
+            menu.Items.Add(L18n.Get("TrayApp", "ItemHistory"), Properties.Resources.Mediahistory_small, OpenMediaHistory);
+            menu.Items.Add($"[{SettingsManager.screenshots_fullKeys}] {L18n.Get("TrayApp", "ItemScreenshotFull")}", null, (o, ea) => Screenshot.CaptureFullScreen());
+            menu.Items.Add($"[{SettingsManager.screenshots_areaKeys}] {L18n.Get("TrayApp", "ItemScreenshotArea")}", null, (o, ea) => new SelectableScreenshotArea());
+            menu.Items.Add($"[{SettingsManager.videos_fullKeys}] {L18n.Get("TrayApp", "ItemVideoFull")}", null, (o, ea) =>
             {
                 if (!VideoRecorder1._isRecording) VideoRecorder1.StartRec(CaptureTypes.VideoFull);
                 else VideoRecorder1._isRecording = false;
             });
-            menu.Items.Add($"[{SettingsManager.videos_areaKeys}] Видео области старт/стоп", null, (o, ea) =>
+            menu.Items.Add($"[{SettingsManager.videos_areaKeys}] {L18n.Get("TrayApp", "ItemVideoArea")}", null, (o, ea) =>
             {
                 if (!VideoRecorder1._isRecording) VideoRecorder1.StartRec(CaptureTypes.VideoArea);
                 else VideoRecorder1._isRecording = false;
             });
-            menu.Items.Add("Выход", Properties.Resources.Exit_small, (o, ea) => Shutdown());
+            menu.Items.Add(L18n.Get("TrayApp", "ItemExit"), Properties.Resources.Exit_small, (o, ea) => 
+            {
+                SettingsManager.UnsetGlobalHotkeys();
+                Program.Shutdown();
+            });
             TrayApp.ContextMenuStrip = menu;
             #endregion
-            //AutoUpdater.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
-            //AutoUpdater.Start(@"http://217.71.139.74/~user119/Povshedny_test/version.xml");
             Util.Main = this;
-            SettingsManager.SetGlobalHotkeys(false);
-        }
-
-        private void Enable()
-        {
-            Button_Diagnostics.Enabled = true;
         }
         
         protected override void WndProc(ref Message m)
@@ -102,15 +94,11 @@ namespace TankiTools
                 e.Cancel = true;
                 this.Hide();
             }
-        }
-
-        private void Shutdown()
-        {
-            SettingsManager.UnsetGlobalHotkeys();
-            Environment.Exit(0);
-            Application.ExitThread();
-            Application.Exit();
-            this.Close();
+            else
+            {
+                SettingsManager.UnsetGlobalHotkeys();
+                Program.Shutdown();
+            }
         }
 
         private void MainWindow_Shown(object sender, EventArgs e)
@@ -206,7 +194,8 @@ namespace TankiTools
         }
         private void Button_Exit_Click(object sender, EventArgs e)
         {
-            Shutdown();
+            SettingsManager.UnsetGlobalHotkeys();
+            Program.Shutdown();
         }
         #endregion
     }

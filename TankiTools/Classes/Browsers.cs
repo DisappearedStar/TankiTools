@@ -27,16 +27,16 @@ namespace TankiTools
         {
             switch (client)
             {
-                case Clients.Chrome: return "Google Chrome";
-                case Clients.Edge: return "Microsoft Edge";
-                case Clients.Firefox: return "Mozilla Firefox";
-                case Clients.IE: return "Internet Explorer";
-                case Clients.OfficialClient: return "Официальный клиент ТО"; //TO LOCALIZE
-                case Clients.Opera: return "Opera";
-                case Clients.Yandex: return "Яндекс.Браузер";//TO LOCALIZE
-                case Clients.SAFP: return "Standalone Flash Player";
-                case Clients.OtherBrowser: return "Другой браузер";//TO LOCALIZE
-                case Clients.ThirdPartyClient: return "Сторонний клиент";//TO LOCALIZE
+                case Clients.Chrome: return L18n.Get("Browsers", "Chrome");
+                case Clients.Edge: return L18n.Get("Browsers", "Edge");
+                case Clients.Firefox: return L18n.Get("Browsers", "Firefox");
+                case Clients.IE: return L18n.Get("Browsers", "IE");
+                case Clients.OfficialClient: return L18n.Get("Browsers", "OfficialClient");
+                case Clients.Opera: return L18n.Get("Browsers", "Opera");
+                case Clients.Yandex: return L18n.Get("Browsers", "Yandex");
+                case Clients.SAFP: return L18n.Get("Browsers", "SAFP");
+                case Clients.OtherBrowser: return L18n.Get("Browsers", "OtherBrowser");
+                case Clients.ThirdPartyClient: return L18n.Get("Browsers", "ThirdPartyClient");
                 default: return "";
             }
         }

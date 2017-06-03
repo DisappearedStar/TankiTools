@@ -89,7 +89,6 @@
             this.Tab_SystemInfo.Padding = new System.Windows.Forms.Padding(3);
             this.Tab_SystemInfo.Size = new System.Drawing.Size(435, 270);
             this.Tab_SystemInfo.TabIndex = 0;
-            this.Tab_SystemInfo.Text = "Информация о системе";
             this.Tab_SystemInfo.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
@@ -132,9 +131,8 @@
             this.forProcessor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.forProcessor.Location = new System.Drawing.Point(3, 0);
             this.forProcessor.Name = "forProcessor";
-            this.forProcessor.Size = new System.Drawing.Size(76, 13);
+            this.forProcessor.Size = new System.Drawing.Size(0, 13);
             this.forProcessor.TabIndex = 0;
-            this.forProcessor.Text = "Процессор:";
             // 
             // forMemory
             // 
@@ -142,9 +140,8 @@
             this.forMemory.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.forMemory.Location = new System.Drawing.Point(3, 34);
             this.forMemory.Name = "forMemory";
-            this.forMemory.Size = new System.Drawing.Size(98, 13);
+            this.forMemory.Size = new System.Drawing.Size(0, 13);
             this.forMemory.TabIndex = 1;
-            this.forMemory.Text = "Объем памяти:";
             // 
             // forGraphics
             // 
@@ -152,9 +149,8 @@
             this.forGraphics.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.forGraphics.Location = new System.Drawing.Point(3, 65);
             this.forGraphics.Name = "forGraphics";
-            this.forGraphics.Size = new System.Drawing.Size(81, 13);
+            this.forGraphics.Size = new System.Drawing.Size(0, 13);
             this.forGraphics.TabIndex = 2;
-            this.forGraphics.Text = "Видеокарта:";
             // 
             // forResolution
             // 
@@ -162,9 +158,8 @@
             this.forResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.forResolution.Location = new System.Drawing.Point(3, 193);
             this.forResolution.Name = "forResolution";
-            this.forResolution.Size = new System.Drawing.Size(84, 26);
+            this.forResolution.Size = new System.Drawing.Size(0, 13);
             this.forResolution.TabIndex = 4;
-            this.forResolution.Text = "Разрешение монитора:";
             // 
             // forOS
             // 
@@ -172,9 +167,8 @@
             this.forOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.forOS.Location = new System.Drawing.Point(3, 159);
             this.forOS.Name = "forOS";
-            this.forOS.Size = new System.Drawing.Size(97, 26);
+            this.forOS.Size = new System.Drawing.Size(0, 13);
             this.forOS.TabIndex = 3;
-            this.forOS.Text = "Операционная система:";
             // 
             // forDriver
             // 
@@ -182,9 +176,8 @@
             this.forDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.forDriver.Location = new System.Drawing.Point(3, 112);
             this.forDriver.Name = "forDriver";
-            this.forDriver.Size = new System.Drawing.Size(67, 26);
+            this.forDriver.Size = new System.Drawing.Size(0, 13);
             this.forDriver.TabIndex = 5;
-            this.forDriver.Text = "Версия драйвера:";
             // 
             // Label_Processor
             // 
@@ -240,9 +233,8 @@
             this.forIpAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.forIpAddress.Location = new System.Drawing.Point(3, 227);
             this.forIpAddress.Name = "forIpAddress";
-            this.forIpAddress.Size = new System.Drawing.Size(62, 13);
+            this.forIpAddress.Size = new System.Drawing.Size(0, 13);
             this.forIpAddress.TabIndex = 12;
-            this.forIpAddress.Text = "IP-адрес:";
             // 
             // Label_IpAddress
             // 
@@ -260,7 +252,6 @@
             this.Tab_Flash_Player.Name = "Tab_Flash_Player";
             this.Tab_Flash_Player.Size = new System.Drawing.Size(435, 270);
             this.Tab_Flash_Player.TabIndex = 2;
-            this.Tab_Flash_Player.Text = "Flash Player и браузер";
             this.Tab_Flash_Player.UseVisualStyleBackColor = true;
             this.Tab_Flash_Player.Leave += new System.EventHandler(this.DiagnosticsWindow_TabControl_Leave);
             // 
@@ -278,7 +269,6 @@
             this.btnCheckFlash.Name = "btnCheckFlash";
             this.btnCheckFlash.Size = new System.Drawing.Size(115, 56);
             this.btnCheckFlash.TabIndex = 0;
-            this.btnCheckFlash.Text = "Открыть браузер для диагностики";
             this.btnCheckFlash.UseVisualStyleBackColor = true;
             this.btnCheckFlash.Click += new System.EventHandler(this.btnCheckFlash_Click);
             // 
@@ -293,7 +283,6 @@
             this.Tab_Network.Name = "Tab_Network";
             this.Tab_Network.Size = new System.Drawing.Size(435, 270);
             this.Tab_Network.TabIndex = 3;
-            this.Tab_Network.Text = "Сеть";
             this.Tab_Network.UseVisualStyleBackColor = true;
             this.Tab_Network.Leave += new System.EventHandler(this.DiagnosticsWindow_TabControl_Leave);
             // 
@@ -311,9 +300,8 @@
             this.labelNetworkResults.AutoSize = true;
             this.labelNetworkResults.Location = new System.Drawing.Point(245, 25);
             this.labelNetworkResults.Name = "labelNetworkResults";
-            this.labelNetworkResults.Size = new System.Drawing.Size(67, 13);
+            this.labelNetworkResults.Size = new System.Drawing.Size(0, 13);
             this.labelNetworkResults.TabIndex = 3;
-            this.labelNetworkResults.Text = "Результаты";
             // 
             // btnTrace
             // 
@@ -321,7 +309,6 @@
             this.btnTrace.Name = "btnTrace";
             this.btnTrace.Size = new System.Drawing.Size(108, 35);
             this.btnTrace.TabIndex = 2;
-            this.btnTrace.Text = "Трассировка соединения";
             this.btnTrace.UseVisualStyleBackColor = true;
             this.btnTrace.Click += new System.EventHandler(this.btnTrace_Click);
             // 
@@ -331,7 +318,6 @@
             this.btnPing.Name = "btnPing";
             this.btnPing.Size = new System.Drawing.Size(108, 35);
             this.btnPing.TabIndex = 1;
-            this.btnPing.Text = "Пинг игрового сервера";
             this.btnPing.UseVisualStyleBackColor = true;
             this.btnPing.Click += new System.EventHandler(this.btnPing_Click);
             // 
@@ -341,7 +327,6 @@
             this.btnCheckPorts.Name = "btnCheckPorts";
             this.btnCheckPorts.Size = new System.Drawing.Size(108, 23);
             this.btnCheckPorts.TabIndex = 0;
-            this.btnCheckPorts.Text = "Проверить порты";
             this.btnCheckPorts.UseVisualStyleBackColor = true;
             this.btnCheckPorts.Click += new System.EventHandler(this.btnCheckPorts_Click);
             // 
@@ -356,7 +341,6 @@
             this.MaximizeBox = false;
             this.Name = "DiagnosticsWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Диагностика и информация";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DiagnosticsWindow_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DiagnosticsWindow_FormClosed);
             this.DiagnosticsWindow_TabControl.ResumeLayout(false);

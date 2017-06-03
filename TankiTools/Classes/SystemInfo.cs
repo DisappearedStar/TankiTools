@@ -37,8 +37,8 @@ namespace TankiTools
                 for (int i = 0; i < list.Count; i++)
                 {
                     var t = list[i];
-                    gpu += "Адаптер " + i + ": " + t["Model"] + " " + Util.BytesToString(t["Memory"]) + "\n";
-                    drv += "Адаптер " + i + ": " + t["DriverVersion"] + "\n";
+                    gpu += L18n.Get("SystemInfo", "Text_adapter") + i + ": " + t["Model"] + " " + Util.BytesToString(t["Memory"]) + "\n";
+                    drv += L18n.Get("SystemInfo", "Text_adapter") + i + ": " + t["DriverVersion"] + "\n";
                 }
             }
             dict.Add("GPU", gpu);
