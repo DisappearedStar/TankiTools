@@ -24,6 +24,16 @@
           LastKnownLocation="ModelingProject1.uml" />
       </annotatedElements>
     </comment>
+    <comment
+      Id="bbf34993-daa9-4edc-be2d-f6bfa93a8fac">
+      <body>Управление брандмауэром Windows</body>
+      <annotatedElements>
+        <componentMoniker
+          Id="540d4069-6a1f-4f1f-96ac-0f6b6e80f409"
+          LastKnownName="NetFwTypeLib"
+          LastKnownLocation="ModelingProject1.uml" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <profileInstances>
     <packageHasProfileInstances
@@ -61,6 +71,34 @@
             <componentMoniker
               Id="9aec9296-7bf4-4500-b44a-9221c3d72b54"
               LastKnownName="Веб-сервер "
+              LastKnownLocation="ModelingProject1.uml" />
+          </dependency>
+          <dependency
+            Id="cc9fe53e-8547-4584-8805-c19937799ea9">
+            <componentMoniker
+              Id="de612967-7f7a-4275-9efc-5a3b1e717989"
+              LastKnownName="Google APIs"
+              LastKnownLocation="ModelingProject1.uml" />
+          </dependency>
+          <dependency
+            Id="c5ff63aa-307d-4d1d-8dbe-551f0a9df458">
+            <componentMoniker
+              Id="83d9fb60-dd9b-4d15-933d-a815d0b229fc"
+              LastKnownName="AForge.NET"
+              LastKnownLocation="ModelingProject1.uml" />
+          </dependency>
+          <dependency
+            Id="52312321-9cc9-4dc7-9550-700f3f1efbd5">
+            <componentMoniker
+              Id="540d4069-6a1f-4f1f-96ac-0f6b6e80f409"
+              LastKnownName="NetFwTypeLib"
+              LastKnownLocation="ModelingProject1.uml" />
+          </dependency>
+          <dependency
+            Id="c4e2e57a-083b-4a0e-8d62-b2e31bc35923">
+            <componentMoniker
+              Id="40dd9d17-91b0-4ec0-b5bf-27ef17797860"
+              LastKnownName="System.dll"
               LastKnownLocation="ModelingProject1.uml" />
           </dependency>
         </suppliersInternal>

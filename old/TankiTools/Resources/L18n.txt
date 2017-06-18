@@ -1,0 +1,161 @@
+<localization>
+  <Browsers>
+    <Chrome ru="Google Chrome" en="Google Chrome" />
+    <Edge ru="Microsoft Edge" en="Microsoft Edge" />
+    <Firefox ru="Mozilla Firefox" en="Mozilla Firefox" />
+    <IE ru="Internet Explorer" en="Internet Explorer" />
+    <OfficialClient ru="Официальный клиент ТО" en="Official TO Client" />
+    <Opera ru="Opera" en="Opera" />
+    <Yandex ru="Яндекс.Браузер" en="Yandex.Browser" />
+    <SAFP ru="Standalone Flash Player" en="Standalone Flash Player" />
+    <OtherBrowser ru="Другой браузер" en="Other browser" />
+    <ThirdPartyClient ru="Сторонний клиент" en="Third-party client" />
+  </Browsers>
+  <DiagnosticsWindow>
+    <DiagnosticsWindow_name ru="Диагностика и информация" en="Diagnostics and Information" />
+    <Tab_SystemInfo ru="Информация о системе" en="System Info" />
+    <Tab_Flash_Player ru="Flash Player и браузер" en="Flash Player and Browser" />
+    <Tab_Network ru="Сеть" en="Network" />
+    <Label_forProcessor ru="Процессор: " en="CPU: " />
+    <Label_forMemory ru="Объем памяти: " en="RAM: " />
+    <Label_forGraphics ru="Видеокарта: " en="Graphics card: " />
+    <Label_forDriver ru="Версия драйвера: " en="Driver version: " />
+    <Label_forOS ru="Операционная система: " en="Operating system: " />
+    <Label_forResolution ru="Разрешение монитора: " en="Monitor resolution: " />
+    <Label_forIpAddress ru="IP-адрес: " en="IP address: " />
+    <Label_IpAddress_error ru="Невозможно получить IP-адрес. Возможно, отсутствует подключение к Интернету" en="Cannot get IP address. Possibly Internet connection is absent" />
+    <Button_btnCheckFlash ru="Открыть браузер для диагностики" en="Open the browser for diagnostics" />
+    <Button_btnCheckPorts ru="Проверить порты" en="Check ports" />
+    <Button_btnPing ru="Пинг игрового сервера" en="Ping game server" />
+    <Button_btnTrace ru="Трассировка маршрута" en="Trace route" />
+    <Label_labelNetworkResults ru="Результаты" en="Results" />
+    <Label_labelCheckFlashInfo_prepare ru="Подготовка..." en="Preparing..." />
+    <Label_labelCheckFlashInfo_opening ru="Открывается браузер..." en="Opening the browser..." />
+    <Label_labelCheckFlashInfo_error ru="Ошибка: не удалось загрузить информацию с сайта Adobe" en="Error: cannot load the information from Adobe website" />
+    <TextBox_txbNetworkResults_portsclosed1 ru="Следующие порты закрыты:" en="Following ports are closed:" />
+    <TextBox_txbNetworkResults_portsclosed2 ru="Из-за этого игра может загружаться медленнее, чем должна." en="This can lead to slow game loading." />
+    <TextBox_txbNetworkResults_portsopen ru="Все порты открыты" en="All ports are open" />
+    <TextBox_txbNetworkResults_pinging ru="Идет проверка..." en="Checking..." />
+    <TextBox_txbNetworkResults_tracing ru="Трассировка..." en="Tracing the route..." />
+    <TextBox_txbNetworkResults_noproblem ru="Проблем не выявлено" en="No problems detected" />
+    <TextBox_txbNetworkResults_serveravailable ru="Сервер доступен" en="Server is available" />
+    <TextBox_txbNetworkResults_serverunavailable1 ru="Сервер недоступен" en="Server is unavailable" />
+    <TextBox_txbNetworkResults_serverunavailable2 ru="Возможно, технические работы на сервере или проблемы с вашим интернет-соединением" en="This may happen if there is server maintenance or you experience problems with your Internet connection" />
+    <TextBox_txbNetworkResults_packetsloss ru="Обнаружена потеря пакетов, возможны проблемы с интернет-соединением" en="Packets loss detected, possible problems with the Internet connection" />
+    <TextBox_txbNetworkResults_pingfluctuations ru="Обнаружены скачки пинга, возможны проблемы с интернет-соединением" en="Ping fluctuations detected, possible problems with the Internet connection" />
+    <TextBox_txbNetworkResults_badping ru="Очень высокий пинг, возможны проблемы с интернет-соединением" en="Bad ping, possible problems with the Internet connection" />
+    <TextBox_txbNetworkResults_highping ru="Высокий пинг, удовлетворительное качество связи" en="High ping, bearable connection quality" />
+    <TextBox_txbNetworkResults_normalping ru="Нормальный пинг, хорошее качество связи" en="Normal ping, satisfactory connection quality" />
+    <TextBox_txbNetworkResults_lowping ru="Низкий пинг, отличное качество связи" en="Low ping, good connection quality" />
+  </DiagnosticsWindow>
+  <MainWindow>
+    <Button_Diagnostics ru="Диагностика и информация" en="Diagnostics and Information" />
+    <Button_Settings ru="Настройки" en="Settings" />
+    <Button_Troubleshooting ru="Исправление проблем" en="Troubleshooting" />
+    <Button_Other ru="Другое" en="Other" />
+    <Button_Exit ru="Выход" en="Exit" />
+  </MainWindow>
+  <TrayApp>
+    <ItemSettings ru="Настройки" en="Settings" />
+    <ItemHistory ru="История" en="History" />
+    <ItemScreenshotArea ru="Скриншот области" en="Screenshot Area" />
+    <ItemScreenshotFull ru="Скриншот экрана" en="Screenshot Fullscreen" />
+    <ItemVideoArea ru="Видео области старт/стоп" en="Video Area start/stop" />
+    <ItemVideoFull ru="Видео экрана старт/стоп" en="Video Fullscreen start/stop" />
+    <ItemExit ru="Выход" en="Exit" />
+    <Balloon_screenshot1 ru="Скриншот загружен:" en="Screenshot has been uploaded" />
+    <Balloon_screenshot2 ru="Ссылка скопирована" en="Link copied to clipboard" />
+    <Balloon_VideoStarted ru="Начата запись видео" en="Video recording started" />
+    <Balloon_VideoEnded ru="Запись видео закончена" en="Video recording ended" />
+  </TrayApp>
+  <MediaHistory>
+    <MediaHistory_name ru="История скриншотов и видео" en="Screenshots and Video History" />
+    <Label_txt ru="Здесь пока пусто" en="Empty" />
+    <Label_open ru="Открыть" en="Open" />
+    <Label_copy ru="Скопировать" en="Copy" />
+    <Label_file1 ru="файл" en="file" />
+    <Label_file2 ru="Файл" en="File" />
+    <Label_link1 ru="ссылку" en="link" />
+    <Label_link2 ru="Ссылка" en="Link" />
+    <Status_copylink ru="скопирована в буфер обмена" en="copied to clipboard" />
+    <Status_copyfile ru="скопирован в буфер обмена" en="copied to clipboard" />
+    <Status_openlink ru="Открывается ссылка" en="Opening link" />
+    <Status_openfile ru="Открывается файл" en="Opening file" />
+  </MediaHistory>
+  <OtherHelper>
+    <Text_nofile ru="Файл не выбран" en="File not chosen" />
+    <Text_choosefile ru="Выбрать" en="Choose" />
+    <Text_upload ru="Загрузить" en="Upload" />
+    <Text_videoaccess ru="Доступ к видео" en="Access to video" />
+    <Text_private ru="Огранич." en="Private" />
+    <Text_unlisted ru="По ссылке" en="Unlisted" />
+    <Text_public ru="Открытый" en="Public" />
+    <Text_imgexts ru="Изображения|*.jpg;*.png;*.gif;*.bmp|Все файлы|*.*" en="Image files|*.jpg;*.png;*.gif;*.bmp|All files|*.*" />
+    <Text_videoexts ru="Видеофайлы|*.jpg;*.png;*.gif;*.bmp|Все файлы|*.*" en="Video files|*.avi;*.mp4;*.mkv;*.flv;*.wmv;*.mpeg|All files|*.*" />
+    <Text_cancel ru="Отмена" en="Cancel" />
+    <Text_uploaded ru="Файл загружен!" en="File has been uploaded!" />
+  </OtherHelper>
+  <OtherWindow>
+    <OtherWindow_name ru="Другое" en="Other" />
+    <Button_btnUploadScreenshot ru="Загрузить скриншот" en="Upload a screenshot" />
+    <Button_btnUploadVideo ru="Загрузить видео" en="Upload a video" />
+    <Button_btnOpenMediaHistory ru="Открыть историю" en="Open the history" />
+  </OtherWindow>
+  <Settings>
+    <Settings_name ru="Настройки" en="Settings" />
+    <Button_btnExit ru="Выйти без сохранения" en="Exit without saving" />
+    <Button_btnSetToDefault ru="По умолчанию" en="Default" />
+    <Button_btnSaveSettings ru="Сохранить" en="Save" />
+    <Tab_Program ru="Программа" en="Program" />
+    <Tab_Clients ru="Клиенты" en="Clients" />
+    <Tab_Screenshots ru="Скриншоты" en="Screenshots" />
+    <Tab_Videos ru="Видео" en="Videos" />
+    <CheckBox_chbAutostart ru="Автостарт при загрузке системы" en="Autostart on system startup" />
+    <CheckBox_chbAutoupdate ru="Автообновление программы" en="Autoupdate" />
+    <Label_labelLang ru="Язык" en="Language" />
+    <Label_labelSelectedClient ru="Я использую для игры" en="I use" />
+    <Label_labelImageFormat ru="Формат" en="Format" />
+    <Label_labelFullScreen ru="Скриншот экрана" en="Screenshot fullscreen" />
+    <Label_labelAreaScreen ru="Скриншот области" en="Screenshot area" />
+    <CheckBox_chbUploadImage ru="Загружать на хостинг и копировать ссылку" en="Upload to hosting and copy link" />
+    <Button_btnChoosePath ru="Выбрать..." en="Choose..." />
+    <GroupBox_groupScreenshots ru="Папка для сохранения скриншотов" en="Folder for saving screenshots" />
+    <Label_labelFullVideo ru="Видео экрана" en="Video fullscreen" />
+    <Label_labelAreaVideo ru="Видео области" en="Video area" />
+    <GroupBox_groupVideos ru="Папка для сохранения видео" en="Folder for saving videos" />
+    <Text_cannotregister ru="Не удалось зарегистрировать горячие клавиши" en="Cannot register hotkeys" />
+  </Settings>
+  <SystemInfo>
+    <Text_adapter ru="Адаптер " en="Adapter " />
+  </SystemInfo>
+  <TroubleshootingWindow>
+    <Troubleshooting_name ru="Исправление проблем" en="Troubleshooting" />
+    <GroupBox_groupClients ru="Браузеры и клиенты" en="Browsers and clients" />
+    <GroupBox_groupNetwork ru="Сеть" en="Network" />
+    <Label_labelWarning ru="Внимание: действия применяются к браузеру/клиенту, выбранному в настройках программы: " en="Attention: actions below apply to the browser/client chosen in Settings: " />
+    <Button_btnClearCache ru="Очистить кэш" en="Clear cache" />
+    <Button_btnIncreaseCache ru="Увеличить кэш" en="Increase cache" />
+    <Button_btnClearShared ru="Очистить Shared Objects" en="Clear Shared Objects" />
+    <Button_btnOpenPorts ru="Открыть закрытые порты" en="Open closed ports" />
+    <Button_btnSet ru="Установка" en="Set" />
+    <Button_btnReset ru="Сброс" en="Reset" />
+    <Label_labelTcpAck ru="TCP Ack" en="TCP Ack" />
+    <Label_labelNetworkThrottling ru="Задержка обработки пакетов" en="Network throttling" />
+    <Tooltip_TcpAck ru="Установка/сброс минимальной задержки при отправке подтверждений TCP" en="Set/reset min delay when sending TCP Ack" />
+    <Tooltip_NetworkThrottling ru="Установка/сброс минимальной задержки обработки мультимедиа данных" en="Set/reset min delay of processing multimedia data" />
+    <Text_areyousure ru="Вы уверены?" en="Are you sure?" />
+    <Text_done ru="Готово" en="Done" />
+    <Text_cachecleared ru="Кэш очищен" en="Cache cleared" />
+    <Text_cacheerror ru="Ошибка: не удалось очистить кэш" en="Error: cannot clear the cache" />
+    <Text_sharedcleared ru="Shared Objects очищены" en="Shared Objects cleared" />
+    <Text_sharederror ru="Ошибка: не удалось очистить Shared Objects" en="Error: cannot clear Shared Objects" />
+    <Text_cacheincreased ru="Размер кэша увеличен до максимума" en="Cache size increased to max value" />
+    <Text_increaseerror ru="Ошибка: не удалось увеличить размер кэша" en="Error: cannot increase the cache size" />
+    <Text_nochange ru="Изменений не требуется" en="No changes required" />
+    <Text_openportserror ru="Ошибка: не удалось открыть порты" en="Error: cannot open ports" />
+    <Text_adminerror ru="Ошибка. Попробуйте запустить программу от имени администратора" en="Error. Try running the application as an administrator" />
+  </TroubleshootingWindow>
+  <Video>
+    <Text_videouploaderror ru="Ошибка загрузки" en="Upload error" />
+  </Video>
+</localization>

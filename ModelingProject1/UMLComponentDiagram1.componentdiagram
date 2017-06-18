@@ -15,6 +15,13 @@
         <componentMoniker Id="49a08420-c8f3-43b2-86f7-80891bb4feed" LastKnownName="System.dll" />
       </annotatedElements>
     </comment>
+    <comment Id="5581f25b-4ea4-4b4c-9ca8-7d3e33b19db9">
+      <elementDefinition Id="bbf34993-daa9-4edc-be2d-f6bfa93a8fac" />
+      <body>Управление брандмауэром Windows</body>
+      <annotatedElements>
+        <componentMoniker Id="47a07f8d-f1e8-4010-aedc-962dbd34ea20" LastKnownName="NetFwTypeLib" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <profileInstances>
     <packageHasProfileInstances Id="4e84444b-863e-4d5c-900a-89863ab313f6">
@@ -43,6 +50,22 @@
           <dependency Id="ce902191-04cd-4e69-bd59-812ec168970f">
             <componentMoniker Id="6e44816b-fa1c-42d3-8474-549e28dc55b2" LastKnownName="Веб-сервер " />
             <elementDefinition Id="fb4919b5-300e-4c75-927b-3d77e34c3094" />
+          </dependency>
+          <dependency Id="dfe716c4-255f-47ea-82df-798b4e775adb">
+            <componentMoniker Id="2f4f6d2c-0951-453b-b283-2eba1f618a9e" LastKnownName="Google APIs" />
+            <elementDefinition Id="cc9fe53e-8547-4584-8805-c19937799ea9" />
+          </dependency>
+          <dependency Id="d81a371c-c262-45f1-85bf-0fb15dfc4208">
+            <componentMoniker Id="343a2d5b-8803-45e6-9efb-64b2271f705f" LastKnownName="AForge.NET" />
+            <elementDefinition Id="c5ff63aa-307d-4d1d-8dbe-551f0a9df458" />
+          </dependency>
+          <dependency Id="ffae6957-0ae3-48ed-b210-2aa0624436a4">
+            <componentMoniker Id="47a07f8d-f1e8-4010-aedc-962dbd34ea20" LastKnownName="NetFwTypeLib" />
+            <elementDefinition Id="52312321-9cc9-4dc7-9550-700f3f1efbd5" />
+          </dependency>
+          <dependency Id="1b215f4f-bb85-4c88-afa9-e0d247e8e7a3">
+            <componentMoniker Id="49a08420-c8f3-43b2-86f7-80891bb4feed" LastKnownName="System.dll" />
+            <elementDefinition Id="c4e2e57a-083b-4a0e-8d62-b2e31bc35923" />
           </dependency>
         </suppliersInternal>
       </component>
